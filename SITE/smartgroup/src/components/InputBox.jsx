@@ -5,17 +5,18 @@ export default function InputBox({type, placeholder}){
 }
 
 const StyledInputBox = styled.input`
+    position: relative;
     background: rgba(255, 255, 255, 0.30);
     border-radius: 2rem;
     width: 80%;
     height: 10%;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 2vh;
+    margin: 1vh;
     border: none;
     outline: none;
     color: white;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 2.5vh;
     transition: 0.15s ease-in-out;
     :hover{
         transform: translateY(-2px);
