@@ -9,7 +9,7 @@ const StyledTitleButton = styled.button`
     position: relative;
     background: none;
     width: 55%;
-    height:60%;
+    height: 5rem;
     padding: 0px;
     margin: 1%;
     border: none;

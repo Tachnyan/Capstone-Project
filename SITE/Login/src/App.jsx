@@ -142,7 +142,7 @@ const MainInputBox = styled.div`
     background: rgba(0, 0, 0, 0.50);
     border-radius: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     @media only screen and (max-width: 600px){
         width: 85vw;
     }
