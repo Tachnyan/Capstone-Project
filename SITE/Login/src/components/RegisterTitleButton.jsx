@@ -6,6 +6,7 @@ export default function RegisterTitleButton({content, onClick, style, id}){
 
 
 const StyledTitleButton = styled.button`
+   -webkit-tap-highlight-color: transparent;
     position: relative;
     background: none;
     width: 55%;
