@@ -1,13 +1,4 @@
-const { response } = require("express");
-
-const users = [{
-    id:1,
-    name:"one"
-},
-{
-    id:2,
-    name:"two"
-}];
+const pool = require('./config');
 
 const router = app => 
 {
@@ -19,7 +10,21 @@ const router = app =>
     });
 
     app.get('/users', (request, response) =>{
-        response.send(users);
+        pool.query('select * from users', (error, result) =>{
+            if (error) throw error;
+
+            response.send(result);
+        });
+    });
+
+    app.get('/users/:id', (request, response) =>{
+        const id = request.params.id;
+
+        pool.query('select * from users where id = ?', id, (error, result) => {
+            if (error) throw error;
+
+            response.send(result);
+        });
     });
 }
 
