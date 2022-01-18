@@ -9,14 +9,14 @@ const StyledInputBox = styled.input`
     background: rgba(255, 255, 255, 0.30);
     border-radius: 2rem;
     width: 80%;
-    height: 10%;
+    height: 100%;
     padding: 2vh;
     margin: 1vh;
     border: none;
     outline: none;
     color: white;
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 140%;
     transition: 0.15s ease-in-out;
     :hover{
         transform: translateY(-2px);
