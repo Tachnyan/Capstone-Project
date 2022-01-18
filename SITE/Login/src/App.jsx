@@ -50,7 +50,7 @@ function App() {
                 <InputBox type = "text" placeholder = "email"/>
             </InputLine>
             <InputLine>
-                <InputBox type = "text" placeholder = "password"/>
+                <InputBox type = "password" placeholder = "password"/>
             </InputLine>
         </Inputs>
 
@@ -66,7 +66,7 @@ function App() {
             <InputBox type = "password" placeholder = "password"/>
             </InputLine>
             <InputLine>
-            <InputBox type = "confirm password" placeholder = "confirm password"/>
+            <InputBox type = "password" placeholder = "confirm password"/>
             </InputLine>
         </RegisterInputs>
 
