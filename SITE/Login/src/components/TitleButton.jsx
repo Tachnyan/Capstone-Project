@@ -11,8 +11,12 @@ const StyledTitleButton = styled.button`
     width: 50%;
     height:60%;
     padding: 0px;
-    margin: 2%;
+    margin: 1%;
     border: none;
     font-size: 150%;
     color: white;
+    transition: 0.3s;
+    &:hover{
+      color: white;
+    }
 `;

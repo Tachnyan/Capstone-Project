@@ -1,19 +1,18 @@
 import styled from "styled-components";
 
-export default function InputBox({type, placeholder}){
-    return <StyledInputBox type = {type} placeholder = {placeholder} />;
+export default function InputBox({type, placeholder, style}){
+    return <StyledInputBox style = {style} type = {type} placeholder = {placeholder} />;
 }
 
 const StyledInputBox = styled.input`
     position: relative;
     background: rgba(255, 255, 255, 0.30);
-    border-radius: 2rem;
+    border-radius: 1rem;
     width: 80%;
     height: 100%;
-    padding: 2vh;
-    margin: 1vh;
     border: none;
     outline: none;
+    margin: 2%;
     color: white;
     text-align: center;
     font-size: 140%;

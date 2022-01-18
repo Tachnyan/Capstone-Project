@@ -36,7 +36,7 @@ function App() {
             submitButton.textContent = "register";
         }
     }
-    
+
     return(
     <MainInputBox>
 
@@ -56,8 +56,8 @@ function App() {
 
         <RegisterInputs id = "registerInputs">
             <InputLine>
-                <InputBox type = "text" placeholder="first name"/>
-                <InputBox type = "text" placeholder="last name"/>
+                <InputBox style = {{width: "38%"}} type = "text" placeholder="first name"/>
+                <InputBox style = {{width: "38%"}} type = "text" placeholder="last name"/>
             </InputLine>
             <InputLine>
                 <InputBox type = "text" placeholder="email"/>
@@ -70,7 +70,7 @@ function App() {
             </InputLine>
         </RegisterInputs>
 
-        
+
         <Button id = "submitButton" content = "login"/>
     </MainInputBox>
     )
@@ -82,7 +82,7 @@ const InputLine = styled.div`
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
     height: 15%;
 `;
@@ -132,7 +132,7 @@ const TitleBox = styled.div`
     margin: 10%;
     font-size: 200%;
     /*below lines make text not selectable
-    -webkit-user-select: none; /* Safari */        
+    -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
