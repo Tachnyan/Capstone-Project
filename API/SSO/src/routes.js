@@ -26,6 +26,14 @@ const router = app =>
             response.send(result);
         });
     });
+
+    app.get('/sso/login/test', (request, response)  => {
+        console.log(request);
+
+        response.send({
+            message: 'test'
+        });
+    });
 }
 
 module.exports = router;
