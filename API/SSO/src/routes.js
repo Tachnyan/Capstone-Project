@@ -2,31 +2,13 @@ const pool = require('./config');
 
 const router = app => 
 {
-    app.get('/', (request, response) =>
+    //base API URL. 
+    app.get('/sso', (request, response) =>
     {
-        response.send({
-            message: 'Node.js and Express REST API'
-        });
+        response.sendStatus(404);
     });
 
-    app.get('/users', (request, response) =>{
-        pool.query('select * from users', (error, result) =>{
-            if (error) throw error;
-
-            response.send(result);
-        });
-    });
-
-    app.get('/users/:id', (request, response) =>{
-        const id = request.params.id;
-
-        pool.query('select * from users where id = ?', id, (error, result) => {
-            if (error) throw error;
-
-            response.send(result);
-        });
-    });
-
+    //login test call.
     app.get('/sso/login/test', (request, response)  => {
         console.log(request);
 
