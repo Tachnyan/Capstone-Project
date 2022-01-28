@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sso": "cd API/SSO/ && npm start",
     "login": "cd SITE/Login/ && npm start",
-    "smartgroup": "cd SITE/SmartGroup/ && npm start",
+    "smartgroup": "cd SITE/smartgroup/ && npm start",
     "roomreserver": "cd API/RoomReserver/ && npm start",
     "server": "concurrently \"npm run sso\" \"npm run roomreserver\"",
     "client": "concurrently \"npm run login\" \"npm run smartgroup\"",

@@ -42,6 +42,12 @@ function App() {
         }
     }
 
+    //test function: test request to SSO API. 
+    function testLoginApi()
+    {
+        fetch('/sso/login/test')
+    }
+
     return(
     //Main input Box containing Title (login/register buttons), input form, and submit button
     <MainInputBox>
@@ -80,7 +86,7 @@ function App() {
         </RegisterInputs>
 
         {/* login / register submit button */}
-        <Button id = "submitButton" content = "login"/>
+        <Button id = "submitButton" onClick={testLoginApi} content = "login"/>
     </MainInputBox>
     )
 }
