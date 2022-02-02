@@ -6,9 +6,12 @@ function App() {
 	
   return (
     <div className="container" style={{backgroundColor: 'gray'}}>
-      <Header title='Header'/>
-	  <p>This is a paragraph </p>
-	  <p>This is another paragraph </p>
+	  <button>Back to Menu</button>
+	  <button>Create Group</button>
+	  <button>Join Group</button>
+      <Header title='CurrentStudy Groups'/>
+	  <p>Course / Location / Studying / # People / Timeframe</p>
+	  <p>This should be a selectable menu of all the available groups</p>
     </div>
   );
 }
