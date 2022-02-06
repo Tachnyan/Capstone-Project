@@ -1,21 +1,21 @@
-import Header from './components/Header'
-import RowElement from './components/RowElement'
+import RowElement from '../components/RowElement'
 
-function App() {
+
+export function StudyGroupsList() {
 
   
   return (
-    <div className="studygroupslist" style={{backgroundColor: 'gray', overflow: 'auto', height: '800px', width: '1500px'}}>
+    <div className="studygroupslist" style={{color:'black', backgroundColor: 'gray', overflow: 'auto', height: '80%', width: '100%'}}>
       <header>
         
         <h1>
-          Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <button>Back to Menu</button> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-          <button>Create Group</button> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
+          <button>Back to Menu</button> 
+          <button>Create Group</button> 
           <button>Join Group</button>
         </h1>
       </header>
-      <table style={{width:'1480px'}}>
+      <table style={{width:'100%'}}>
         <thead>
           <RowElement />
         </thead>
@@ -86,4 +86,4 @@ function App() {
   );
 }
 
-export default App;
+export default StudyGroupsList;
