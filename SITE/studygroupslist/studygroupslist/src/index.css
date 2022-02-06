@@ -19,6 +19,22 @@ body{
   height: 100vh;
 }
 
-tr:nth-child(odd) { background-color : #EAF2D3; }
-tr:nth-child(even) { background-color : #A7C942; }
-tr:hover { background-color : #89ae37; }
+button{
+  background-color: #D0EFFF;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius:8px;
+}
+button:hover{background-color: #1167B1;}
+
+tr:nth-child(odd) { background-color : #D0EFFF; }
+tr:nth-child(even) { background-color : #2A9DF4; }
+tr:hover { background-color : #1167B1; }
+
+table{
+  overflow: auto;
+}
