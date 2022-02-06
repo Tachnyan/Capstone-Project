@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",

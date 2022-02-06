@@ -1,6 +1,8 @@
-const pool = require('./config');
+import { LogTimings } from 'concurrently';
+import { response } from 'express';
+import { register, login } from './queries.js'
 
-const router = app => 
+export default function router(app) 
 {
     //base API URL. 
     app.get('/sso', (request, response) =>
@@ -9,13 +11,18 @@ const router = app =>
     });
 
     //login test call.
-    app.get('/sso/login/test', (request, response)  => {
-        console.log(request);
-
-        response.send({
-            message: 'test'
-        });
+    app.get('/sso/login', async (request, response)  => {
+        console.log(request.body)
+        await login(request.body).then((val) =>{
+            response.sendStatus(val)
+        })
     });
-}
 
-module.exports = router;
+    app.post('/sso/register' , async (request, response) => {
+        await register(request.body).then((val) => {
+            console.log(val)
+            response.sendStatus(val)
+        })
+        
+    })
+}
