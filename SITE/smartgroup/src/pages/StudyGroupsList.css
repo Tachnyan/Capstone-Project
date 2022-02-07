@@ -32,9 +32,9 @@ button{
 }
 button:hover{background-color: #1167B1;}
 
-.TableOverFlow tr:nth-child(odd) { background-color : #D0EFFF; }
-.TableOverFlow tr:nth-child(even) { background-color : #2A9DF4; }
-.TableOverFlow tr:hover { background-color : #1167B1; }
+.TableOverflow tr:nth-child(odd) { background-color : #D0EFFF; }
+.TableOverflow tr:nth-child(even) { background-color : #2A9DF4; }
+.TableOverflow tr:hover { background-color : #1167B1; }
 
 .TableOverflow{
   /*overflow-y: scroll;*/
