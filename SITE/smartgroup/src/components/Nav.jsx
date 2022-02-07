@@ -13,7 +13,10 @@ export const Nav = () => (
                 <Link to="/StudyGroupsList">Study Groups List</Link>
             </li>
             <li>
-            <Link to="/CreateRoom">Create Room</Link>
+                <Link to="/CreateRoom">Create Room</Link>
+            </li>
+            <li>
+                <Link to="/StudyRoom">Study Room</Link>
             </li>
         </ul>
     </nav>
