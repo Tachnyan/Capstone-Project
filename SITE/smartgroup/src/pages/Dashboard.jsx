@@ -76,9 +76,12 @@ const ListDiv = styled.div`
     width: 300px;
     height: 300px;
     overflow: hidden;
+    outline: solid;
 `
 
 const Main = styled.div`
+    outline: solid;
+    color: white;
     background: rgba(0, 0, 0, 0.50);
     border-radius: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);

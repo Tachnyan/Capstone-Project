@@ -7,6 +7,9 @@ export const Nav = () => (
                 <Link to="/">Home</Link>
             </li>
             <li>
+                <Link to="/Profile">Profile</Link>
+            </li>
+            <li>
                 <Link to="/StudyGroupsList">Study Groups List</Link>
             </li>
             <li>
