@@ -1,6 +1,6 @@
 import { StudyGroupsList } from './pages/StudyGroupsList'
 import {Routes, Route} from 'react-router-dom'
-import { Dashboard } from './pages/Dashboard'
+import { Dashboard } from './pages/Dashboard.jsx'
 import { Nav } from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
@@ -16,7 +16,6 @@ function App() {
           <Route path="/StudyGroupsList" element={<StudyGroupsList/>}/>
         </Routes>
       </body>
-
     </div>
   );
 }

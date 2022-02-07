@@ -29,7 +29,6 @@ export default createGlobalStyle`
   font-size: calc(10px + 2vmin);
 }
 
-
 .App-nav ul li{
   text-align: left;
   font-size: 14pt;
