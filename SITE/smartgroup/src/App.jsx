@@ -3,6 +3,7 @@ import { Dashboard } from './pages/Dashboard.jsx'
 import { StudyGroupsList } from './pages/StudyGroupsList'
 import { CreateRoom } from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
+import { StudyRoom } from './pages/StudyRoom.jsx'
 
 import { Nav } from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
@@ -19,6 +20,7 @@ function App() {
           <Route path="/Profile" element={<ProfilePage/>}/>
           <Route path="/StudyGroupsList" element={<StudyGroupsList/>}/>
           <Route path="/CreateRoom" element={<CreateRoom/>}/>
+          <Route path="/StudyRoom" element={<StudyRoom/>}/>
         </Routes>
       </body>
     </div>
