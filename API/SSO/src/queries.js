@@ -8,32 +8,33 @@ async function register(data){
 
     return new Promise(async (res, rej) => {
 
-        var sql = "SELECT Login_User FROM Login WHERE Login_User = ? ;";
-        var insert = [data.username];
-        sql = mysql.format(sql, insert);
-
-        const promise = argon2.hash(data.password, { hashLength: 128});
-        let hash = await promise;
-
         pool.getConnection((err, connection) => {
             if (err){
                 console.log(err);
                 rej(500);
             }else{
-                connection.query(sql, (err, result, fields) => {
+                //First Query: make sure account with given username doesn't exist already.
+                var sql = "SELECT Login_User FROM Login WHERE Login_User = ? ;";
+                var insert = [data.username];
+                sql = mysql.format(sql, insert);
+                connection.query(sql, (err, result) => {
                     if (result.length > 0){
                         connection.release();
                         rej(400);
                     }else{
-
+                        //Second Query: Insert new student row with given registration information.
                         sql = "INSERT INTO student VALUES (?, ?, ?, NULL);" 
                         insert = [data.studentID, data.first, data.last] 
                         sql = mysql.format(sql, insert)
-                        connection.query(sql, (err, result) =>{
+                        connection.query(sql, async (err, result) =>{
                             if(err){
                                 console.log(err);
                                 rej(500);
                             }else{
+                                //Hash the submitted password. salt is generated randomly.
+                                const promise = argon2.hash(data.password, { hashLength: 128});
+                                let hash = await promise;
+                                //Third Query: Insert new row into login table. 
                                 sql = "INSERT INTO login VALUES (?, ?, ?);"
                                 insert = [data.username, hash, data.studentID]
                                 sql = mysql.format(sql, insert)
@@ -62,21 +63,28 @@ async function login(data){
 
     return new Promise((res, rej) => {
         pool.getConnection((err, connection) => {
-            if(err) rej(err);
-            
-            let sql = "SELECT * FROM login WHERE Login_User = ?;"
-            let insert = [data.username]
-            console.log(data.username)
-            sql = mysql.format(sql, insert)
-            connection.query(sql, (err, result, fields) => {
-                if (err) {
-                    rej(err)
-                    throw err;
-                }
-                console.log(result)
-                res(200);
-                connection.release()
-            })
+            if(err) {
+                rej(err);
+            }else{
+                //First Query: Look for given username and grab all fields.
+                let sql = "SELECT * FROM login WHERE Login_User = ?;"
+                let insert = [data.username]
+                sql = mysql.format(sql, insert)
+                connection.query(sql, async (err, result, fields) => {
+                    if (err) {
+                        rej(500)
+                        console.log(err)
+                    }else if (result.length == 1){
+                        //Authenticate given password with hashed password in database. 
+                        let auth = await argon2.verify(result[0].Login_Pass, data.password)
+                        if(auth){
+                            res(200)
+                        }else{
+                            rej(400)
+                        }
+                    }
+                })
+            }
         })
     });
 

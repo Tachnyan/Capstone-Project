@@ -1,0 +1,13 @@
+{
+  "body": {
+    "content": "eyJ1c2VybmFtZSI6InRlc3RAbGF0ZWNoLmVkdSIsICJwYXNzd29yZCI6InRlc3QiLCAiZmlyc3QiOiJmaXJzdCIsICJsYXN0IjoibGFzdCIsICJzdHVkZW50SUQiOiIxMDItNDItOTE2In0=",
+    "file": false,
+    "fileSize": false
+  },
+  "headers": {
+    "content-type": "application/json"
+  },
+  "method": "POST",
+  "title": "New HTTP Request",
+  "url": "localhost:3002/sso/register"
+}
