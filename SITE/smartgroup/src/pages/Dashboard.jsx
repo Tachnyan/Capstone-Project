@@ -5,7 +5,8 @@ export const Dashboard = () => {
     return (
         <main>
             <friendsList>
-                <friendsListHead>Friends</friendsListHead>
+                <friendsListRow><friendsListHead><td>Friends</td></friendsListHead></friendsListRow>            
+                <friendsListRow><td>Charley Brown</td></friendsListRow> 
             </friendsList>
         </main>
     )
@@ -24,12 +25,16 @@ const main = styled.div`
 `
 
 const friendsList = styled.table`
-outline: solid;
+    outline: solid;
 `
 
 const friendsListHead = styled.thead`
--webkit-user-select: none; /* Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+/Edge */
-user-select: none; /* Standard */
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+`
+
+const friendsListRow = styled.tr`
+
 `
