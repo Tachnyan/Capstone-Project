@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { StudyGroupsList } from './pages/StudyGroupsList'
 import {Routes, Route} from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
 import { Nav } from './components/Nav'
@@ -13,6 +14,7 @@ function App() {
       <body className='App-body'>
         <Routes>
           <Route path="/" element={<Dashboard/>}/>
+          <Route path="/StudyGroupsList" element={<StudyGroupsList/>}/>
         </Routes>
       </body>
 

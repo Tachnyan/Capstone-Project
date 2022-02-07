@@ -6,6 +6,9 @@ export const Nav = () => (
             <li>
                 <Link to="/">Home</Link>
             </li>
+            <li>
+                <Link to="/StudyGroupsList">Study Groups List</Link>
+            </li>
         </ul>
     </nav>
 )

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.studygroupslist{
+  font-family: 'Arvo', serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../iesb2.jpg');
+  background-position: center;
+  /*display: flex;*/
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow-y:scroll;
+}
+
+button{
+  background-color: #D0EFFF;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius:8px;
+}
+button:hover{background-color: #1167B1;}
+
+tr:nth-child(odd) { background-color : #D0EFFF; }
+tr:nth-child(even) { background-color : #2A9DF4; }
+tr:hover { background-color : #1167B1; }
+
+.TableOverflow{
+  /*overflow-y: scroll;*/
+}
