@@ -1,8 +1,8 @@
-const express = require('express');
-const routes = require('./routes');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import router from './routes.js'
 
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 const app = express();
 
 const port = 3002;
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded(
     }
 ));
 
-routes(app);
+router(app);
 
 const server = app.listen(port, (error) => 
 {
