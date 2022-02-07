@@ -1,5 +1,5 @@
 import {Routes, Route} from 'react-router-dom'
-import { Dashboard } from './pages/Dashboard'
+import { Dashboard } from './pages/Dashboard.jsx'
 import { StudyGroupsList } from './pages/StudyGroupsList'
 import { CreateRoom } from './pages/CreateRoom'
 import { Nav } from './components/Nav'
@@ -18,7 +18,6 @@ function App() {
           <Route path="/CreateRoom" element={<CreateRoom/>}/>
         </Routes>
       </body>
-
     </div>
   );
 }
