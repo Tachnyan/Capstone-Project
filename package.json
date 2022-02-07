@@ -17,7 +17,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "ava",
     "sso": "cd API/SSO/ && npm start",
     "login": "cd SITE/Login/ && npm start",
     "smartgroup": "cd SITE/smartgroup/ && npm start",
@@ -39,11 +39,11 @@
   "homepage": "https://github.com/Tachnyan/Capstone-Project#readme",
   "description": "",
   "devDependencies": {
+    "ava": "^4.0.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "babel-webpack-plugin": "^0.1.2",
-    "jest": "^27.5.0"
+    "babel-webpack-plugin": "^0.1.2"
   }
 }
