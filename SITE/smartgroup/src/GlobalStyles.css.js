@@ -19,7 +19,7 @@ export default createGlobalStyle`
 }
 
 .App-body {
-  background-color: #e8cef6;
+  background: cornflowerblue;
   min-height: 100vh;
   max-height: 100vh;
   display: flex;
