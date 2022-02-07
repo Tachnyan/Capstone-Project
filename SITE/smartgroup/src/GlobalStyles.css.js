@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components'
+
+export default createGlobalStyle`
 .App {
   text-align: center;
 }
@@ -8,7 +11,6 @@
   left: 0;
   float:left;
   background-color: #0f1e3b;
-  
 }
 .App-nav a {
   text-decoration: none;
@@ -24,7 +26,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 
@@ -69,3 +70,5 @@
     transform: rotate(360deg);
   }
 }
+
+`
