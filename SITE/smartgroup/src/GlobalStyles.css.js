@@ -12,6 +12,7 @@ export default createGlobalStyle`
   float:left;
   background-color: #0f1e3b;
 }
+
 .App-nav a {
   text-decoration: none;
   color:aliceblue;
