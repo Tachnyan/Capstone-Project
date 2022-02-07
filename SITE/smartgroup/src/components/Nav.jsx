@@ -9,6 +9,9 @@ export const Nav = () => (
             <li>
                 <Link to="/StudyGroupsList">Study Groups List</Link>
             </li>
+            <li>
+            <Link to="/CreateRoom">Create Room</Link>
+            </li>
         </ul>
     </nav>
 )

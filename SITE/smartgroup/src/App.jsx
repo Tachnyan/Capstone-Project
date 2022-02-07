@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { StudyGroupsList } from './pages/StudyGroupsList'
 import {Routes, Route} from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard'
+import { StudyGroupsList } from './pages/StudyGroupsList'
+import { CreateRoom } from './pages/CreateRoom'
 import { Nav } from './components/Nav'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/StudyGroupsList" element={<StudyGroupsList/>}/>
+          <Route path="/CreateRoom" element={<CreateRoom/>}/>
         </Routes>
       </body>
 

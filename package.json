@@ -6,6 +6,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "reactdom": "^2.0.0",
+    "styled-components": "^5.3.3",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.2"
