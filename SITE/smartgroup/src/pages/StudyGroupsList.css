@@ -6,17 +6,18 @@
   box-sizing: border-box;
 }
 
-body{
+.studygroupslist{
   font-family: 'Arvo', serif;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(iesb2.jpg);
+  background-image: url('../iesb2.jpg');
   background-position: center;
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow-y:scroll;
 }
 
 button{
@@ -35,6 +36,6 @@ tr:nth-child(odd) { background-color : #D0EFFF; }
 tr:nth-child(even) { background-color : #2A9DF4; }
 tr:hover { background-color : #1167B1; }
 
-table{
-  overflow: auto;
+.TableOverflow{
+  /*overflow-y: scroll;*/
 }
