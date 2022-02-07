@@ -12,7 +12,6 @@ export default function router(app)
 
     //login test call.
     app.post('/sso/login', async (request, response)  => {
-        console.log(request.body)
         await login(request.body).then((val) =>{
             response.sendStatus(val)
         }).catch((err) =>{
@@ -21,8 +20,8 @@ export default function router(app)
     });
 
     app.post('/sso/register' , async (request, response) => {
-        await register(request.body).then((val) => {
-            console.log(val)
+        await register(request.body)
+        .then((val) => {
             response.sendStatus(val)
         }).catch((err) => {
             response.sendStatus(err)

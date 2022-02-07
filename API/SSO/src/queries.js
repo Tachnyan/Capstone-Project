@@ -66,16 +66,19 @@ async function login(data){
             
             let sql = "SELECT * FROM login WHERE Login_User = ?;"
             let insert = [data.username]
-            console.log(data.username)
             sql = mysql.format(sql, insert)
-            connection.query(sql, (err, result, fields) => {
+            connection.query(sql, async (err, result, fields) => {
                 if (err) {
-                    rej(err)
-                    throw err;
+                    rej(500)
+                    console.log(err)
+                }else if (result.length == 1){
+                    let auth = await argon2.verify(result[0].Login_Pass, data.password)
+                    if(auth){
+                        res(200)
+                    }else{
+                        rej(400)
+                    }
                 }
-                console.log(result)
-                res(200);
-                connection.release()
             })
         })
     });
