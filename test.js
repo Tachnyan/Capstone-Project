@@ -55,14 +55,14 @@ test.serial('Test Register Rejection', async (t) => {
 test.serial('Test Authentication rejection', async (t) => {
     let data = {
         username:"test@latech.edu",
-        password:"test"
+        password:"test1"
     }
     await axios.post('http://localhost:3002/sso/login', data, {timeout: 2000})
     .then((val) => {
         if(val.status == 200){
-            t.pass()
+            t.fail()
         }
     }).catch((err) => {
-        t.fail()
+        t.pass()
     })
 })
