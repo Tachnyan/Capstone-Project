@@ -12,7 +12,11 @@ const MainColumn = styled.div`
     height: 70vh;
     width: 60vw;
     max-width: 1000px;
-    background: lightblue;
+    outline: solid;
+    color: white;
+    background: rgba(0, 0, 0, 0.50);
+    border-radius: 1rem;
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);
 `;
 
 const MainRow = styled.div`

@@ -1,12 +1,13 @@
 import RowElement from '../components/RowElement'
 import './StudyGroupsList.css'
+import styled from 'styled-components'
 
 
 export function StudyGroupsList() {
 
   
   return (
-    <div className="studygroupslist" style={{color:'black', backgroundColor: 'gray', height: '80%', width: '100%'}}>
+    <div className="studygroupslist">
       <header>
         
         <h1>
@@ -17,7 +18,7 @@ export function StudyGroupsList() {
         </h1>
       </header>
       <div class="TableOverflow">
-        <table style={{width:'100%'}}>
+        <table class="groupstable">
           <thead>
             <RowElement />
           </thead>
@@ -88,5 +89,32 @@ export function StudyGroupsList() {
     </div>
   );
 }
+
+const studygroupslist = styled.div`
+  color:'white'; 
+  backgroundColor: 'gray'; 
+  font-family: 'Arvo', serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../iesb2.jpg');
+  background-position: center;
+  /*display: flex;*/
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  overflow-y:scroll;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+`
+
+const groupstable = styled.table`
+  width: 100vh
+  &: tr:nth-child(odd) { background-color : #D0EFFF; }
+  &: tr:nth-child(even) { background-color : #2A9DF4; }
+  &: tr:hover { background-color : #1167B1; }
+
+`
 
 export default StudyGroupsList;
