@@ -7,7 +7,6 @@
 }
 
 .studygroupslist{
-  font-family: 'Arvo', serif;
   outline: solid;
   color: white;
   background: rgba(0, 0, 0, 0.50);
@@ -27,7 +26,8 @@
 }
 
 button{
-  background-color: #D0EFFF;
+  background-color: rgba(0,0,0,0.35);
+  color: white;
   padding: 20px;
   text-align: center;
   text-decoration: none;
@@ -36,11 +36,11 @@ button{
   margin: 4px 2px;
   border-radius:8px;
 }
-button:hover{background-color: #1167B1;}
+button:hover{background-color: rgba(0,0,0,.75);}
 
-.TableOverflow tr:nth-child(odd) { background-color : #23395d; }
-.TableOverflow tr:nth-child(even) { background-color : #2A9DF4; }
-.TableOverflow tr:hover { background-color : #1167B1; }
+.TableOverflow tr:nth-child(odd) { background-color : rgba(0,0,0,.25); }
+.TableOverflow tr:nth-child(even) { background-color : rgba(0,0,0,.5); }
+.TableOverflow tr:hover { background-color : rgba(0,0,0,.75); }
 
 .TableOverflow{
   /*overflow-y: scroll;*/
