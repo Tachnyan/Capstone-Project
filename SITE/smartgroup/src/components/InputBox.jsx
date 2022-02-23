@@ -7,7 +7,7 @@ export default function InputBox({type, placeholder}){
 const StyledInputBox = styled.input`
     position: relative;
     color: white;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.25);
     border-radius: 2rem;
     width: 80%;
     height: 10%;

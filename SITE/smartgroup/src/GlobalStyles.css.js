@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import backgroundimg from './iesb2.jpg';
 
 export default createGlobalStyle`
 .App {
@@ -19,7 +20,10 @@ export default createGlobalStyle`
 }
 
 .App-body {
-  background: cornflowerblue;
+  background-image: url(${backgroundimg});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: cornflowerblue;
   min-height: 100vh;
   max-height: 100vh;
   display: flex;
