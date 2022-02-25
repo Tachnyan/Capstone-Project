@@ -18,7 +18,7 @@ const StyledInputBox = styled.input`
     text-align: center;
     font-size: 3vh;
     ::placeholder{
-        color: rgba(0, 0, 0, 0.5);
+        color: rgba(0, 0, 0, 0.8);
         font-style: italic;
     }
 `;

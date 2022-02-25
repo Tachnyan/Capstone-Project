@@ -6,7 +6,7 @@ export default function CreateButton({content}){
 
 const StyledButton = styled.button`
     position: relative;
-    background: lightgreen;
+    background: green;
     width: 8rem;
     height: 100%;
     padding: 0px;
