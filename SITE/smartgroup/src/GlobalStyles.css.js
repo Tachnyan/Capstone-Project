@@ -7,11 +7,20 @@ export default createGlobalStyle`
 }
 
 .App-nav {
-  min-height: 100vh;
-  min-width: 5vw;
-  left: 0;
-  float:left;
-  background-color: #0f1e3b;
+  min-height: 5vh;
+  min-width: 100vw;
+  background-color: #1762A7;
+  display: flex;
+  justify-content: center;
+}
+
+.App-nav li{
+  float: left;
+  padding: 10px;
+  text-align: center;
+  outline: solid;
+  outline-color: white;
+  background-color: rgba(0,0,0,.5);
 }
 
 .App-nav a {
@@ -22,10 +31,11 @@ export default createGlobalStyle`
 .App-body {
   background-image: url(${backgroundimg});
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left;
   background-color: cornflowerblue;
-  min-height: 100vh;
-  max-height: 100vh;
+  background-size: cover;
+  min-height: 95vh;
+  max-height: 95vh;
   display: flex;
   flex-direction: column;
   align-items: center;

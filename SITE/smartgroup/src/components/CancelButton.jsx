@@ -6,7 +6,7 @@ export default function CancelButton({content}){
 
 const StyledButton = styled.button`
     position: relative;
-    background: lightpink;
+    background: red;
     width: 8rem;
     height: 100%;
     padding: 0px;

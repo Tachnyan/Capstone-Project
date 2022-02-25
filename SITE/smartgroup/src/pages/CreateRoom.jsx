@@ -49,7 +49,7 @@ export function CreateRoom() {
                 <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
                 <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
                 <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
-                <MainRow><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
+                <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
             </MainColumn>
         </div>
     )
