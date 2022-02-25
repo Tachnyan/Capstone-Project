@@ -78,7 +78,7 @@ async function login(data){
                         //Authenticate given password with hashed password in database. 
                         let auth = await argon2.verify(result[0].Login_Pass, data.password)
                         if(auth){
-                            res(200)
+                            res(result[0].Student_Student_ID)
                         }else{
                             rej(400)
                         }

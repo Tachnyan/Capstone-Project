@@ -2,6 +2,7 @@ import { LogTimings } from 'concurrently';
 import { response } from 'express';
 import { register, login } from './queries.js'
 
+
 export default function router(app) 
 {
     //base API URL. 
@@ -13,7 +14,9 @@ export default function router(app)
     //login test call.
     app.post('/sso/login', async (request, response)  => {
         await login(request.body).then((val) =>{
-            response.sendStatus(val)
+            request.session.userID = val
+            request.session.save()
+            response.sendStatus(200)
         }).catch((err) =>{
             response.sendStatus(err)
         })

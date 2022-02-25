@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import router from './routes.js'
+import jwt from 'express-jwt'
+import session from 'express-session'
 
 import bodyParser from 'body-parser';
 const app = express();
@@ -15,6 +17,16 @@ app.use(bodyParser.urlencoded(
         extended: true,
     }
 ));
+
+app.use(session({
+    cookie: {
+        secure: false,
+        maxAge: 1296000000
+    },
+    resave: false,
+    saveUninitialized: true,
+    secret: "testsadf;lj"
+}))
 
 router(app);
 
