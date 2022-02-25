@@ -3,7 +3,8 @@ import InputBox from "./components/InputBox";
 import Button from "./components/Button"
 import LoginTitleButton from "./components/LoginTitleButton";
 import RegisterTitleButton from "./components/RegisterTitleButton";
-
+import RegisterForm from "./components/RegisterForm"
+import LoginForm from "./components/LoginForm"
 
 function App() {
     var screenType = "login";
@@ -21,7 +22,7 @@ function App() {
             register.style.display = "none";
             loginTitleButton.style.color = "white";
             registerTitleButton.style.color = "grey";
-            submitButton.textContent = "login";
+            //submitButton.textContent = "login";
         }
     }
 
@@ -37,16 +38,34 @@ function App() {
             loginTitleButton.style.color = "grey";
             register.style.display = "flex";
             registerTitleButton.style.color = "white";
-            submitButton.textContent = "register";
+            //submitButton.textContent = "register";
             login.style.display = "none";
         }
     }
 
     //test function: test request to SSO API. 
-    function testLoginApi()
+    function btnContext(e)
     {
-        fetch('/sso/login/test')
+        console.log(e)
+       
     }
+
+    function Register(e)
+    {
+        e.preventDefault()
+        console.log(e)
+        return false;
+    }
+
+    const initialRegisterForm = Object.freeze({
+        firstName: "",
+        lastName: "",
+        username: "",
+        password: "",
+        studentID: ""
+    })
+
+
 
     return(
     //Main input Box containing Title (login/register buttons), input form, and submit button
@@ -59,18 +78,19 @@ function App() {
         </InputTitleBox>
 
         {/* Login input form (shown by default) */}
-        <Inputs id = "loginInputs">
-            <InputLine>
+        <LoginForm id = "loginInputs">
+            {/* <InputLine>
                 <InputBox type = "text" placeholder = "email"/>
             </InputLine>
             <InputLine>
                 <InputBox type = "password" placeholder = "password"/>
             </InputLine>
-        </Inputs>
+            <Button id = "submitButton" onClick={btnContext} content = "login"/> */}
+        </LoginForm>
 
         {/* Register input form */}
-        <RegisterInputs id = "registerInputs">
-            <InputLine>
+        <RegisterForm>
+            {/* <InputLine>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="first name"/>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="last name"/>
             </InputLine>
@@ -78,15 +98,19 @@ function App() {
                 <InputBox type = "text" placeholder="email"/>
             </InputLine>
             <InputLine>
+                <InputBox type="text" placeholder="student ID"/>
+            </InputLine>
+            <InputLine>
             <InputBox type = "password" placeholder = "password"/>
             </InputLine>
             <InputLine>
             <InputBox type = "password" placeholder = "confirm password"/>
             </InputLine>
-        </RegisterInputs>
+            <Button type="button" id = "submitButton" content = "register"/> */}
+        </RegisterForm>
 
         {/* login / register submit button */}
-        <Button id = "submitButton" onClick={testLoginApi} content = "login"/>
+        
     </MainInputBox>
     )
 }
@@ -103,45 +127,12 @@ const InputLine = styled.div`
 `;
 
 
-const Inputs = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 5%;
-    width: 100%;
-    height: 50%;
-    animation: fadeIn 1s;
-    @keyframes fadeIn{
-        0%{opacity: 0;}
-        100%{opacity:1;}
-    }
-
-`;
-
-const RegisterInputs = styled.div`
-    position: relative;
-    display: none;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 5%;
-    width: 100%;
-    height: 50%;
-    animation: fadeIn 1s;
-    @keyframes fadeIn{
-        0%{opacity: 0;}
-        100%{opacity:1;}
-    }
-`;
-
 const MainInputBox = styled.div`
     position: relative;
     color: white;
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 40rem;
-    width: 25rem;
     min-height: 450px;
     max-width: 400px;
     max-height: 500px;
