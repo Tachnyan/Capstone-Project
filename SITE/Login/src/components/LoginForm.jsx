@@ -31,6 +31,7 @@ export default class LoginForm extends React.Component
     handleSubmit(event) 
     {
         event.preventDefault()
+        let errBox = document.getElementById("errbox")
         
         axios.post(config.login, this.state, {timeout:2000})
         .then((val) => {
@@ -40,6 +41,7 @@ export default class LoginForm extends React.Component
             window.location.href = config.landing
         }).catch((err) =>{
             console.log(err)
+            errBox.style.display = 'flex'
         })
     }
 
@@ -47,6 +49,7 @@ export default class LoginForm extends React.Component
     {
         return (
             <LoginInputs id="loginInputs" onSubmit={this.handleSubmit}>
+                <ErrorBox id="errbox">Account Information Not Found</ErrorBox>
                 <InputLine>
                     <InputBox type="text" name="username" placeholder="email" value={this.state.username} onChange={this.handleChange} />
                 </InputLine>
@@ -90,3 +93,7 @@ const LoginInputs = styled.form`
 
 `;
 
+const ErrorBox = styled.div`
+color:red;
+display:none;
+`
