@@ -1,7 +1,7 @@
 import RowElement from '../components/RowElement'
 import './StudyGroupsList.css'
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom'
 
 export function StudyGroupsList() {
 
@@ -12,9 +12,9 @@ export function StudyGroupsList() {
         
         <h1>
           Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
-          <button>Back to Menu</button> 
-          <button>Create Group</button> 
-          <button>Join Group</button>
+          <Link to="/"><button>Back to Menu</button></Link>
+          <Link to="/CreateRoom"><button>Create Group</button></Link>
+          <Link to="/StudyRoom"><button>Join Group</button></Link>
         </h1>
       </header>
       <div class="TableOverflow">
