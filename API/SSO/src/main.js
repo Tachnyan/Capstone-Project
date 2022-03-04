@@ -5,11 +5,12 @@ import jwt from 'express-jwt'
 import session from 'express-session'
 
 import bodyParser from 'body-parser';
+import path from 'path/posix';
 const app = express();
 
 const port = 3002;
 
-
+app.use(express.static(path.join(path.resolve(), './src/LoginBuild')))
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(

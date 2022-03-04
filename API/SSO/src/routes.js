@@ -1,15 +1,14 @@
-import { LogTimings } from 'concurrently';
-import { response } from 'express';
 import { register, login } from './queries.js'
-
+import express from 'express'
+import path from 'path/posix'
+const __dirname = path.resolve()
 
 export default function router(app) 
 {
     //base API URL. 
-    app.get('/sso', (request, response) =>
-    {
-        response.sendStatus(404);
-    });
+    app.get(['/app', '/app/*'], async (request, response) => {
+        response.sendFile(path.join(__dirname, './src/LoginBuild', 'index.html'))
+    })
 
     //login test call.
     app.post('/sso/login', async (request, response)  => {

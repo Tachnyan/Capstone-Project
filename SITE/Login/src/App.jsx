@@ -5,14 +5,22 @@ import LoginTitleButton from "./components/LoginTitleButton";
 import RegisterTitleButton from "./components/RegisterTitleButton";
 import RegisterForm from "./components/RegisterForm"
 import LoginForm from "./components/LoginForm"
+import { Component } from 'react'
+import { render } from "react-dom";
 
-function App() {
-    var screenType = "login";
+class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.screenType = "login";
+        this.swapToLogin = this.swapToLogin.bind(this);
+        this.swapToRegister = this.swapToRegister.bind(this);
+    }
 
     //function for swapping input form from registration to login
-    function swapToLogin(){
-        if(screenType == "register"){
-            screenType = "login";
+    swapToLogin() {
+        if (this.screenType == "register") {
+            this.screenType = "login";
             var login = document.getElementById("loginInputs");
             var register = document.getElementById("registerInputs");
             var loginTitleButton = document.getElementById("loginTitleButton");
@@ -27,9 +35,9 @@ function App() {
     }
 
     //function for swapping input form from login to registration
-    function swapToRegister(){
-        if(screenType == "login"){
-            screenType = "register";
+    swapToRegister() {
+        if (this.screenType == "login") { 
+            this.screenType = "register";
             var login = document.getElementById("loginInputs");
             var register = document.getElementById("registerInputs");
             var loginTitleButton = document.getElementById("loginTitleButton");
@@ -43,54 +51,31 @@ function App() {
         }
     }
 
-    //test function: test request to SSO API. 
-    function btnContext(e)
-    {
-        console.log(e)
-       
-    }
+    render() {
+        return (
+            //Main input Box containing Title (login/register buttons), input form, and submit button
+            <MainInputBox>
 
-    function Register(e)
-    {
-        e.preventDefault()
-        console.log(e)
-        return false;
-    }
+                {/* Title (login/register buttons)*/}
+                <InputTitleBox>
+                    <LoginTitleButton id="loginTitleButton" onClick={this.swapToLogin} content="login" />
+                    <RegisterTitleButton id="registerTitleButton" onClick={this.swapToRegister} content="register" />
+                </InputTitleBox>
 
-    const initialRegisterForm = Object.freeze({
-        firstName: "",
-        lastName: "",
-        username: "",
-        password: "",
-        studentID: ""
-    })
-
-
-
-    return(
-    //Main input Box containing Title (login/register buttons), input form, and submit button
-    <MainInputBox>
-
-        {/* Title (login/register buttons)*/}
-        <InputTitleBox>
-            <LoginTitleButton id = "loginTitleButton" onClick = {swapToLogin} content = "login"/>
-            <RegisterTitleButton id = "registerTitleButton" onClick = {swapToRegister} content = "register"/>
-        </InputTitleBox>
-
-        {/* Login input form (shown by default) */}
-        <LoginForm id = "loginInputs">
-            {/* <InputLine>
+                {/* Login input form (shown by default) */}
+                <LoginForm id="loginInputs">
+                    {/* <InputLine>
                 <InputBox type = "text" placeholder = "email"/>
             </InputLine>
             <InputLine>
                 <InputBox type = "password" placeholder = "password"/>
             </InputLine>
             <Button id = "submitButton" onClick={btnContext} content = "login"/> */}
-        </LoginForm>
+                </LoginForm>
 
-        {/* Register input form */}
-        <RegisterForm>
-            {/* <InputLine>
+                {/* Register input form */}
+                <RegisterForm>
+                    {/* <InputLine>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="first name"/>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="last name"/>
             </InputLine>
@@ -107,12 +92,13 @@ function App() {
             <InputBox type = "password" placeholder = "confirm password"/>
             </InputLine>
             <Button type="button" id = "submitButton" content = "register"/> */}
-        </RegisterForm>
+                </RegisterForm>
 
-        {/* login / register submit button */}
-        
-    </MainInputBox>
-    )
+                {/* login / register submit button */}
+
+            </MainInputBox>
+        )
+    }
 }
 
 const InputLine = styled.div`
