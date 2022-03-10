@@ -1,4 +1,4 @@
-const path = require("path/posix");
+const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 
@@ -42,9 +42,9 @@ const config = {
 
 const login = Object.assign({}, config, {
     name: "login",
-    entry: './SITE/Login/src/index.jsx',
+    entry: '/SITE/Login/src/index.jsx',
     output: {
-        path: path.resolve(__dirname, './API/SSO/src/LoginBuild'),
+        path: path.join(__dirname, '/API/SSO/src/LoginBuild'),
         filename: 'login-[name].js'
     }
 });
@@ -53,7 +53,7 @@ const mainSite = Object.assign({}, config, {
     name: "mainSite",
     entry: './SITE/smartgroup/src/index.jsx',
     output: {
-        path: path.resolve(__dirname, './API/SSO/src/SiteBuild'),
+        path: path.join(__dirname, './API/SSO/src/SiteBuild'),
         filename: 'sb-[name].js'
     }
 })
