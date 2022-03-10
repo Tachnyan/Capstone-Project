@@ -5,8 +5,6 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import MainTitle from './MainTitle';
 
-window.React = React
-
 ReactDOM.render(
   <React.StrictMode>
     <MainTitle/>

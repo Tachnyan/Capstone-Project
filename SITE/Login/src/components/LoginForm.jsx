@@ -36,9 +36,10 @@ export default class LoginForm extends React.Component
         axios.post(config.login, this.state, {timeout:2000})
         .then((val) => {
             if(val.status == 200){
-                console.log("success")
+                console.log('success')
             }
             window.location.href = config.landing
+            
         }).catch((err) =>{
             console.log(err)
             errBox.style.display = 'flex'
