@@ -151,10 +151,18 @@ export default class RegisterForm extends React.Component
                 </InputLine>
                 <ErrorBox id="passMatch">Password does not match</ErrorBox>
                 <InputLine>
+<<<<<<< HEAD
                     <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
+=======
+                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
+>>>>>>> 59102750 (Added placeholder text to password)
                 </InputLine>
                 <InputLine>
+<<<<<<< HEAD
                     <input type="checkbox" name="conduct" value={this.state.conduct} onChange={this.handleChange}></input>I agree to abide by the Louisiana Tech Student Code of Conduct
+=======
+                    <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
+>>>>>>> 59102750 (Added placeholder text to password)
                 </InputLine>
                 <Button type="submit" value="Submit" content="Register"/>
             </RegisterInput>
