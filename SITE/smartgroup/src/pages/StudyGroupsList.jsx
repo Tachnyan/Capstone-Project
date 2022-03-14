@@ -3,7 +3,7 @@ import './StudyGroupsList.css'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-export function StudyGroupsList() {
+export function StudyGroupsList(props) {
 
   
   return (
