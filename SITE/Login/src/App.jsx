@@ -133,9 +133,9 @@ const MainInputBox = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: 450px;
+    min-height: 525px;
     max-width: 400px;
-    max-height: 500px;
+    max-height: 550px;
     background: rgba(0, 0, 0, 0.50);
     border-radius: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);

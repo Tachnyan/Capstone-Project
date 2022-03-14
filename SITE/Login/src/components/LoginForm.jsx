@@ -51,12 +51,12 @@ export default class LoginForm extends React.Component
             <LoginInputs id="loginInputs" onSubmit={this.handleSubmit}>
                 <ErrorBox id="errbox">Account Information Not Found</ErrorBox>
                 <InputLine>
-                    <InputBox type="text" name="username" placeholder="email" value={this.state.username} onChange={this.handleChange} />
+                    <InputBox type="text" name="username" placeholder="Email" value={this.state.username} onChange={this.handleChange} />
                 </InputLine>
                 <InputLine>
-                    <InputBox type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
                 </InputLine>
-                <Button id="submitButton" value="Submit" content="login" />
+                <Button id="submitButton" value="Submit" content="Login" />
             </LoginInputs>
         );
     }

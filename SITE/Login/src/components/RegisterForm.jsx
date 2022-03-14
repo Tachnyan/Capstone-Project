@@ -75,8 +75,8 @@ export default class RegisterForm extends React.Component
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
                 <ErrorBox></ErrorBox>
                 <InputLine>
-                    <InputBox type="text" name="first" placeholder="first name" value={this.state.first} onChange={this.handleChange}/>
-                    <InputBox type="text" name="last" placeholder="last name" value={this.state.last} onChange={this.handleChange}/>
+                    <InputBox type="text" name="first" placeholder="First Name" value={this.state.first} onChange={this.handleChange}/>
+                    <InputBox type="text" name="last" placeholder="Last Name" value={this.state.last} onChange={this.handleChange}/>
                 </InputLine>
                 <ErrorBox id="emailPattern">Email must be a valid @latech.edu address</ErrorBox>
                 <InputLine>
@@ -88,13 +88,13 @@ export default class RegisterForm extends React.Component
                 </InputLine>
                 <ErrorBox id="passPattern"></ErrorBox>
                 <InputLine>
-                    <InputBox type="password" name="password" value={this.state.password} onChange={this.handleChange}/>
+                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
                 </InputLine>
                 <ErrorBox id="passMatch">Password does not match</ErrorBox>
                 <InputLine>
-                    <InputBox type="password" name="passwordConfirm" value={this.state.passwordConfirm} onChange={this.handleChange}/>
+                    <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
                 </InputLine>
-                <Button type="submit" value="Submit" content="register"/>
+                <Button type="submit" value="Submit" content="Register"/>
             </RegisterInput>
         );
     }
