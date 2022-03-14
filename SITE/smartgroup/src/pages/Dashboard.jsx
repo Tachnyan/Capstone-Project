@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
     return (
         <Main>
             <Title>DASHBOARD</Title>

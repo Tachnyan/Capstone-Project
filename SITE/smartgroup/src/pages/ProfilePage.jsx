@@ -1,6 +1,13 @@
 import styled from "styled-components"
 
 export const ProfilePage = (props) => {
+    // build array of rows in class schedule table.
+    // replace number 5 with length of input array (props.classes.length)
+    // fill each <td> with corresponding data from input array (props.classes[i])
+    var ClassListRows = []
+    for(var i = 0; i < 5; i++){
+        ClassListRows.push(<ListRow> <Td>Class</Td> <Td>Time</Td> <Td>Location</Td> </ListRow>)
+    }
     return (
         <Main>
             <Title>PROFILE</Title>
@@ -16,31 +23,7 @@ export const ProfilePage = (props) => {
                         <Td>Time</Td>
                         <Td>Location</Td>
                     </ListHead>
-                    <ListRow>
-                        <Td>ENGL101</Td>
-                        <Td>MWF 8-9:15</Td>
-                        <Td>GTMH 213</Td>
-                    </ListRow>
-                    <ListRow>
-                        <Td>BISC130</Td>
-                        <Td>MWF 9:30-10:45</Td>
-                        <Td>GTMH 110</Td>
-                    </ListRow>
-                    <ListRow>
-                        <Td>CSC 220</Td>
-                        <Td>TR 8-9:50</Td>
-                        <Td>IESB 218</Td>
-                    </ListRow>
-                    <ListRow>
-                        <Td>CSC222</Td>
-                        <Td>TR 10-11:50</Td>
-                        <Td>IESB 216</Td>
-                    </ListRow>
-                    <ListRow>
-                        <Td>ART101</Td>
-                        <Td>TR 12-1:50</Td>
-                        <Td>GTMH 313</Td>
-                    </ListRow>
+                    {ClassListRows}
                 </List>
             </ListDiv>
         </Main>
