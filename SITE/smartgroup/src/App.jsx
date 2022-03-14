@@ -8,6 +8,7 @@ import { StudyRoom } from './pages/StudyRoom.jsx'
 import { Nav } from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
+
 function App() {
   return (
     <div className="App">
