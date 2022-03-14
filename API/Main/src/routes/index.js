@@ -20,6 +20,7 @@ router.get('/profile', async (req, res, next) => {
     try{
         let results = await db.profile();
         res.json(results);
+	console.log("Profile Data Accessed!");
     } catch(e){
         res.sendStatus(500);
         console.log(e);

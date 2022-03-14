@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
-export const ProfilePage = () => {
+export const ProfilePage = (props) => {
     return (
         <Main>
             <Title>PROFILE</Title>
-            <Row>School: <TextBox> Louisiana Tech University </TextBox></Row>
-            <Row>Display Name: <TextBox>Robert California</TextBox></Row>
-            <Row>Student ID: <TextBox> 99999999 </TextBox></Row>
+            <Row>School: <TextBox> {props.school} </TextBox></Row>
+            <Row>Display Name: <TextBox> {props.firstName} {props.lastName}</TextBox></Row>
+            <Row>Student ID: <TextBox> {props.studentID} </TextBox></Row>
             
             <ListDiv>
                 Classes
