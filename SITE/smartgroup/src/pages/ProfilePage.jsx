@@ -14,7 +14,7 @@ export const ProfilePage = (props) => {
             <Row>School: <TextBox> {props.school} </TextBox></Row>
             <Row>Display Name: <TextBox> {props.firstName} {props.lastName}</TextBox></Row>
             <Row>Student ID: <TextBox> {props.studentID} </TextBox></Row>
-            
+
             <ListDiv>
                 Classes
                 <List>
@@ -62,7 +62,7 @@ const Row = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: center;
-    
+
 `
 
 const TextBox = styled.div`
