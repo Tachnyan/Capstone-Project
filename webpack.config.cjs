@@ -17,7 +17,7 @@ const config = {
             {
                 test: /\.(c|sa|sc|le)ss$/,
                 exclude: /node_modules/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/,
@@ -35,6 +35,9 @@ const config = {
         }),
         new webpack.ProvidePlugin({
             "React":"react"
+        }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser'
         })
     ]
 };
