@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import backgroundimg from './iesb2.jpg';
+import backgroundimg from '../public/iesb2.jpg';
 
 export default createGlobalStyle`
 .App {

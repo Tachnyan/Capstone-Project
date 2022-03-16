@@ -3,7 +3,7 @@ import Button from "./Button";
 import React, { useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios";
-import {config} from "../config"
+import config from "../config"
 import { equal } from "assert";
 
 export default class RegisterForm extends React.Component

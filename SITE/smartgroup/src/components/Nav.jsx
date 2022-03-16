@@ -4,19 +4,19 @@ export const Nav = () => (
     <nav className="App-nav">
         <ul>
             <li>
-                <Link to="/">Home</Link>
+                <Link to="/app">Home</Link>
             </li>
             <li>
-                <Link to="/Profile">Profile</Link>
+                <Link to="/app/Profile">Profile</Link>
             </li>
             <li>
-                <Link to="/StudyGroupsList">Study Groups List</Link>
+                <Link to="/app/StudyGroupsList">Study Groups List</Link>
             </li>
             <li>
-                <Link to="/CreateRoom">Create Room</Link>
+                <Link to="/app/CreateRoom">Create Room</Link>
             </li>
             <li>
-                <Link to="/StudyRoom">Study Room</Link>
+                <Link to="/app/StudyRoom">Study Room</Link>
             </li>
         </ul>
     </nav>

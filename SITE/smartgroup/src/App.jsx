@@ -16,11 +16,11 @@ function App() {
 
       <body className='App-body'>
         <Routes>
-          <Route path="/" element={<Dashboard/>}/>
-          <Route path="/Profile" element={<ProfilePage/>}/>
-          <Route path="/StudyGroupsList" element={<StudyGroupsList/>}/>
-          <Route path="/CreateRoom" element={<CreateRoom/>}/>
-          <Route path="/StudyRoom" element={<StudyRoom/>}/>
+          <Route path="/app" element={<Dashboard/>}/>
+          <Route path="/app/Profile" element={<ProfilePage/>}/>
+          <Route path="/app/StudyGroupsList" element={<StudyGroupsList/>}/>
+          <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
+          <Route path="/app/StudyRoom" element={<StudyRoom/>}/>
         </Routes>
       </body>
     </div>

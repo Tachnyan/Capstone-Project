@@ -5,10 +5,10 @@ import jwt from 'express-jwt'
 import session from 'express-session'
 
 import bodyParser from 'body-parser';
+import path from 'path/posix';
 const app = express();
 
 const port = 3002;
-
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -28,10 +28,11 @@ app.use(session({
     secret: "testsadf;lj"
 }))
 
+app.use('/login',express.static(path.join(path.resolve(),'./src/LoginBuild')))
+app.use('/app',express.static(path.join(path.resolve(),'./src/SiteBuild')))
 router(app);
 
-const server = app.listen(port, (error) => 
-{
+const server = app.listen(port, (error) => {
     if (error) return console.log(`Error: ${error}`)
 
     console.log(`Server listening on port ${server.address().port}`);

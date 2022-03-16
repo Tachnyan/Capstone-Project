@@ -1,8 +1,8 @@
-const config = {
+export const config = {
     register:"http://127.0.0.1:3002/sso/register",
     login:"http://127.0.0.1:3002/sso/login",
-    landing:"http://localhost:3000/home"
+    landing: "http://127.0.0.1:3002/app"
 }
 
 
-module.exports = {config}
+export default config

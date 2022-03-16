@@ -1,4 +1,9 @@
 #dependencies
 /node_modules
+/API/SSO/src/LoginBuild
+/API/SSO/src/SiteBuild
+/TestHTTPRequest
 
-*.env
+!.babelrc
+!.eslintrc
+!.gitignore
