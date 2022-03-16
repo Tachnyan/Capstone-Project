@@ -23,8 +23,17 @@ export default class RegisterForm extends React.Component
         this.handleSubmit = this.handleSubmit.bind(this);
         
         this.errPassMatch = document.getElementById("passMatch");
-
+        this.errEmailPattern = document.getElementById("emailPattern");
+        this.errRegister = document.getElementById("register");
+        this.errNamePattern = document.getElementById("namePattern");
+    }
     
+    componentDidMount()
+    {
+       this.errPassMatch = document.getElementById("passMatch");
+       this.errEmailPattern = document.getElementById("emailPattern");
+       this.errRegister = document.getElementById("register");
+       this.errNamePattern = document.getElementById("namePattern");
     }
 
     handleChange(event)
@@ -35,22 +44,22 @@ export default class RegisterForm extends React.Component
         });
 
         if(name == "first" || name == "last"){
-            const nameExp = new RegExp('[a-zA-z]*');
+            const nameExp = new RegExp('[a-zA-z]+');
             if(nameExp.test(event.target.value)){
-                this.errName.style.display = 'none';
+                this.errNamePattern.style.display = 'none';
             }
             else{
-                this.errName.style.display = 'flex';
+                this.errNamePattern.style.display = 'flex';
             }
         }
 
         if(name == "username"){
             const emailExp = new RegExp('\w*@latech.edu');
-            if(emailExp.test(this.state.username)){
-                this.emailPattern.style.display = 'none';
+            if(emailExp.test(event.target.value)){
+                this.errEmailPattern.style.display = 'none';
             }
             else{
-                this.emailPattern.style.display = 'flex';
+                this.errEmailPattern.style.display = 'flex';
             }
         }
 
@@ -83,15 +92,11 @@ export default class RegisterForm extends React.Component
                 console.log("register successful");
             }
         }).catch((err) => {
-            console.log(err);
-            this.registerFail.syle.display = 'flex';
+            console.log(err);   
+            this.errRegister.style.display = 'flex';
         })
     }
 
-    componentDidMount()
-    {
-       this.errPassMatch = document.getElementById("passMatch")
-    }
 
     render()
     {
@@ -100,8 +105,8 @@ export default class RegisterForm extends React.Component
 
         return(
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
-                <ErrorBox id="registerFail">There was a problem registering your account</ErrorBox>
-                <ErrorBox id="errName">Please enter your first and last name</ErrorBox>
+                <ErrorBox id="register">There was a problem registering your account</ErrorBox>
+                <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
                 <InputLine>
                     <InputBox type="text" name="first" placeholder="First Name" value={this.state.first} onChange={this.handleChange}/>
                     <InputBox type="text" name="last" placeholder="Last Name" value={this.state.last} onChange={this.handleChange}/>
