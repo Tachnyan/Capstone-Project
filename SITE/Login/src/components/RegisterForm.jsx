@@ -24,6 +24,7 @@ export default class RegisterForm extends React.Component
         
         this.errPassMatch = document.getElementById("passMatch");
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.errEmailPattern = document.getElementById("emailPattern");
         this.errRegister = document.getElementById("register");
         this.errNamePattern = document.getElementById("namePattern");
@@ -32,6 +33,11 @@ export default class RegisterForm extends React.Component
 >>>>>>> bbfae14e (Made UI updates)
 
         this.success = document.getElementById("successMessage");
+=======
+        this.errEmailPattern = document.getElementById("emailPattern");
+        this.errRegister = document.getElementById("register");
+        this.errNamePattern = document.getElementById("namePattern");
+>>>>>>> 17e15b77 (Got error messages displaying properly)
     }
     
     componentDidMount()
@@ -40,9 +46,12 @@ export default class RegisterForm extends React.Component
        this.errEmailPattern = document.getElementById("emailPattern");
        this.errRegister = document.getElementById("register");
        this.errNamePattern = document.getElementById("namePattern");
+<<<<<<< HEAD
        this.errPassPattern = document.getElementById("passPattern");
        
        this.success = document.getElementById("successMessage");
+=======
+>>>>>>> 17e15b77 (Got error messages displaying properly)
     }
 
     handleChange(event)
@@ -54,6 +63,7 @@ export default class RegisterForm extends React.Component
 
         if(name == "first" || name == "last"){
 <<<<<<< HEAD
+<<<<<<< HEAD
             const nameExp = new RegExp('[a-zA-z]+');
             if(nameExp.test(event.target.value)){
                 this.errNamePattern.style.display = 'none';
@@ -62,17 +72,25 @@ export default class RegisterForm extends React.Component
                 this.errNamePattern.style.display = 'flex';
 =======
             const nameExp = new RegExp('[a-zA-z]*');
+=======
+            const nameExp = new RegExp('[a-zA-z]+');
+>>>>>>> 17e15b77 (Got error messages displaying properly)
             if(nameExp.test(event.target.value)){
-                this.errName.style.display = 'none';
+                this.errNamePattern.style.display = 'none';
             }
             else{
+<<<<<<< HEAD
                 this.errName.style.display = 'flex';
 >>>>>>> bbfae14e (Made UI updates)
+=======
+                this.errNamePattern.style.display = 'flex';
+>>>>>>> 17e15b77 (Got error messages displaying properly)
             }
         }
 
         if(name == "username"){
             const emailExp = new RegExp('\w*@latech.edu');
+<<<<<<< HEAD
 <<<<<<< HEAD
             if(emailExp.test(event.target.value)){
                 this.errEmailPattern.style.display = 'none';
@@ -108,6 +126,13 @@ export default class RegisterForm extends React.Component
             else{
                 this.emailPattern.style.display = 'flex';
 >>>>>>> bbfae14e (Made UI updates)
+=======
+            if(emailExp.test(event.target.value)){
+                this.errEmailPattern.style.display = 'none';
+            }
+            else{
+                this.errEmailPattern.style.display = 'flex';
+>>>>>>> 17e15b77 (Got error messages displaying properly)
             }
         }
 
@@ -147,9 +172,14 @@ export default class RegisterForm extends React.Component
 =======
             }
         }).catch((err) => {
+<<<<<<< HEAD
             console.log(err);
             this.registerFail.syle.display = 'flex';
 >>>>>>> bbfae14e (Made UI updates)
+=======
+            console.log(err);   
+            this.errRegister.style.display = 'flex';
+>>>>>>> 17e15b77 (Got error messages displaying properly)
         })
     }
 
@@ -162,6 +192,7 @@ export default class RegisterForm extends React.Component
         return(
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
                 <ErrorBox id="register">There was a problem registering your account</ErrorBox>
                 <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
@@ -169,6 +200,10 @@ export default class RegisterForm extends React.Component
                 <ErrorBox id="registerFail">There was a problem registering your account</ErrorBox>
                 <ErrorBox id="errName">Please enter your first and last name</ErrorBox>
 >>>>>>> bbfae14e (Made UI updates)
+=======
+                <ErrorBox id="register">There was a problem registering your account</ErrorBox>
+                <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
+>>>>>>> 17e15b77 (Got error messages displaying properly)
                 <InputLine>
                     <InputBox type="text" name="first" placeholder="First Name" value={this.state.first} onChange={this.handleChange}/>
                     <InputBox type="text" name="last" placeholder="Last Name" value={this.state.last} onChange={this.handleChange}/>
