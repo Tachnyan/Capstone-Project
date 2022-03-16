@@ -1,0 +1,30 @@
+.ce-settings-column {
+    background-color: rgba(42,115,184,255) !important;
+}
+
+.ce-settings {
+    background-color: rgba(23,98,167,255) !important;
+}
+
+.ce-feed-container{
+    background-color: rgba(11,49,83,255) !important;
+}
+
+.ce-chat-feed-container{
+    background-color: rgba(23,98,167,255) !important;
+}
+
+.ce-person-title-container{
+    background-color: rgba(11,49,83,255) !important;
+    color: rgba(237,238,237,255) !important;
+}
+
+.ce-photo-title-container{
+    background-color: rgba(11,49,83,255) !important;
+    color: rgba(237,238,237,255) !important;
+}
+
+#ce-options-drop-down{
+    background-color: rgba(11,49,83,255) !important;
+    color: rgba(237,238,237,255) !important;
+}
