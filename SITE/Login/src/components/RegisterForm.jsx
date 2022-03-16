@@ -22,7 +22,7 @@ export default class RegisterForm extends React.Component
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         
-        this.errPassMatch = document.getElementById("passMatch")
+        this.errPassMatch = document.getElementById("passMatch");
 
     
     }
@@ -34,30 +34,57 @@ export default class RegisterForm extends React.Component
             [name]:event.target.value
         });
 
+        if(name == "first" || name == "last"){
+            const nameExp = new RegExp('[a-zA-z]*');
+            if(nameExp.test(event.target.value)){
+                this.errName.style.display = 'none';
+            }
+            else{
+                this.errName.style.display = 'flex';
+            }
+        }
+
+        if(name == "username"){
+            const emailExp = new RegExp('\w*@latech.edu');
+            if(emailExp.test(this.state.username)){
+                this.emailPattern.style.display = 'none';
+            }
+            else{
+                this.emailPattern.style.display = 'flex';
+            }
+        }
+
         if(name == "passwordConfirm"){
             if (event.target.value != this.state.password){
-                this.errPassMatch.style.display = 'flex'
+                this.errPassMatch.style.display = 'flex';
             }else{
-                this.errPassMatch.style.display = 'none'
+                this.errPassMatch.style.display = 'none';
+            }
+        }
+
+        if(name == "conduct"){
+            if(event.target.value != checked){
+                this.errPassMatch.style.display = 'flex';
             }
         }
     }
 
     handleSubmit(event)
     {
-        event.preventDefault()
-        console.log(event)
-        console.log(this.state)
-        console.log(config)
+        event.preventDefault();
+        console.log(event);
+        console.log(this.state);
+        console.log(config);
         if(this.state.first != "" || this.state.last != "")
 
         axios.post(config.register, this.state, {timeout:2000})
         .then((val) => {
             if(val.status == 200){
-                console.log("register successful")
+                console.log("register successful");
             }
         }).catch((err) => {
-            console.log(err)
+            console.log(err);
+            this.registerFail.syle.display = 'flex';
         })
     }
 
@@ -73,7 +100,8 @@ export default class RegisterForm extends React.Component
 
         return(
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
-                <ErrorBox></ErrorBox>
+                <ErrorBox id="registerFail">There was a problem registering your account</ErrorBox>
+                <ErrorBox id="errName">Please enter your first and last name</ErrorBox>
                 <InputLine>
                     <InputBox type="text" name="first" placeholder="First Name" value={this.state.first} onChange={this.handleChange}/>
                     <InputBox type="text" name="last" placeholder="Last Name" value={this.state.last} onChange={this.handleChange}/>
@@ -82,10 +110,6 @@ export default class RegisterForm extends React.Component
                 <InputLine>
                     <InputBox type="email" name="username" placeholder="email@latech.edu" value={this.state.username} onChange={this.handleChange}/>
                 </InputLine>
-                <ErrorBox id="errStudentID">Student ID is invalid</ErrorBox>
-                <InputLine>
-                    <InputBox type="text" name="studentID" placeholder="Student ID" value={this.state.studentID} onChange={this.handleChange}/>
-                </InputLine>
                 <ErrorBox id="passPattern"></ErrorBox>
                 <InputLine>
                     <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
@@ -93,6 +117,9 @@ export default class RegisterForm extends React.Component
                 <ErrorBox id="passMatch">Password does not match</ErrorBox>
                 <InputLine>
                     <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
+                </InputLine>
+                <InputLine>
+                    <input type="checkbox" name="conduct" value={this.state.conduct} onChange={this.handleChange}></input>I agree to abide by the Louisiana Tech Student Code of Conduct
                 </InputLine>
                 <Button type="submit" value="Submit" content="Register"/>
             </RegisterInput>
@@ -119,7 +146,7 @@ const RegisterInput = styled.form`
     align-items: center;
     flex-direction: column;
     margin-top: 5%;
-    width: 100%;
+    width: 95%;
     max-height: 60%;
     animation: fadeIn 1s;
     @keyframes fadeIn{
