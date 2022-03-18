@@ -3,7 +3,7 @@ import Button from "./Button";
 import React, { useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios";
-import config from "../config"
+import {config} from "../config"
 import { equal } from "assert";
 
 export default class RegisterForm extends React.Component
@@ -23,16 +23,11 @@ export default class RegisterForm extends React.Component
         this.handleSubmit = this.handleSubmit.bind(this);
         
         this.errPassMatch = document.getElementById("passMatch");
-
-
         this.errEmailPattern = document.getElementById("emailPattern");
         this.errRegister = document.getElementById("register");
         this.errNamePattern = document.getElementById("namePattern");
         this.errPassPattern = document.getElementById("passPattern");
-        this.success = document.getElementById("successMessage");
-        this.errEmailPattern = document.getElementById("emailPattern");
-        this.errRegister = document.getElementById("register");
-        this.errNamePattern = document.getElementById("namePattern");
+
         this.success = document.getElementById("successMessage");
     }
     
@@ -42,9 +37,6 @@ export default class RegisterForm extends React.Component
        this.errEmailPattern = document.getElementById("emailPattern");
        this.errRegister = document.getElementById("register");
        this.errNamePattern = document.getElementById("namePattern");
-       this.errPassPattern = document.getElementById("passPattern");
-       
-       this.success = document.getElementById("successMessage");
        this.errPassPattern = document.getElementById("passPattern");
        
        this.success = document.getElementById("successMessage");
@@ -63,45 +55,12 @@ export default class RegisterForm extends React.Component
                 this.errNamePattern.style.display = 'none';
             }
             else{
-                this.errName.style.display = 'flex';
                 this.errNamePattern.style.display = 'flex';
             }
         }
 
         if(name == "username"){
             const emailExp = new RegExp('\w*@latech.edu');
-            if(emailExp.test(event.target.value)){
-                this.errEmailPattern.style.display = 'none';
-            }
-            else{
-                this.errEmailPattern.style.display = 'flex';
-            }
-        }
-
-        if(name == "password"){
-            const passExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])');
-            if(passExp.test(event.target.value)){
-                this.errPassPattern.style.display = 'flex';
-            }
-            else{
-                this.errPassPattern.style.display = 'none'
-            }
-            if(passExp.test(event.target.value)){
-                this.errPassPattern.style.display = 'flex';
-            }
-            else{
-                this.errPassPattern.style.display = 'none'
-            }
-            if(passExp.test(event.target.value)){
-                this.errPassPattern.style.display = 'none';
-            }
-            else{
-                this.errPassPattern.style.display = 'flex'
-            if(emailExp.test(this.state.username)){
-                this.emailPattern.style.display = 'none';
-            }
-            else{
-                this.emailPattern.style.display = 'flex';
             if(emailExp.test(event.target.value)){
                 this.errEmailPattern.style.display = 'none';
             }
@@ -164,12 +123,6 @@ export default class RegisterForm extends React.Component
         }).catch((err) => {
             console.log(err);   
             this.errRegister.style.display = 'flex';
-            }
-        }).catch((err) => {
-            console.log(err);
-            this.registerFail.syle.display = 'flex';
-            console.log(err);   
-            this.errRegister.style.display = 'flex';
         })
     }
 
@@ -181,12 +134,6 @@ export default class RegisterForm extends React.Component
 
         return(
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
-                <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
-                <ErrorBox id="register">There was a problem registering your account</ErrorBox>
-                <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
-                <ErrorBox id="registerFail">There was a problem registering your account</ErrorBox>
-                <ErrorBox id="errName">Please enter your first and last name</ErrorBox>
-
                 <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
                 <ErrorBox id="register">There was a problem registering your account</ErrorBox>
                 <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
@@ -203,13 +150,7 @@ export default class RegisterForm extends React.Component
                     <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
                 </InputLine>
                 <ErrorBox id="passMatch">Password does not match</ErrorBox>
-                <ErrorBox id="passPattern"></ErrorBox>
                 <InputLine>
-                    <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
-                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
-                </InputLine>
-                <InputLine>
-                    <input type="checkbox" name="conduct" value={this.state.conduct} onChange={this.handleChange}></input>I agree to abide by the Louisiana Tech Student Code of Conduct
                     <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
                 </InputLine>
                 <InputLine>
