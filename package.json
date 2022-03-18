@@ -32,7 +32,7 @@
     "test": "ava",
     "auth": "cd API/SSO/ && nodemon ./src/main.js",
     "data": "cd API/Main/ && nodemon ./src/server.js",
-    "dev": "concurrently \"npm run auth\" \"npm run data\" \"webpack\""
+    "dev": "concurrently \"npm run auth\" \"npm run data\" \"webpack --mode development\""
   },
   "repository": {
     "type": "git",
