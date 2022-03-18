@@ -26,6 +26,9 @@ export default class RegisterForm extends React.Component
         this.errEmailPattern = document.getElementById("emailPattern");
         this.errRegister = document.getElementById("register");
         this.errNamePattern = document.getElementById("namePattern");
+        this.errPassPattern = document.getElementById("passPattern");
+
+        this.success = document.getElementById("successMessage");
     }
     
     componentDidMount()
@@ -34,6 +37,9 @@ export default class RegisterForm extends React.Component
        this.errEmailPattern = document.getElementById("emailPattern");
        this.errRegister = document.getElementById("register");
        this.errNamePattern = document.getElementById("namePattern");
+       this.errPassPattern = document.getElementById("passPattern");
+       
+       this.success = document.getElementById("successMessage");
     }
 
     handleChange(event)
@@ -60,6 +66,28 @@ export default class RegisterForm extends React.Component
             }
             else{
                 this.errEmailPattern.style.display = 'flex';
+            }
+        }
+
+        if(name == "password"){
+            const passExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])');
+            if(passExp.test(event.target.value)){
+                this.errPassPattern.style.display = 'flex';
+            }
+            else{
+                this.errPassPattern.style.display = 'none'
+            }
+            if(passExp.test(event.target.value)){
+                this.errPassPattern.style.display = 'flex';
+            }
+            else{
+                this.errPassPattern.style.display = 'none'
+            }
+            if(passExp.test(event.target.value)){
+                this.errPassPattern.style.display = 'none';
+            }
+            else{
+                this.errPassPattern.style.display = 'flex'
             }
         }
 
@@ -90,6 +118,7 @@ export default class RegisterForm extends React.Component
         .then((val) => {
             if(val.status == 200){
                 console.log("register successful");
+                this.success.style.display = 'flex';
             }
         }).catch((err) => {
             console.log(err);   
@@ -105,6 +134,7 @@ export default class RegisterForm extends React.Component
 
         return(
             <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
+                <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
                 <ErrorBox id="register">There was a problem registering your account</ErrorBox>
                 <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
                 <InputLine>
@@ -115,7 +145,7 @@ export default class RegisterForm extends React.Component
                 <InputLine>
                     <InputBox type="email" name="username" placeholder="email@latech.edu" value={this.state.username} onChange={this.handleChange}/>
                 </InputLine>
-                <ErrorBox id="passPattern"></ErrorBox>
+                <ErrorBox id="passPattern">Your password must contain a capital letter, a lower-case letter, a number, and a special character</ErrorBox>
                 <InputLine>
                     <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
                 </InputLine>
@@ -162,5 +192,10 @@ const RegisterInput = styled.form`
 
 const ErrorBox = styled.div`
 color:red;
+display:none;
+`
+
+const SuccessBox = styled.div`
+color:green;
 display:none;
 `
