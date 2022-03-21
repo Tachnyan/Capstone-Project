@@ -9,9 +9,7 @@ export default function router(app)
 
     //Login Request: requires email and password
     app.post('/sso/login', async (request, response)  => {
-        console.log(request.body)
         await login(request.body).then((val) =>{
-            console.log(val)
             request.session.userID = val
             request.session.save()
             response.sendStatus(200)
@@ -32,10 +30,14 @@ export default function router(app)
     })
 
     //clears userID from session data. 
-    app.get('/auth/logout', (request, response) => {
-        request.session.userID = undefined;
-        app.session.save()
-        response.sendStatus(200)
+    app.get('/auth/logout', async (request, response, next) => {
+        if(request.session.userID){
+            request.session.userID = undefined
+            request.session.save()
+            response.sendStatus(200)
+        }else{
+            next()
+        }
     })
 
 
