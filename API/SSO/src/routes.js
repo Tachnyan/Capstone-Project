@@ -5,6 +5,15 @@ const __dirname = path.resolve()
 
 export default function router(app) 
 {
+
+    app.get('/', async (request, response) => {
+        if(request.session.userID === undefined){
+            response.redirect('/login')
+        }else{
+            response.redirect('/app')
+        }
+    })
+
     //base API URL. 
     app.get(['/login'], async (request, response) => {
             response.sendFile(path.join(__dirname, './src/LoginBuild', 'index.html'))
@@ -18,15 +27,6 @@ export default function router(app)
         }
     })
 
-    app.get('/', async (request, response) => {
-        if(request.session.userID === undefined){
-            response.redirect('/login')
-        }else{
-            response.redirect('/app')
-        }
-    })
-
-    //login test call.
     app.post('/sso/login', async (request, response)  => {
         console.log(request.body)
         await login(request.body).then((val) =>{
