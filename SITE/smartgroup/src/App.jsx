@@ -5,7 +5,7 @@ import { CreateRoom } from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
 
-import { Nav } from './components/Nav'
+import Nav from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
 
