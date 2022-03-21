@@ -1,6 +1,7 @@
 import pool from './config.js'
 import mysql from 'mysql'
 import argon2 from 'argon2'
+import { randomUUID } from 'crypto';
 
 
 
@@ -22,9 +23,9 @@ async function register(data){
                         connection.release();
                         rej(400);
                     }else{
-                        //Second Query: Insert new student row with given registration information.
+                        let uuid = randomUUID()
                         sql = "INSERT INTO Student VALUES (?, ?, ?, NULL);" 
-                        insert = [data.studentID, data.first, data.last] 
+                        insert = [uuid, data.first, data.last] 
                         sql = mysql.format(sql, insert)
                         connection.query(sql, async (err, result) =>{
                             if(err){
@@ -36,7 +37,7 @@ async function register(data){
                                 let hash = await promise;
                                 //Third Query: Insert new row into login table. 
                                 sql = "INSERT INTO Login VALUES (?, ?, ?);"
-                                insert = [data.username, hash, data.studentID]
+                                insert = [data.username, hash, uuid]
                                 sql = mysql.format(sql, insert)
                                 connection.query(sql, (err, result) => {
                                     if(err){

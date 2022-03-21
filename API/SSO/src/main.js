@@ -28,8 +28,6 @@ app.use(session({
     secret: "testsadf;lj"
 }))
 
-app.use('/login',express.static(path.join(path.resolve(),'./src/LoginBuild')))
-app.use('/app',express.static(path.join(path.resolve(),'./src/SiteBuild')))
 router(app);
 
 const server = app.listen(port, (error) => {

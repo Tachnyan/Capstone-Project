@@ -1,4 +1,14 @@
+import axios from 'axios'
 import { Link } from 'react-router-dom'
+
+function logout(){
+    axios.get("/auth/logout")
+    .then((val) => {
+        if(val == 200){
+            window.location.href("/")
+        }
+    })
+}
 
 export const Nav = () => (
     <nav className="App-nav">
@@ -17,6 +27,9 @@ export const Nav = () => (
             </li>
             <li>
                 <Link to="/app/StudyRoom">Study Room</Link>
+            </li>
+            <li>
+                <Link to="/auth/logout" onClick={logout()}>Log Out</Link>
             </li>
         </ul>
     </nav>
