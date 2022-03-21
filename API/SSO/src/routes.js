@@ -1,32 +1,13 @@
 import { register, login } from './queries.js'
 import express from 'express'
 import path from 'path'
+import session from 'express-session';
 const __dirname = path.resolve()
 
 export default function router(app) 
 {
 
-    app.get('/', async (request, response) => {
-        if(request.session.userID === undefined){
-            response.redirect('/login')
-        }else{
-            response.redirect('/app')
-        }
-    })
-
-    //base API URL. 
-    app.get(['/login'], async (request, response) => {
-            response.sendFile(path.join(__dirname, './src/LoginBuild', 'index.html'))
-    })
-
-    app.get(['/app', '/app/*'], async (request, response) => {
-        if(request.session.userID === undefined){
-            response.redirect('../login')
-        }else{
-            response.sendFile(path.join(__dirname, './src/SiteBuild', 'index.html'))
-        }
-    })
-
+    //Login Request: requires email and password
     app.post('/sso/login', async (request, response)  => {
         console.log(request.body)
         await login(request.body).then((val) =>{
@@ -39,6 +20,7 @@ export default function router(app)
         })
     });
 
+    //Register Request: requires fname, lname, email, and password. 
     app.post('/sso/register' , async (request, response) => {
         await register(request.body)
         .then((val) => {
@@ -47,5 +29,33 @@ export default function router(app)
             response.sendStatus(err)
         })
         
+    })
+
+    //clears userID from session data. 
+    app.get('/auth/logout', (request, response) => {
+        request.session.userID = undefined;
+        app.session.save()
+        response.sendStatus(200)
+    })
+
+
+    app.get(["/app","/app/*"], (request, response, next) => {
+        if(request.session.userID === undefined){
+            response.redirect("../login")
+        }else{
+            next()
+        }
+    })
+
+    app.use("/login", express.static(path.join(__dirname, "/src/LoginBuild")))
+    app.use("/app", express.static(path.join(__dirname, "/src/SiteBuild")))
+
+
+    app.get('*', (request, response) => {
+        if(request.session.userID === undefined){
+            response.redirect('/login')
+        }else{
+            response.redirect('/app')
+        }
     })
 }
