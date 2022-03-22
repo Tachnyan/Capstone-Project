@@ -8,7 +8,7 @@ export default function router(app)
 {
 
     //Login Request: requires email and password
-    app.post('/sso/login', async (request, response)  => {
+    app.post('/auth/login', async (request, response)  => {
         await login(request.body).then((val) =>{
             request.session.userID = val
             request.session.save()
@@ -19,7 +19,7 @@ export default function router(app)
     });
 
     //Register Request: requires fname, lname, email, and password. 
-    app.post('/sso/register' , async (request, response) => {
+    app.post('/auth/register' , async (request, response) => {
         await register(request.body)
         .then((val) => {
             response.sendStatus(val)
