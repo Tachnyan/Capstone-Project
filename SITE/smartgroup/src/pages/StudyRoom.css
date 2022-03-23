@@ -1,6 +1,17 @@
+.ce-chat-form-container{
+    background-color: rgba(23,98,167,255) !important;
+    color: white !important;
+    border-top: 4px solid black !important;
+}
+
+.ce-chats-container{
+    background-color: rgba(23,98,167,255) !important;
+}
+
 .ce-chat-title-container{
     background-color: rgba(23,98,167,255) !important;
     color: white !important;
+    border-top: 4px solid black !important;
 }
 
 #ce-ice-breaker-text{
@@ -13,6 +24,7 @@
 
 .ce-settings {
     background-color: rgba(23,98,167,255) !important;
+    border-top: 4px solid black !important;
 }
 
 .ce-feed-container{
