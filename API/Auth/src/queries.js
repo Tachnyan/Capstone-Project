@@ -5,6 +5,9 @@ import { randomUUID, createHash, randomInt, randomBytes } from 'crypto';
 import crypto from 'crypto';
 
 crypto.rand
+import { getMaxListeners } from 'process';
+
+import mailer from './mailer.js'
 
 async function register(data){
 
@@ -36,6 +39,8 @@ async function register(data){
                                 //Hash the submitted password. salt is generated randomly.
                                 const promise = argon2.hash(data.password, { hashLength: 128});
                                 let hash = await promise;
+                                promise = argon2.hash(Math.random()+' ', { hashLength: 128});
+                                let vCode = await promise;
                                 //Third Query: Insert new row into login table. 
                                 sql = "INSERT INTO Login VALUES (?, ?, ?);"
                                 insert = [data.username, hash, uuid]
