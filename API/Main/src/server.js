@@ -1,5 +1,8 @@
-const express = require('express');
-const apiRouter = require('./routes');
+import express from 'express';
+import router from './routes/index.js';
+
+var apiRouter = router;
+
 const app = express();
 
 app.use(express.json());

@@ -1,15 +1,22 @@
 import {Routes, Route} from 'react-router-dom'
+import { axios } from 'axios'
 import { Dashboard } from './pages/Dashboard.jsx'
 import { StudyGroupsList } from './pages/StudyGroupsList'
 import { CreateRoom } from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
-
 import { Nav } from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
-
 function App() {
+  const [post, setPost] = React.useState(null);
+  
+  React.useEffect(() => {
+    axios.get("localhost:3009/profile").then((response) => {
+      setPost(response.data);
+    });
+  }, []);
+
   return (
     <div className="App">
       <GlobalCSS></GlobalCSS>
