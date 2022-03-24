@@ -18,7 +18,7 @@ function App() {
       <body className='App-body'>
         <Routes>
           <Route path="/app" element={<Dashboard/>}/>
-          <Route path="/app/Profile" element={<ProfilePage/>}/>
+          <Route path="/app/Profile" element={<ProfilePage school = "Louisiana Tech University"/>}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom/>}/>
