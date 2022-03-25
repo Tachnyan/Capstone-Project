@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+import mysql from 'mysql';
 
 const pool = mysql.createPool({
     connectionLimit: 1000,
@@ -62,4 +62,4 @@ studygroupdb.studygroups = () => {
 
 };
 
-module.exports = studygroupdb;
+export default studygroupdb;

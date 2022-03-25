@@ -1,7 +1,7 @@
-const express = require('express');
-const db = require('../db');
+import express from 'express';
+import db from '../db/index.js'
 
-const router = express.Router();
+var router = express.Router();
 
 router.get('/friends', async (req, res, next) => {
 
@@ -52,4 +52,4 @@ router.get('/studygroups', async (req, res, next) => {
 
 });
 
-module.exports = router;
+export default router;
