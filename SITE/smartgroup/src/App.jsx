@@ -33,15 +33,16 @@ function App() {
       setPostClassmates(response.data);
     });
   }, []);
+  console.log(postClassmates)
 
-    //get  studygroups list from Main API and set to postStudygroups const
-    const [postStudygroups, setPostStudygroups] = React.useState([]);
-    React.useEffect(() => {
-      axios.get('http://127.0.0.1:3009/studygroups').then((response) => {
-        setPostStudygroups(response.data);
-      });
-    }, []);
-    console.log(postStudygroups)
+  //get  studygroups list from Main API and set to postStudygroups const
+  const [postStudygroups, setPostStudygroups] = React.useState([]);
+  React.useEffect(() => {
+    axios.get('http://127.0.0.1:3009/studygroups').then((response) => {
+      setPostStudygroups(response.data);
+    });
+  }, []);
+  console.log(postStudygroups)
 
 
   return (
