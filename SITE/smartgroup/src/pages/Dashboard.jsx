@@ -10,7 +10,7 @@ export const Dashboard = (props) => {
     //build array of rows for friends list table
     //fill each row with name of classmate
     var ClassmatesListRows = []
-    props.classmatesList.forEach(classmate => ClassmatesListRows.push(ClassmatesListRows.push(<ListRow><td>{classmate.Student_first} {classmate.Student_last}</td></ListRow>)))
+    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.student_first} {classmate.student_last} </td></ListRow>))
     
     return (
         <Main>
