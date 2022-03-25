@@ -1,4 +1,4 @@
-import { register, login } from './queries.js'
+import { register, login, confirmEmail } from './queries.js'
 import express from 'express'
 import path from 'path'
 import session from 'express-session';
@@ -24,6 +24,17 @@ export default function router(app)
         })
         .catch((err) =>{
             response.sendStatus(err)
+        })
+    });
+
+    //route for confirming emails
+    app.get('/auth/src/confirmEmail', (request, response) =>{
+        confirmEmail(request.query.token)
+        .then((val) => {
+            console.log(val)
+            response.redirect('/login')
+        }).catch((err) => {
+            console.log(err)
         })
     });
 

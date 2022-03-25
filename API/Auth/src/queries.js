@@ -2,13 +2,8 @@ import { pool } from './config.js'
 import mysql from 'mysql'
 import argon2 from 'argon2'
 import { randomUUID, createHash, randomInt, randomBytes } from 'crypto';
-import crypto from 'crypto';
-
-crypto.rand
-import { getMaxListeners } from 'process';
 
 import mailer from './mailer.js'
-import { appendFileSync } from 'fs'
 
 async function register(data){
 
@@ -45,7 +40,7 @@ async function register(data){
                                 const promise = argon2.hash(data.password, { hashLength: 128});
                                 let hash = await promise;
                                 //create verification code for email
-                                const vCode = crypto.randomBytes(32).toString('hex');
+                                const vCode = randomBytes(32).toString('hex');
                                 //create expiration date of code
                                 var expirationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
                                 //Third Query: Insert new row into login table. 
@@ -132,7 +127,6 @@ async function confirmEmail(data){
         })
     });
 
-    return res.redirect('http://localhost:3001/login');
 }
 
 export { register, login, confirmEmail }
