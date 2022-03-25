@@ -28,7 +28,7 @@ export default function router(app)
     });
 
     //route for confirming emails
-    app.get('/auth/src/confirmEmail', (request, response) =>{
+    app.get('/auth/confirmEmail', (request, response) =>{
         confirmEmail(request.query.token)
         .then((val) => {
             console.log(val)
