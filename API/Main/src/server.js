@@ -1,10 +1,11 @@
 import express from 'express';
 import router from './routes/index.js';
+import cors from 'cors';
 
 var apiRouter = router;
 
-const app = express();
-
+var app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use ('/', apiRouter);

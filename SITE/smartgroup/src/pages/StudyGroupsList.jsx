@@ -7,9 +7,7 @@ export function StudyGroupsList(props) {
   //build array of rows for study groups table
   //fill each row with data for each study group
   var StudygroupsListRows = []
-  for(var i = 0; i < 5; i++){
-      StudygroupsListRows.push(<RowElement id='1' course='CSC 130' location='IESB 216' material='Program 1' numpeople='3' timeframe='2pm-4pm' />)
-  }
+  props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_id} course = '!' location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = '3' timeframe = {group.Studygroup_Start} />))
   
   return (
     <div className="studygroupslist">

@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import axios from 'axios'
 
 export const ProfilePage = (props) => {
     // build array of rows in class schedule table.
@@ -13,7 +14,6 @@ export const ProfilePage = (props) => {
             <Title>PROFILE</Title>
             <Row>School: <TextBox> {props.school} </TextBox></Row>
             <Row>Display Name: <TextBox> {props.firstName} {props.lastName}</TextBox></Row>
-            <Row>Student ID: <TextBox> {props.studentID} </TextBox></Row>
 
             <ListDiv>
                 Classes

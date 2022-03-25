@@ -1,5 +1,5 @@
+import axios from 'axios'
 import {Routes, Route} from 'react-router-dom'
-import { axios } from 'axios'
 import { Dashboard } from './pages/Dashboard.jsx'
 import { StudyGroupsList } from './pages/StudyGroupsList'
 import { CreateRoom } from './pages/CreateRoom'
@@ -9,13 +9,39 @@ import { Nav } from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
 function App() {
-  const [post, setPost] = React.useState(null);
-  
+  //get profile data from Main API and set to postProfile const
+  const [postProfile, setPostProfile] = React.useState([]);
   React.useEffect(() => {
-    axios.get("localhost:3009/profile").then((response) => {
-      setPost(response.data);
+    axios.get('http://127.0.0.1:3009/profile').then((response) => {
+      setPostProfile(response.data);
     });
   }, []);
+
+  //get  friends list from Main API and set to postFriends const
+  const [postFriends, setPostFriends] = React.useState([]);
+  React.useEffect(() => {
+    axios.get('http://127.0.0.1:3009/friends').then((response) => {
+      setPostFriends(response.data);
+    });
+  }, []);
+
+  //get  classmate list from Main API and set to postClassmates const
+  const [postClassmates, setPostClassmates] = React.useState([]);
+  React.useEffect(() => {
+    axios.get('http://127.0.0.1:3009/classmates').then((response) => {
+      setPostClassmates(response.data);
+    });
+  }, []);
+
+    //get  studygroups list from Main API and set to postStudygroups const
+    const [postStudygroups, setPostStudygroups] = React.useState([]);
+    React.useEffect(() => {
+      axios.get('http://127.0.0.1:3009/studygroups').then((response) => {
+        setPostStudygroups(response.data);
+      });
+    }, []);
+    console.log(postStudygroups)
+
 
   return (
     <div className="App">
@@ -24,9 +50,9 @@ function App() {
 
       <body className='App-body'>
         <Routes>
-          <Route path="/app" element={<Dashboard/>}/>
-          <Route path="/app/Profile" element={<ProfilePage school = "Louisiana Tech University"/>}/>
-          <Route path="/app/StudyGroupsList" element={<StudyGroupsList/>}/>
+          <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
+          <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
+          <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom/>}/>
         </Routes>

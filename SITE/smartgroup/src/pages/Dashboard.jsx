@@ -5,16 +5,13 @@ export const Dashboard = (props) => {
     //build array of rows for friends list table
     //fill each row with name of friend
     var FriendsListRows = []
-    for(var i = 0; i < 5; i++){
-        FriendsListRows.push(<ListRow><Cell>Friend {i}</Cell></ListRow>)
-    }
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_first} {friend.Student_last}</td></ListRow>))
 
     //build array of rows for friends list table
     //fill each row with name of classmate
     var ClassmatesListRows = []
-    for(var i = 0; i < 5; i++){
-        ClassmatesListRows.push(<ListRow><Cell>Classmate {i}</Cell></ListRow>)
-    }
+    props.classmatesList.forEach(classmate => ClassmatesListRows.push(ClassmatesListRows.push(<ListRow><td>{classmate.Student_first} {classmate.Student_last}</td></ListRow>)))
+    
     return (
         <Main>
             <Title>DASHBOARD</Title>
@@ -103,8 +100,4 @@ const ListRow = styled.tr`
     margin-top: 10%;
     height: 20%;
     width: 100%;
-`
-
-const Cell = styled.td`
-    
 `
