@@ -7,12 +7,11 @@ export function StudyGroupsList(props) {
   //build array of rows for study groups table
   //fill each row with data for each study group
   var StudygroupsListRows = []
-  props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_id} course = '!' location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = '3' timeframe = {group.Studygroup_Start} />))
+  props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_id} course = '!' location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = '3' timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} />))
   
   return (
     <div className="studygroupslist">
       <header>
-        
         <h1>
           Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
           <Link to="/"><button>Back to Menu</button></Link>
