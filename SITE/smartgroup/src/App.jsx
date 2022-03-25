@@ -49,7 +49,7 @@ function App() {
       <GlobalCSS></GlobalCSS>
       <Nav></Nav>
 
-      <body className='App-body'>
+      <div className='App-body'>
         <Routes>
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
@@ -57,7 +57,7 @@ function App() {
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom/>}/>
         </Routes>
-      </body>
+      </div>
     </div>
   );
 }

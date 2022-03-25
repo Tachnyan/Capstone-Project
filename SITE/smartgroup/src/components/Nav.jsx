@@ -16,10 +16,11 @@ export default class Nav extends React.Component
     {
         event.preventDefault();
 
-        axios.get("/auth/logout")
+        axios.get("http://127.0.0.1:3002/auth/logout", {timeout:2000})
             .then((val) => {
-                if (val == 200) {
-                    window.location.href = '127.0.0.1:3002/login'
+                if (val.status == 200) {
+                    console.log(val)
+                    window.location.href = "http://127.0.0.1:3002/login"
                 }
             }).catch((err) => {
                 console.log(err)
@@ -49,7 +50,7 @@ export default class Nav extends React.Component
                         <Link to="/app/StudyRoom">Study Room</Link>
                     </li>
                     <li>
-                        <a href="javascript:;" onClick={this.logout}>Log Out</a>
+                        <a href="#" onClick={this.logout}>Log Out</a>
                     </li>
                 </ul>
             </nav>

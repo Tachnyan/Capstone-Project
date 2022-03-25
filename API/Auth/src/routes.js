@@ -8,12 +8,21 @@ export default function router(app)
 {
 
     //Login Request: requires email and password
-    app.post('/auth/login', async (request, response)  => {
-        await login(request.body).then((val) =>{
+    app.post('/auth/login', (request, response)  => {
+        login(request.body)
+        .then((val) =>
+        {
             request.session.userID = val
-            request.session.save()
-            response.sendStatus(200)
-        }).catch((err) =>{
+            request.session.save((err) => {
+                if (err){
+                    console.log(err);
+                    request.sendStatus(500)
+                }else{
+                    response.sendStatus(200)
+                }
+            })
+        })
+        .catch((err) =>{
             response.sendStatus(err)
         })
     });
@@ -32,9 +41,14 @@ export default function router(app)
     //clears userID from session data. 
     app.get('/auth/logout', async (request, response, next) => {
         if(request.session.userID){
-            request.session.userID = undefined
-            request.session.save()
-            response.sendStatus(200)
+            request.session.destroy((err) => {
+                if(err){
+                    console.log(err)
+                    response.sendStatus(500)
+                }else{
+                    response.sendStatus(200)
+                }
+            })
         }else{
             next()
         }
@@ -43,7 +57,9 @@ export default function router(app)
 
     app.get(["/app","/app/*"], (request, response, next) => {
         if(request.session.userID === undefined){
-            response.redirect("../login")
+            request.session.destroy((err) => {
+                response.redirect('/login')
+            })
         }else{
             next()
         }
@@ -55,7 +71,9 @@ export default function router(app)
 
     app.get('*', (request, response) => {
         if(request.session.userID === undefined){
-            response.redirect('/login')
+            request.session.destroy((err) => {
+                response.redirect('/login')
+            })
         }else{
             response.redirect('/app')
         }

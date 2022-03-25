@@ -37,8 +37,8 @@ export default class LoginForm extends React.Component
         .then((val) => {
             if(val.status == 200){
                 console.log('success')
+                window.location.href = config.landing
             }
-            window.location.href = config.landing
             
         }).catch((err) =>{
             console.log(err)
