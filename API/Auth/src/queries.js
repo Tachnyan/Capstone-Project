@@ -86,7 +86,7 @@ async function login(data){
                 rej(err);
             }else{
                 //First Query: Look for given username and grab all fields.
-                let sql = "SELECT * FROM Login WHERE Login_User = ?;"
+                let sql = "SELECT * FROM Login WHERE Login_User = ? AND active = 1;"
                 let insert = [data.username]
                 sql = mysql.format(sql, insert)
                 connection.query(sql, async (err, result, fields) => {
@@ -110,7 +110,7 @@ async function login(data){
 
 }
 
-async function verify(data){
+async function confirmEmail(data){
     return new Promise((res, rej) => {
         pool.getConnection((err, connection) => {
             if(err) {
@@ -118,12 +118,14 @@ async function verify(data){
             }else{
                 //Query: Update account to active where token matches
                 let sql = "UPDATE login SET active = 1 WHERE Hash_Verification = ?;"
-                let insert = [data.username] //needs to be hashed code
+                let insert = [data] //needs to be hashed code
                 sql = mysql.format(sql, insert)
                 connection.query(sql, async (err, result, fields) => {
                     if (err) {
                         rej(500)
                         console.log(err)
+                    }else{
+                        res(200)
                     }
                 })
             }
@@ -133,4 +135,4 @@ async function verify(data){
     return res.redirect('http://localhost:3001/login');
 }
 
-export { register, login }
+export { register, login, confirmEmail }
