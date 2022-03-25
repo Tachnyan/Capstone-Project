@@ -1,9 +1,10 @@
-import pool from './config.js'
+import { pool } from './config.js'
 import mysql from 'mysql'
 import argon2 from 'argon2'
-import { randomUUID } from 'crypto';
+import { randomUUID, createHash, randomInt, randomBytes } from 'crypto';
+import crypto from 'crypto';
 
-
+crypto.rand
 
 async function register(data){
 
@@ -86,6 +87,7 @@ async function login(data){
                     }
                 })
             }
+            connection.release()
         })
     });
 

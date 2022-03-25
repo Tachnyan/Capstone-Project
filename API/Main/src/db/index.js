@@ -14,7 +14,7 @@ let studygroupdb = {};
 studygroupdb.friends = () => {
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT Student_first, Student_last FROM student WHERE Student_id IN (SELECT Student_Student_ID FROM student_has_friend WHERE Student_Student_ID1 = \'100-20-300\')', (err, results) => {
+        pool.query('SELECT Student_first, Student_last FROM student WHERE Student_id IN (SELECT Student_Student_ID FROM student_has_friend WHERE Student_Student_ID1 = \'59efb7aa-3d80-4f9d-9b93-e5d87155ed6b\')', (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -27,7 +27,7 @@ studygroupdb.friends = () => {
 studygroupdb.classmates = () => {
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT student_first, student_last FROM student WHERE Student_ID IN (SELECT student_student_id from student_has_course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM student_has_course WHERE Student_Student_ID = \'100-20-300\'))', (err, results) => {
+        pool.query('SELECT student_first, student_last FROM student WHERE Student_ID IN (SELECT student_student_id from student_has_course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM student_has_course WHERE Student_Student_ID = \'59efb7aa-3d80-4f9d-9b93-e5d87155ed6b\'))', (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -40,7 +40,7 @@ studygroupdb.classmates = () => {
 studygroupdb.profile = () => {
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM student WHERE Student_ID = \'100-20-300\'', (err, results) => {
+        pool.query('SELECT * FROM student WHERE Student_ID = \'59efb7aa-3d80-4f9d-9b93-e5d87155ed6b\'', (err, results) => {
             if(err){
                 return reject(err);
             }

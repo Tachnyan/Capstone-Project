@@ -8,20 +8,27 @@ export default function router(app)
 {
 
     //Login Request: requires email and password
-    app.post('/sso/login', async (request, response)  => {
-        console.log(request.body)
-        await login(request.body).then((val) =>{
-            console.log(val)
+    app.post('/auth/login', (request, response)  => {
+        login(request.body)
+        .then((val) =>
+        {
             request.session.userID = val
-            request.session.save()
-            response.sendStatus(200)
-        }).catch((err) =>{
+            request.session.save((err) => {
+                if (err){
+                    console.log(err);
+                    request.sendStatus(500)
+                }else{
+                    response.sendStatus(200)
+                }
+            })
+        })
+        .catch((err) =>{
             response.sendStatus(err)
         })
     });
 
     //Register Request: requires fname, lname, email, and password. 
-    app.post('/sso/register' , async (request, response) => {
+    app.post('/auth/register' , async (request, response) => {
         await register(request.body)
         .then((val) => {
             response.sendStatus(val)
@@ -32,16 +39,27 @@ export default function router(app)
     })
 
     //clears userID from session data. 
-    app.get('/auth/logout', (request, response) => {
-        request.session.userID = undefined;
-        app.session.save()
-        response.sendStatus(200)
+    app.get('/auth/logout', async (request, response, next) => {
+        if(request.session.userID){
+            request.session.destroy((err) => {
+                if(err){
+                    console.log(err)
+                    response.sendStatus(500)
+                }else{
+                    response.sendStatus(200)
+                }
+            })
+        }else{
+            next()
+        }
     })
 
 
     app.get(["/app","/app/*"], (request, response, next) => {
         if(request.session.userID === undefined){
-            response.redirect("../login")
+            request.session.destroy((err) => {
+                response.redirect('/login')
+            })
         }else{
             next()
         }
@@ -53,7 +71,9 @@ export default function router(app)
 
     app.get('*', (request, response) => {
         if(request.session.userID === undefined){
-            response.redirect('/login')
+            request.session.destroy((err) => {
+                response.redirect('/login')
+            })
         }else{
             response.redirect('/app')
         }

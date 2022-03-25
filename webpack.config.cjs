@@ -47,7 +47,7 @@ const login = Object.assign({}, config, {
     name: "login",
     entry: '/SITE/Login/src/index.jsx',
     output: {
-        path: path.join(__dirname, '/API/SSO/src/LoginBuild'),
+        path: path.join(__dirname, '/API/Auth/src/LoginBuild'),
         filename: 'login-[name].js'
     }
 });
@@ -56,7 +56,7 @@ const mainSite = Object.assign({}, config, {
     name: "mainSite",
     entry: './SITE/smartgroup/src/index.jsx',
     output: {
-        path: path.join(__dirname, './API/SSO/src/SiteBuild'),
+        path: path.join(__dirname, './API/Auth/src/SiteBuild'),
         filename: 'sb-[name].js'
     }
 })
