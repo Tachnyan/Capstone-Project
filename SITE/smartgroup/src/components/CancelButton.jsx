@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom'
 
 export default function CancelButton({content}){
-    return <StyledButton>{content}</StyledButton>
+    return <Link to="/StudyGroupsList"><StyledButton>{content}</StyledButton></Link>
 }
 
 const StyledButton = styled.button`
     position: relative;
-    background: lightpink;
+    background: red;
     width: 8rem;
     height: 100%;
     padding: 0px;

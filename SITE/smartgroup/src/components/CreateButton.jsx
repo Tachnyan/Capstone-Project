@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom'
 
 export default function CreateButton({content}){
-    return <StyledButton>{content}</StyledButton>
+    return <Link to="/StudyRoom"><StyledButton>{content}</StyledButton></Link>
 }
 
 const StyledButton = styled.button`
     position: relative;
-    background: lightgreen;
+    background: green;
     width: 8rem;
     height: 100%;
     padding: 0px;

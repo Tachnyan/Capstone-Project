@@ -12,7 +12,11 @@ const MainColumn = styled.div`
     height: 70vh;
     width: 60vw;
     max-width: 1000px;
-    background: lightblue;
+    outline: solid;
+    color: white;
+    background: rgba(0, 0, 0, 0.50);
+    border-radius: 1rem;
+    box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);
 `;
 
 const MainRow = styled.div`
@@ -45,7 +49,7 @@ export function CreateRoom() {
                 <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
                 <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
                 <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
-                <MainRow><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
+                <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
             </MainColumn>
         </div>
     )

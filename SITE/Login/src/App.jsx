@@ -3,15 +3,24 @@ import InputBox from "./components/InputBox";
 import Button from "./components/Button"
 import LoginTitleButton from "./components/LoginTitleButton";
 import RegisterTitleButton from "./components/RegisterTitleButton";
+import RegisterForm from "./components/RegisterForm"
+import LoginForm from "./components/LoginForm"
+import { Component } from 'react'
+import { render } from "react-dom";
 
+class App extends Component {
+    constructor(props) {
+        super(props);
 
-function App() {
-    var screenType = "login";
+        this.screenType = "login";
+        this.swapToLogin = this.swapToLogin.bind(this);
+        this.swapToRegister = this.swapToRegister.bind(this);
+    }
 
     //function for swapping input form from registration to login
-    function swapToLogin(){
-        if(screenType == "register"){
-            screenType = "login";
+    swapToLogin() {
+        if (this.screenType == "register") {
+            this.screenType = "login";
             var login = document.getElementById("loginInputs");
             var register = document.getElementById("registerInputs");
             var loginTitleButton = document.getElementById("loginTitleButton");
@@ -21,14 +30,14 @@ function App() {
             register.style.display = "none";
             loginTitleButton.style.color = "white";
             registerTitleButton.style.color = "grey";
-            submitButton.textContent = "login";
+            //submitButton.textContent = "login";
         }
     }
 
     //function for swapping input form from login to registration
-    function swapToRegister(){
-        if(screenType == "login"){
-            screenType = "register";
+    swapToRegister() {
+        if (this.screenType == "login") { 
+            this.screenType = "register";
             var login = document.getElementById("loginInputs");
             var register = document.getElementById("registerInputs");
             var loginTitleButton = document.getElementById("loginTitleButton");
@@ -37,40 +46,36 @@ function App() {
             loginTitleButton.style.color = "grey";
             register.style.display = "flex";
             registerTitleButton.style.color = "white";
-            submitButton.textContent = "register";
+            //submitButton.textContent = "register";
             login.style.display = "none";
         }
     }
 
-    //test function: test request to SSO API. 
-    function testLoginApi()
-    {
-        fetch('/sso/login/test')
-    }
+    render() {
+        return (
+            //Main input Box containing Title (login/register buttons), input form, and submit button
+            <MainInputBox>
 
-    return(
-    //Main input Box containing Title (login/register buttons), input form, and submit button
-    <MainInputBox>
+                {/* Title (login/register buttons)*/}
+                <InputTitleBox>
+                    <LoginTitleButton id="loginTitleButton" onClick={this.swapToLogin} content="login" />
+                    <RegisterTitleButton id="registerTitleButton" onClick={this.swapToRegister} content="register" />
+                </InputTitleBox>
 
-        {/* Title (login/register buttons)*/}
-        <InputTitleBox>
-            <LoginTitleButton id = "loginTitleButton" onClick = {swapToLogin} content = "login"/>
-            <RegisterTitleButton id = "registerTitleButton" onClick = {swapToRegister} content = "register"/>
-        </InputTitleBox>
-
-        {/* Login input form (shown by default) */}
-        <Inputs id = "loginInputs">
-            <InputLine>
+                {/* Login input form (shown by default) */}
+                <LoginForm id="loginInputs">
+                    {/* <InputLine>
                 <InputBox type = "text" placeholder = "email"/>
             </InputLine>
             <InputLine>
                 <InputBox type = "password" placeholder = "password"/>
             </InputLine>
-        </Inputs>
+            <Button id = "submitButton" onClick={btnContext} content = "login"/> */}
+                </LoginForm>
 
-        {/* Register input form */}
-        <RegisterInputs id = "registerInputs">
-            <InputLine>
+                {/* Register input form */}
+                <RegisterForm>
+                    {/* <InputLine>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="first name"/>
                 <InputBox style = {{width: "38%"}} type = "text" placeholder="last name"/>
             </InputLine>
@@ -78,17 +83,22 @@ function App() {
                 <InputBox type = "text" placeholder="email"/>
             </InputLine>
             <InputLine>
+                <InputBox type="text" placeholder="student ID"/>
+            </InputLine>
+            <InputLine>
             <InputBox type = "password" placeholder = "password"/>
             </InputLine>
             <InputLine>
             <InputBox type = "password" placeholder = "confirm password"/>
             </InputLine>
-        </RegisterInputs>
+            <Button type="button" id = "submitButton" content = "register"/> */}
+                </RegisterForm>
 
-        {/* login / register submit button */}
-        <Button id = "submitButton" onClick={testLoginApi} content = "login"/>
-    </MainInputBox>
-    )
+                {/* login / register submit button */}
+
+            </MainInputBox>
+        )
+    }
 }
 
 const InputLine = styled.div`
@@ -103,48 +113,15 @@ const InputLine = styled.div`
 `;
 
 
-const Inputs = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 5%;
-    width: 100%;
-    height: 50%;
-    animation: fadeIn 1s;
-    @keyframes fadeIn{
-        0%{opacity: 0;}
-        100%{opacity:1;}
-    }
-
-`;
-
-const RegisterInputs = styled.div`
-    position: relative;
-    display: none;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 5%;
-    width: 100%;
-    height: 50%;
-    animation: fadeIn 1s;
-    @keyframes fadeIn{
-        0%{opacity: 0;}
-        100%{opacity:1;}
-    }
-`;
-
 const MainInputBox = styled.div`
     position: relative;
     color: white;
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 40rem;
-    width: 25rem;
-    min-height: 450px;
+    min-height: 525px;
     max-width: 400px;
-    max-height: 500px;
+    max-height: 550px;
     background: rgba(0, 0, 0, 0.50);
     border-radius: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.55);

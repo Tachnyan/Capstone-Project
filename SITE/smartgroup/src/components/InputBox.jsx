@@ -6,7 +6,8 @@ export default function InputBox({type, placeholder}){
 
 const StyledInputBox = styled.input`
     position: relative;
-    background: white;
+    color: white;
+    background: rgba(0,0,0,0.25);
     border-radius: 2rem;
     width: 80%;
     height: 10%;
@@ -17,7 +18,7 @@ const StyledInputBox = styled.input`
     text-align: center;
     font-size: 3vh;
     ::placeholder{
-        color: rgba(0, 0, 0, 0.5);
+        color: rgba(0, 0, 0, 0.8);
         font-style: italic;
     }
 `;

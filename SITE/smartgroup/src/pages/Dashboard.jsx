@@ -1,7 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
+    //build array of rows for friends list table
+    //fill each row with name of friend
+    var FriendsListRows = []
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_first} {friend.Student_last}</td></ListRow>))
+
+    //build array of rows for friends list table
+    //fill each row with name of classmate
+    var ClassmatesListRows = []
+    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.student_first} {classmate.student_last} </td></ListRow>))
+    
     return (
         <Main>
             <Title>DASHBOARD</Title>
@@ -9,26 +19,7 @@ export const Dashboard = () => {
             <ListDiv>
             <FriendsListHead><u>Friends</u></FriendsListHead>
             <List>  
-                <body>
-                    <ListRow><Cell>Charley Brown</Cell></ListRow>
-                    <ListRow><Cell>Than Nguyen</Cell></ListRow>
-                    <ListRow><Cell>Brian Mulhair</Cell></ListRow>
-                    <ListRow><Cell>James Brooks</Cell></ListRow>
-                    <ListRow><Cell>Devin Wilber</Cell></ListRow>
-                    <ListRow><Cell>Snoopy</Cell></ListRow>
-                    <ListRow><Cell>Charley Brown</Cell></ListRow>
-                    <ListRow><Cell>Than Nguyen</Cell></ListRow>
-                    <ListRow><Cell>Brian Mulhair</Cell></ListRow>
-                    <ListRow><Cell>James Brooks</Cell></ListRow>
-                    <ListRow><Cell>Devin Wilber</Cell></ListRow>
-                    <ListRow><Cell>Snoopy</Cell></ListRow>
-                    <ListRow><Cell>Charley Brown</Cell></ListRow>
-                    <ListRow><Cell>Than Nguyen</Cell></ListRow>
-                    <ListRow><Cell>Brian Mulhair</Cell></ListRow>
-                    <ListRow><Cell>James Brooks</Cell></ListRow>
-                    <ListRow><Cell>Devin Wilber</Cell></ListRow>
-                    <ListRow><Cell>Snoopy</Cell></ListRow>
-                </body>         
+                {FriendsListRows}       
             </List>
             </ListDiv>
 
@@ -36,21 +27,7 @@ export const Dashboard = () => {
             <ListDiv>
             <FriendsListHead><u>Classmates</u></FriendsListHead>
             <List>  
-                <body>
-                    <ListRow><Cell>Scooter Brown</Cell></ListRow>
-                    <ListRow><Cell>Charley Cupit</Cell></ListRow>
-                    <ListRow><Cell>John Smith</Cell></ListRow>
-                    <ListRow><Cell>Alex Brandy</Cell></ListRow>
-                    <ListRow><Cell>Luke Crinkle</Cell></ListRow>
-                    <ListRow><Cell>Evan Webber</Cell></ListRow>
-                    <ListRow><Cell>Adam West</Cell></ListRow>
-                    <ListRow><Cell>Post Malone</Cell></ListRow>
-                    <ListRow><Cell>Brian Mulhair</Cell></ListRow>
-                    <ListRow><Cell>James Brooks</Cell></ListRow>
-                    <ListRow><Cell>Devin Wilber</Cell></ListRow>
-                    <ListRow><Cell>Snoopy</Cell></ListRow>
-                    <ListRow><Cell>Charley Brown</Cell></ListRow>
-                </body>         
+                {ClassmatesListRows}     
             </List>
             </ListDiv>
         </Main>
@@ -123,8 +100,4 @@ const ListRow = styled.tr`
     margin-top: 10%;
     height: 20%;
     width: 100%;
-`
-
-const Cell = styled.td`
-    
 `
