@@ -12,7 +12,9 @@ const pool = mysql.createPool({
 function friends(){
 
     return new Promise((resolve, reject) => {
+      
         pool.query('SELECT Student_First, Student_Last FROM student WHERE Student_ID IN (SELECT Student_Friended_ID FROM student_has_friend WHERE Student_User_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
+
             if(err){
                 return reject(err);
             }
