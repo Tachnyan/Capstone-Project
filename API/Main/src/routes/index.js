@@ -1,12 +1,12 @@
 import express from 'express';
-import db from '../db/index.js'
+import {friends, classmates, profile, studygroups} from '../db/index.js'
 
 var router = express.Router();
 
 router.get('/friends', async (req, res, next) => {
 
     try{
-        let results = await db.friends();
+        let results = await friends();
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -18,7 +18,7 @@ router.get('/friends', async (req, res, next) => {
 router.get('/profile', async (req, res, next) => {
 
     try{
-        let results = await db.profile();
+        let results = await profile();
         res.json(results);
 	console.log("Profile Data Accessed!");
     } catch(e){
@@ -31,7 +31,7 @@ router.get('/profile', async (req, res, next) => {
 router.get('/classmates', async (req, res, next) => {
 
     try{
-        let results = await db.classmates();
+        let results = await classmates();
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -43,7 +43,7 @@ router.get('/classmates', async (req, res, next) => {
 router.get('/studygroups', async (req, res, next) => {
 
     try{
-        let results = await db.studygroups();
+        let results = await studygroups();
         res.json(results);
     } catch(e){
         res.sendStatus(500);
