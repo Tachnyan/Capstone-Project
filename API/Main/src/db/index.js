@@ -14,7 +14,7 @@ let studygroupdb = {};
 studygroupdb.friends = () => {
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT Student_first, Student_last FROM student WHERE Student_id IN (SELECT Student_Student_ID1 FROM student_has_friend WHERE Student_Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
+        pool.query('SELECT Student_first, Student_last FROM student WHERE Student_id IN (SELECT Student_Friended_ID FROM student_has_friend WHERE Student_User_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
             if(err){
                 return reject(err);
             }
