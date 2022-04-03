@@ -5,6 +5,7 @@
 /TestHTTPRequest
 
 *.env
+*.DS_Store
 
 !.babelrc
 !.eslintrc

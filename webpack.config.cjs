@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin")
+const dotenv = require('dotenv-webpack');
 
 const config = {
     watch: true,
@@ -38,7 +39,8 @@ const config = {
         }),
         new webpack.ProvidePlugin({
             process: 'process/browser'
-        })
+        }),
+        new dotenv({path:'./.env'})
     ]
 };
 

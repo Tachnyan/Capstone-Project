@@ -12,13 +12,13 @@ export default function router(app)
         login(request.body)
         .then((val) =>
         {
-            request.session.userID = val
+            request.session.userID = val;
             request.session.save((err) => {
                 if (err){
                     console.log(err);
-                    request.sendStatus(500)
+                    response.sendStatus(500);
                 }else{
-                    response.sendStatus(200)
+                    response.sendStatus(200);
                 }
             })
         })
