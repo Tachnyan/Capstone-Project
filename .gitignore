@@ -4,6 +4,8 @@
 /API/SSO/src/SiteBuild
 /TestHTTPRequest
 
+*.env
+
 !.babelrc
 !.eslintrc
 !.gitignore
