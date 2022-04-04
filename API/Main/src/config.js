@@ -4,7 +4,6 @@ import  MySQLStore  from 'express-mysql-session'
 import {config} from 'dotenv';
 import path from 'path';
 
-var Store = MySQLStore(session)
 config({path: path.resolve(process.cwd(), '../../.env')})
 
 
@@ -17,7 +16,7 @@ const pconfig = {
 
 
 const pool = mysql.createPool(pconfig);
-const sessionStore = new Store({}, pool);
 
 
-export { pool, sessionStore } ;
+
+export { pool } ;
