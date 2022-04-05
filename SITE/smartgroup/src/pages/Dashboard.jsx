@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import AddFriend from '../components/AddFriend'
 
 export const Dashboard = (props) => {
     //build array of rows for friends list table
@@ -17,6 +18,7 @@ export const Dashboard = (props) => {
             <Title>DASHBOARD</Title>
             {/* Friends List */}
             <ListDiv>
+            <AddFriend />
             <FriendsListHead><u>Friends</u></FriendsListHead>
             <List>  
                 {FriendsListRows}       
