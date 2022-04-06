@@ -41,6 +41,16 @@ const TitleBox = styled.div`
     user-select: none;
 `;
 
+function validator(){
+    var checkbox = document.getElementById("private");
+    if(checkbox.checked == true){
+        document.getElementById("password").disabled = false;
+    }
+    else{
+        document.getElementById("password").disabled = true;
+    }
+}
+
 export function CreateRoom() {
     return (
         <div>
@@ -49,6 +59,9 @@ export function CreateRoom() {
                 <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
                 <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
                 <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
+
+                <MainRow><TitleBox>Private Room:</TitleBox><input type="checkbox" id="private" onChange="validator()"/><input type="text" placeholder="Password" id="password" disabled/></MainRow>
+
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
             </MainColumn>
         </div>
