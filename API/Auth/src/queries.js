@@ -2,6 +2,7 @@ import { pool } from './config.js'
 import mysql from 'mysql'
 import argon2 from 'argon2'
 import { randomUUID, createHash, randomInt, randomBytes } from 'crypto';
+import axios from 'axios';
 
 import mailer from './mailer.js'
 
@@ -112,7 +113,7 @@ async function confirmEmail(data){
                 rej(err);
             }else{
                 //Query: Update account to active where token matches
-                let sql = "UPDATE login SET active = 1 WHERE Hash_Verification = ?;"
+                let sql = "UPDATE Login SET active = 1 WHERE Hash_Verification = ?;"
                 let insert = [data] //needs to be hashed code
                 sql = mysql.format(sql, insert)
                 connection.query(sql, async (err, result, fields) => {
@@ -120,7 +121,40 @@ async function confirmEmail(data){
                         rej(500)
                         console.log(err)
                     }else{
-                        res(200)
+                        let sql = "SELECT Student_First, Student_Last, Login_User, Login_Pass FROM Login AS L LEFT JOIN Student AS S ON S.Student_ID = L.Student_Student_ID WHERE L.Hash_Verification = ?;"
+                        let insert = [data]
+                        sql = mysql.format(sql, insert)
+                        connection.query(sql, async (err, result, fields) => {
+                            if (err) {
+                                rej(500)
+                                console.log(err)
+                            }else{
+                                var data = {
+                                    "username": result[0].Login_User.slice(0, 6),
+                                    "secret": result[0].Login_Pass,
+                                    "email": result[0].Login_User,
+                                    "first_name": result[0].Student_First,
+                                    "last_name": result[0].Student_Last
+                                };
+                                var config = {
+                                    method: 'post',
+                                    url: 'https://api.chatengine.io/users/',
+                                    headers: {
+                                        'PRIVATE-KEY': process.env.CHAT_PRIVATE
+                                    },
+                                    data : data
+                                };
+        
+                                axios(config)
+                                .then(function (response){
+                                    console.log(JSON.stringify(response.data));
+                                })
+                                .catch(function(error){
+                                    console.log(error);
+                                })
+                            }
+                        })
+                        
                     }
                 })
             }

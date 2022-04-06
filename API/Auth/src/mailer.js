@@ -21,7 +21,7 @@ export default function sendConfirmationEmail (name, email, confirmationCode) {
             <h1>Email Confirmation</h1>
             <h2>Hello ${name}</h2>
             <p>Thank you for joining Study buddy. In order to complete registering your account, please click the following link</p>
-            <a href=http://localhost:3002/auth/confirmEmail?token=${confirmationCode}> Click here!</a>
+            <a href="${process.env.AUTH_URL}/auth/confirmEmail?token=${confirmationCode}"> Click here!</a>
         `
     })
 }

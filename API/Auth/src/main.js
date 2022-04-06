@@ -5,9 +5,13 @@ import jwt from 'express-jwt';
 import session from 'express-session';
 
 import bodyParser from 'body-parser';
-import path from 'path/posix';
+
 
 import { sessionStore } from './config.js'
+
+import path from 'path';
+import {config} from 'dotenv';
+config({path: path.resolve(process.cwd(), '../../.env')})
 
 const app = express();
 
