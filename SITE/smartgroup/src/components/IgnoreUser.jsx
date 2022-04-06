@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 
-export default function AddFriend(){
+export default function IgnoreUser({content}){
     return (
         <Submission>
             <InputLine type="text" id="username" placeholder="Enter email"></InputLine>
-            <Button type="submit">Add friend</Button>
+            <Button type="submit">Ignore User</Button>
         </Submission>
     )
 }
