@@ -80,6 +80,25 @@ export default function router(app)
     app.use("/app", express.static(path.join(__dirname, "/src/SiteBuild")))
 
 
+    app.use("/data/*", (request, response, next) => {
+        let userID = request.session.userID;
+        if (userID === undefined)
+        {
+            request.session.destroy((err) => {
+                if(err){
+                    console.log(err)
+                }
+                response.redirect('/login');
+            })
+        }else{
+            request.body.userID = userID;
+            console.log(request.body)
+            let url = `${process.env.DATA_URL}${request._parsedOriginalUrl.path.slice(5)}`
+            console.log(url)
+            response.redirect(url);
+        }
+    })
+
     app.get('*', (request, response) => {
         if(request.session.userID === undefined){
             request.session.destroy((err) => {
