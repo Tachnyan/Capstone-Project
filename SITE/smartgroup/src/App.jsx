@@ -13,7 +13,7 @@ function App() {
   //get profile data from Main API and set to postProfile const
   const [postProfile, setPostProfile] = React.useState([]);
   React.useEffect(() => {
-    axios.get('http://127.0.0.1:3009/profile').then((response) => {
+    axios.get(`${process.env.AUTH_URL}/data/profile`).then((response) => {
       setPostProfile(response.data);
     });
   }, []);
@@ -21,7 +21,7 @@ function App() {
   //get  friends list from Main API and set to postFriends const
   const [postFriends, setPostFriends] = React.useState([]);
   React.useEffect(() => {
-    axios.get('http://127.0.0.1:3009/friends').then((response) => {
+    axios.get(`${process.env.AUTH_URL}/data/friends`).then((response) => {
       setPostFriends(response.data);
     });
   }, []);
@@ -29,7 +29,7 @@ function App() {
   //get  classmate list from Main API and set to postClassmates const
   const [postClassmates, setPostClassmates] = React.useState([]);
   React.useEffect(() => {
-    axios.get('http://127.0.0.1:3009/classmates').then((response) => {
+    axios.get(`${process.env.AUTH_URL}/data/classmates`).then((response) => {
       setPostClassmates(response.data);
     });
   }, []);
@@ -38,7 +38,7 @@ function App() {
   //get  studygroups list from Main API and set to postStudygroups const
   const [postStudygroups, setPostStudygroups] = React.useState([]);
   React.useEffect(() => {
-    axios.get('http://127.0.0.1:3009/studygroups').then((response) => {
+    axios.get(`${process.env.AUTH_URL}/data/studygroups`).then((response) => {
       setPostStudygroups(response.data);
     });
   }, []);

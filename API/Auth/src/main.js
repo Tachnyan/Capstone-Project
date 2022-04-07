@@ -27,11 +27,11 @@ app.use(bodyParser.urlencoded(
 
 app.use(session({
     key: 'session_cookie_name',
-    secret: "testsadf;lj",
+    secret: process.env.AUTH_SESSION_SECRET,
     store: sessionStore,
     cookie: {
         secure: false,
-        maxAge: 1296000000,
+        maxAge: 10800000,
         sameSite: 'strict'
     },
     resave: false,
