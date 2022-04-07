@@ -94,6 +94,7 @@ export default class CreateRoom extends React.Component
         }
         else{
             this.passwordBox.disabled = true;
+            this.passwordBox.value = '';
         }
     }
 
