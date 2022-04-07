@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export default function InputBox({type, placeholder}){
-    return <StyledInputBox type = {type} placeholder = {placeholder}/>;
+export default function InputBox({type, placeholder, style, name, onChange, pattern}){
+    return <StyledInputBox style={style} type={type} pattern={pattern} name={name} placeholder={placeholder} onChange={onChange} />;
 }
 
 const StyledInputBox = styled.input`
