@@ -16,30 +16,71 @@ export const Dashboard = (props) => {
     return (
         <Main>
             <Title>DASHBOARD</Title>
-            {/* Friends List */}
-            <ListDiv>
-            <AddFriend />
-            <FriendsListHead><u>Friends</u></FriendsListHead>
-            <List>  
-                {FriendsListRows}       
-            </List>
-            </ListDiv>
+            <TopDashboard>
+                {/* Friends List */}
+                <ListDiv>
+                <FriendsListHead><u>Friends</u></FriendsListHead>
+                <List>
+                    {FriendsListRows}       
+                </List>
+                <AddFriend/>
+                </ListDiv>
 
-            {/* Classmates List */}
-            <ListDiv>
-            <FriendsListHead><u>Classmates</u></FriendsListHead>
-            <List>  
-                {ClassmatesListRows}     
-            </List>
-            </ListDiv>
+                {/* Classmates List */}
+                <ListDiv>
+                <FriendsListHead><u>Classmates</u></FriendsListHead>
+                <List>
+                    {ClassmatesListRows}     
+                </List>
+                </ListDiv>
+            </TopDashboard>
+            <RecommendedDiv>
+                <ListDiv style = {{width: "85%"}}>
+                <FriendsListHead><u>Recommended Studygroups</u></FriendsListHead>
+                <RecommendedList>
+
+                </RecommendedList>
+                </ListDiv>
+            </RecommendedDiv>
         </Main>
     )
 }
 
 const Title = styled.div`
-    position: absolute;
-    top: 5%;
     color: white;
+    margin-bottom: 5%;
+
+`
+const RecommendedList = styled.table`
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-conetent: center;
+    align-items: center;
+    overflow-y: scroll;
+    height: 75%;
+    ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+`
+
+const RecommendedDiv = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+`
+
+const TopDashboard = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 52%;
+    margin-bottom: 5%;
 `
 
 const ListDiv = styled.div`
@@ -52,10 +93,10 @@ const ListDiv = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: 300px;
-    height: 300px;
     overflow: hidden;
     outline: solid;
+    width: 40%;
+    height: 100%;
 `
 
 const Main = styled.div`
@@ -67,7 +108,7 @@ const Main = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     width: 75vw;
     height: 75vh;
@@ -81,9 +122,8 @@ const List = styled.table`
     flex-direction: column;
     justify-conetent: center;
     align-items: center;
-    height: 80%;
-    width: 70%;
     overflow-y: scroll;
+    height: 90%;
     ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
