@@ -1,14 +1,56 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import axios from "axios";
+import {config} from "../config"
 
 
-export default function AddFriend(){
-    return (
-        <Submission>
-            <InputLine type="text" id="username" placeholder="Enter email"></InputLine>
-            <Button type="submit">Add friend</Button>
-        </Submission>
-    )
+export default class AddFriend extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.friendUsername = document.getElementById("username");
+        this.success = document.getElementById("succeed");
+        this.failure = document.getElementById("failed");
+    }
+
+    componentDidMount()
+    {
+       this.friendUsername = document.getElementById("username");
+       this.success = document.getElementById("succeed");
+       this.failure = document.getElementById("failed");
+    }
+
+    handleSubmit(event)
+    {
+        event.preventDefault();
+        console.log(event);
+        console.log(config);
+        if(this.state.first != "" || this.state.last != "")
+
+        axios.post(`${process.env.AUTH_URL}/data/addfriend`, this.state, {timeout:2000})
+        .then((val) => {
+            if(val.status == 200){
+                console.log("register successful");
+                this.success.style.display = 'flex';
+                this.failure.style.display = 'none';
+            }
+        }).catch((err) => {
+            console.log(err);   
+            this.success.style.display = 'none';
+            this.failure.style.display = 'flex';
+        })
+    }
+
+    render(){
+        return (
+            <Submission id="addfriend" onSubmit={this.handleSubmit}>
+                <SuccessBox id="succeed">Friend request sent!</SuccessBox>
+                <ErrorBox id="failed">Error sending request!</ErrorBox>
+                <InputLine type="text" id="username" placeholder="Enter email"></InputLine>
+                <Button type="submit" >Add friend</Button>
+            </Submission>
+        )
+    }
 }
 
 const Submission = styled.form`
@@ -41,4 +83,15 @@ const Button = styled.button`
         transition: transform 0.15s;
         box-shadow: none;
     }
+`
+
+
+const ErrorBox = styled.div`
+color:red;
+display:none;
+`
+
+const SuccessBox = styled.div`
+color:green;
+display:none;
 `

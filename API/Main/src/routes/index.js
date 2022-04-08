@@ -52,10 +52,10 @@ router.get('/studygroups', async (req, res, next) => {
 
 });
 
-router.get('/addfriend', async(req, res, next)=>{
+router.post('/addfriend', async(req, res, next)=>{
     
     try{
-        let results = await addfriend();
+        let results = await addfriend(req.body);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
