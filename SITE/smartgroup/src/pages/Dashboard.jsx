@@ -38,7 +38,7 @@ export const Dashboard = (props) => {
                 <ListDiv style = {{width: "85%"}}>
                 <FriendsListHead><u>Recommended Studygroups</u></FriendsListHead>
                 <RecommendedList>
-
+                    {FriendsListRows}
                 </RecommendedList>
                 </ListDiv>
             </RecommendedDiv>
