@@ -1,5 +1,5 @@
 import express from 'express';
-import {friends, classmates, profile, studygroups} from '../db/index.js'
+import {friends, classmates, profile, studygroups, addfriend} from '../db/index.js'
 
 var router = express.Router();
 
@@ -50,6 +50,17 @@ router.get('/studygroups', async (req, res, next) => {
         console.log(e);
     }
 
+});
+
+router.get('/addfriend', async(req, res, next)=>{
+    
+    try{
+        let results = await addfriend();
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
 });
 
 export default router;

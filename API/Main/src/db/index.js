@@ -56,4 +56,20 @@ function studygroups(){
 
 };
 
-export {friends, classmates, profile, studygroups};
+function addfriend(data){
+
+    return new Promise((resolve, reject) => {
+        var sql = 'INSERT INTO Student_has_Friend VALUES (?, ?);';
+        var insert = ['9a8349b3-abf6-11ec-90c1-7c10c952a9ce', data.username];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
+
+export {friends, classmates, profile, studygroups, addfriend};
