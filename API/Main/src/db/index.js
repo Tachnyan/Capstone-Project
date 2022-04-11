@@ -60,13 +60,23 @@ function addfriend(data){
 
     return new Promise((resolve, reject) => {
         var sql = 'INSERT INTO Student_has_Friend VALUES (?, ?);';
-        var insert = ['9a8349b3-abf6-11ec-90c1-7c10c952a9ce', data.username];
+        var insert = ['9a8349b3-abf6-11ec-90c1-7c10c952a9ce', data.friendUsername];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }
-            return resolve(results);
+            else{
+                sql = 'INSERT INTO Student_Has_Friend VALUES (?, ?);';
+                insert = [data.friendUsername,'9a8349b3-abf6-11ec-90c1-7c10c952a9ce'];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        return reject(err);
+                    }
+                    return resolve(results);
+                });
+            };
         });
     });
 };
