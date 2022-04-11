@@ -59,16 +59,16 @@ function studygroups(){
 function addfriend(data){
 
     return new Promise((resolve, reject) => {
-        var sql = 'INSERT INTO Student_has_Friend VALUES (?, ?, ?);';
-        var insert = [NULL, '9a8349b3-abf6-11ec-90c1-7c10c952a9ce', data.friendUsername];
+        var sql = 'INSERT INTO Student_Has_Friend VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));';
+        var insert = [null, data.userID, data.friendUsername];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }
             else{
-                sql = 'INSERT INTO Student_Has_Friend VALUES (?, ?);';
-                insert = [NULL, data.friendUsername,'9a8349b3-abf6-11ec-90c1-7c10c952a9ce'];
+                sql = 'INSERT INTO Student_Has_Friend VALUES (?, (SELECT Student_Student_ID FROM Login WHERE Login_User = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?));';
+                insert = [null, data.friendUsername, data.userID];
                 sql = mysql.format(sql, insert);
                 pool.query(sql, (err, results) => {
                     if(err){
