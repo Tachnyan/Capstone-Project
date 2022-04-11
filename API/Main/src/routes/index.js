@@ -1,5 +1,5 @@
 import express from 'express';
-import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse} from '../db/index.js'
+import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse,setpreferredname} from '../db/index.js'
 
 var router = express.Router();
 
@@ -79,6 +79,18 @@ router.post('/ignoreuser', async(req, res, next)=>{
 router.post('/addcourse', async(req, res, next)=>{
     try{
         let results = await addcourse(req.body);
+        res.json(results);
+
+    }catch(e){
+        res.sendStatus(500);
+        console.log(e)
+    }
+    
+})
+router.post('/setpreferredname', async(req, res, next)=>{
+    
+    try{
+        let results = await setpreferredname(req.body);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
