@@ -7,14 +7,14 @@ export default class AddFriend extends React.Component{
 
     constructor(props){
         super(props);
-        this.friendUsername = document.getElementById("username");
+        this.username = document.getElementById("friendUsername");
         this.success = document.getElementById("succeed");
         this.failure = document.getElementById("failed");
     }
 
     componentDidMount()
     {
-       this.friendUsername = document.getElementById("username");
+       this.username = document.getElementById("friendUsername");
        this.success = document.getElementById("succeed");
        this.failure = document.getElementById("failed");
     }
@@ -23,8 +23,8 @@ export default class AddFriend extends React.Component{
     {
         event.preventDefault();
         console.log(event);
-        console.log(config);
-        if(this.state.first != "" || this.state.last != "")
+        console.log("Hello");
+        if(this.state.username != "")
 
         axios.post(`${process.env.AUTH_URL}/data/addfriend`, this.state, {timeout:2000})
         .then((val) => {
@@ -45,8 +45,8 @@ export default class AddFriend extends React.Component{
             <Submission id="addfriend" onSubmit={this.handleSubmit}>
                 <SuccessBox id="succeed">Friend request sent!</SuccessBox>
                 <ErrorBox id="failed">Error sending request!</ErrorBox>
-                <InputLine type="text" id="username" placeholder="Enter email"></InputLine>
-                <Button type="submit" >Add friend</Button>
+                <InputLine type="text" id="friendUsername" placeholder="Enter email"></InputLine>
+                <Button type="submit" value="Submit" >Add friend</Button>
             </Submission>
         )
     }
@@ -61,7 +61,31 @@ const Submission = styled.form`
 `
 
 const InputLine = styled.input`
-    width: 60%;
+    position: relative;
+    background: rgba(255, 255, 255, 0.30);
+    border-radius: 1rem;
+    width: 80%;
+    height: 25%;
+    border: none;
+    outline: none;
+    margin: 2%;
+    color: white;
+    text-align: center;
+    font-size: 60%;
+    transition: 0.15s ease-in-out;
+    :hover{
+        transform: translateY(-2px);
+        box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.55);
+        transition: box-shadow 0.15s ease-in-out;
+    }
+    &:focus{
+        transform: translateY(-2px);
+        box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.55);
+    }
+    &::placeholder{
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+    }
 `
 
 const Button = styled.button`
