@@ -1,4 +1,4 @@
-import { register, login, confirmEmail } from './queries.js'
+import { register, login, confirmEmail, chatLogin } from './queries.js'
 import express from 'express'
 import path from 'path'
 import session from 'express-session';
@@ -63,6 +63,21 @@ export default function router(app)
         }else{
             next()
         }
+    })
+
+    //gets User_Login and User_Pass to use in the chat room
+    app.get('/auth/chatLogin', (request, response) =>{
+        let userID = request.session.userID
+        chatLogin(userID)
+        .then((val) => {
+            // get User_Login and User_Pass to StudyRoom.jsx
+            response.body = val;
+            response.sendStatus(200);
+        }).catch((err) => {
+            // error
+            console.log(err)
+            response.sendStatus(err)
+        })
     })
 
 
