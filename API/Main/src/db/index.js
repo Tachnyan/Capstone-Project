@@ -46,15 +46,16 @@ function profile(){
 function studygroups(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM Studygroup', (err, results) => {
+        var sql = 'SELECT *, COUNT(Student_Student_ID) AS students FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND Course_Course_ID = Course_ID;';
+        pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }
             return resolve(results);
         });
     });
-
 };
+
 
 function addfriend(data){
 
