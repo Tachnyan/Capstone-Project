@@ -33,7 +33,7 @@ function App() {
       setPostClassmates(response.data);
     });
   }, []);
-  console.log(postClassmates)
+  
 
   //get  studygroups list from Main API and set to postStudygroups const
   const [postStudygroups, setPostStudygroups] = React.useState([]);
@@ -42,7 +42,7 @@ function App() {
       setPostStudygroups(response.data);
     });
   }, []);
-  console.log(postStudygroups)
+
 
 
   return (

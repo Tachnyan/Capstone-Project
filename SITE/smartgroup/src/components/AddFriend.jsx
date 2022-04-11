@@ -7,8 +7,12 @@ export default class AddFriend extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            friendUsername: ""
+        }
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
         this.username = document.getElementById("friendUsername");
         this.success = document.getElementById("succeed");
@@ -21,6 +25,14 @@ export default class AddFriend extends React.Component{
        this.username = document.getElementById("friendUsername");
        this.success = document.getElementById("succeed");
        this.failure = document.getElementById("failed");
+    }
+
+    handleChange(event)
+    {
+        let name = event.target.name;
+        this.setState({
+            [name]:event.target.value
+        });
     }
 
     handleSubmit(event)
@@ -49,7 +61,7 @@ export default class AddFriend extends React.Component{
             <Submission id="addfriend" onSubmit={this.handleSubmit}>
                 <SuccessBox id="succeed">Friend request sent!</SuccessBox>
                 <ErrorBox id="failed">Error sending request!</ErrorBox>
-                <InputLine type="text" id="friendUsername" placeholder="Enter email"></InputLine>
+                <InputLine name="friendUsername" type="text" id="friendUsername" placeholder="Enter email" onChange={this.handleChange}></InputLine>
                 <Button type="submit" value="Submit" >Add friend</Button>
             </Submission>
         )
