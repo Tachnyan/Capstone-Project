@@ -7,6 +7,9 @@ export default class AddFriend extends React.Component{
 
     constructor(props){
         super(props);
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+
         this.username = document.getElementById("friendUsername");
         this.success = document.getElementById("succeed");
         this.failure = document.getElementById("failed");
@@ -14,6 +17,7 @@ export default class AddFriend extends React.Component{
 
     componentDidMount()
     {
+
        this.username = document.getElementById("friendUsername");
        this.success = document.getElementById("succeed");
        this.failure = document.getElementById("failed");
