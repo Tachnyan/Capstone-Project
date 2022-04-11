@@ -81,5 +81,22 @@ function addfriend(data){
     });
 };
 
+function ignoreuser(data){
 
-export {friends, classmates, profile, studygroups, addfriend};
+    return new Promise((resolve, reject) => {
+        var sql = 'INSERT INTO Student_Has_Blocked VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));';
+        var insert = [null, data.userID, data.ignoreUsername];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+};
+
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser};
