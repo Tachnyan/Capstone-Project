@@ -9,6 +9,7 @@ import { StudyRoom } from './pages/StudyRoom.jsx'
 import Nav from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
+
 function App() {
   //get profile data from Main API and set to postProfile const
   const [postProfile, setPostProfile] = React.useState([]);
@@ -44,6 +45,12 @@ function App() {
   }, []);
 
 
+  const [postChatInfo, setChatInfo] = React.useState([]);
+  React.useEffect(() => {
+    axios.get(`${process.env.AUTH_URL}/auth/chatLogin`, {timeout: 2000}).then((response) => {
+      setChatInfo(response.data)
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -56,7 +63,7 @@ function App() {
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
-          <Route path="/app/StudyRoom" element={<StudyRoom/>}/>
+          <Route path="/app/StudyRoom" element={<StudyRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>
         </Routes>
       </div>
     </div>

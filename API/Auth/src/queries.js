@@ -170,7 +170,7 @@ async function chatLogin(data){
             if(err) {
                 rej(err);
             } else {
-                let sql = "SELECT Login_User, Login_Pass FROM Login AS L LEFT JOIN Student AS S ON S.Student_ID = L.Student_Student_ID WHERE L.Hash_Verification = ?;"
+                let sql = "SELECT Login_User, Login_Pass FROM Login WHERE Student_Student_ID = ?;"
                 let insert = [data]
                 sql = mysql.format(sql, insert)
                 connection.query(sql, async (err, result, fields) => {
@@ -183,8 +183,6 @@ async function chatLogin(data){
                             chatSecret: result[0].Login_Pass
                         }
                         res(object)
-                        response.body = val;
-                        response.sendStatus(200);
                     }
                 })
             }
