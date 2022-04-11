@@ -1,20 +1,14 @@
 import mysql from 'mysql';
+import { pool } from '../config.js'
 
-const pool = mysql.createPool({
-    connectionLimit: 1000,
-    password: 'root', 
-    user: 'root', 
-    database: 'studygroupdb', 
-    host: 'localhost', 
-    port: '3306'
-});
 
-let studygroupdb = {};
 
-studygroupdb.friends = () => {
+function friends(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT Student_first, Student_last FROM student WHERE Student_id IN (SELECT Student_Student_ID1 FROM student_has_friend WHERE Student_Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
+      
+        pool.query('SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
+
             if(err){
                 return reject(err);
             }
@@ -24,10 +18,10 @@ studygroupdb.friends = () => {
 
 };
 
-studygroupdb.classmates = () => {
+function classmates(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT student_first, student_last FROM student WHERE Student_ID IN (SELECT student_student_id from student_has_course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM student_has_course WHERE Student_Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'))', (err, results) => {
+        pool.query('SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Student_ID from Student_Has_Course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM Student_Has_Course WHERE Student_Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'))', (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -37,10 +31,10 @@ studygroupdb.classmates = () => {
 
 };
 
-studygroupdb.profile = () => {
+function profile(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM student WHERE Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'', (err, results) => {
+        pool.query('SELECT * FROM Student WHERE Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'', (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -49,17 +43,126 @@ studygroupdb.profile = () => {
     });
 };
 
-studygroupdb.studygroups = () => {
+function studygroups(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM studygroup', (err, results) => {
+        var sql = 'SELECT *, COUNT(Student_Student_ID) AS students FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND Course_Course_ID = Course_ID;';
+        pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }
             return resolve(results);
         });
     });
-
 };
 
-export default studygroupdb;
+
+function addfriend(data){
+
+    return new Promise((resolve, reject) => {
+        var sql = 'INSERT INTO Student_Has_Friend VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));';
+        var insert = [null, data.userID, data.friendUsername];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                return reject(err);
+            }
+            else{
+                sql = 'INSERT INTO Student_Has_Friend VALUES (?, (SELECT Student_Student_ID FROM Login WHERE Login_User = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?));';
+                insert = [null, data.friendUsername, data.userID];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        return reject(err);
+                    }
+                    return resolve(results);
+                });
+            };
+        });
+    });
+};
+
+function ignoreuser(data){
+
+    return new Promise((resolve, reject) => {
+        var sql = 'INSERT INTO Student_Has_Blocked VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));';
+        var insert = [null, data.userID, data.ignoreUsername];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+};
+
+function addcourse(data){
+    return new Promise((resolve, reject) =>{
+        var sql = 'INSERT INTO Student_Has_Course VALUES(?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?));'
+        var insert = [null, data.userID, data.courseSubject, data.courseNumber, data.courseSection];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
+
+function setpreferredname(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'UPDATE Student SET Student_Preferred = ? WHERE Student_ID = ?';
+        var insert = [data.preferredName, data.userID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
+
+function studentcourses(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'SELECT Course_Subject, Course_Number, Course_Section FROM Student_Has_Course, Course WHERE Student_Student_ID = ? AND Course_ID = Course_Course_ID';
+        var insert = [data.userID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
+
+
+function deletecourse(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'DELETE FROM Student_Has_Course WHERE Student_Student_ID = ? AND Course_Course_ID = ?';
+        var insert = [data.userID, data.courseID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) =>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
+
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses};

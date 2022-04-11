@@ -1,43 +1,86 @@
 import React from 'react'
 import styled from 'styled-components'
+import AddFriend from '../components/AddFriend'
 
 export const Dashboard = (props) => {
     //build array of rows for friends list table
     //fill each row with name of friend
     var FriendsListRows = []
-    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_first} {friend.Student_last}</td></ListRow>))
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_First} {friend.Student_Last}</td></ListRow>))
 
     //build array of rows for friends list table
     //fill each row with name of classmate
     var ClassmatesListRows = []
-    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.student_first} {classmate.student_last} </td></ListRow>))
+    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.Student_First} {classmate.Student_Last} </td></ListRow>))
     
     return (
         <Main>
             <Title>DASHBOARD</Title>
-            {/* Friends List */}
-            <ListDiv>
-            <FriendsListHead><u>Friends</u></FriendsListHead>
-            <List>  
-                {FriendsListRows}       
-            </List>
-            </ListDiv>
+            <TopDashboard>
+                {/* Friends List */}
+                <ListDiv>
+                <FriendsListHead><u>Friends</u></FriendsListHead>
+                <List>
+                    {FriendsListRows}       
+                </List>
+                <AddFriend/>
+                </ListDiv>
 
-            {/* Classmates List */}
-            <ListDiv>
-            <FriendsListHead><u>Classmates</u></FriendsListHead>
-            <List>  
-                {ClassmatesListRows}     
-            </List>
-            </ListDiv>
+                {/* Classmates List */}
+                <ListDiv>
+                <FriendsListHead><u>Classmates</u></FriendsListHead>
+                <List>
+                    {ClassmatesListRows}     
+                </List>
+                </ListDiv>
+            </TopDashboard>
+            <RecommendedDiv>
+                <ListDiv style = {{width: "85%"}}>
+                <FriendsListHead><u>Recommended Studygroups</u></FriendsListHead>
+                <RecommendedList>
+                    {FriendsListRows}
+                </RecommendedList>
+                </ListDiv>
+            </RecommendedDiv>
         </Main>
     )
 }
 
 const Title = styled.div`
-    position: absolute;
-    top: 5%;
     color: white;
+    margin-bottom: 5%;
+
+`
+const RecommendedList = styled.table`
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-conetent: center;
+    align-items: center;
+    overflow-y: scroll;
+    height: 75%;
+    ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+`
+
+const RecommendedDiv = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+`
+
+const TopDashboard = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 52%;
+    margin-bottom: 5%;
 `
 
 const ListDiv = styled.div`
@@ -50,10 +93,10 @@ const ListDiv = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: 300px;
-    height: 300px;
     overflow: hidden;
     outline: solid;
+    width: 40%;
+    height: 100%;
 `
 
 const Main = styled.div`
@@ -65,7 +108,7 @@ const Main = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     width: 75vw;
     height: 75vh;
@@ -79,9 +122,8 @@ const List = styled.table`
     flex-direction: column;
     justify-conetent: center;
     align-items: center;
-    height: 80%;
-    width: 70%;
     overflow-y: scroll;
+    height: 90%;
     ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */

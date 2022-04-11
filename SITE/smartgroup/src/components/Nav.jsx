@@ -16,11 +16,11 @@ export default class Nav extends React.Component
     {
         event.preventDefault();
 
-        axios.get("http://127.0.0.1:3002/auth/logout", {timeout:2000})
+        axios.get(`${process.env.AUTH_URL}/auth/logout`, {timeout:2000})
             .then((val) => {
                 if (val.status == 200) {
                     console.log(val)
-                    window.location.href = "http://127.0.0.1:3002/login"
+                    window.location.href = `${process.env.AUTH_URL}/login`
                 }
             }).catch((err) => {
                 console.log(err)

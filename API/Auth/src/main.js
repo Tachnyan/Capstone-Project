@@ -5,9 +5,13 @@ import jwt from 'express-jwt';
 import session from 'express-session';
 
 import bodyParser from 'body-parser';
-import path from 'path/posix';
+
 
 import { sessionStore } from './config.js'
+
+import path from 'path';
+import {config} from 'dotenv';
+config({path: path.resolve(process.cwd(), '../../.env')})
 
 const app = express();
 
@@ -23,11 +27,11 @@ app.use(bodyParser.urlencoded(
 
 app.use(session({
     key: 'session_cookie_name',
-    secret: "testsadf;lj",
+    secret: process.env.AUTH_SESSION_SECRET,
     store: sessionStore,
     cookie: {
         secure: false,
-        maxAge: 1296000000,
+        maxAge: 10800000,
         sameSite: 'strict'
     },
     resave: false,

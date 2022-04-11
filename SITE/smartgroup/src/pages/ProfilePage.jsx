@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import axios from 'axios'
 
+import AddFriend from "../components/AddFriend"
+import IgnoreUser from "../components/IgnoreUser"
+
 export const ProfilePage = (props) => {
     // build array of rows in class schedule table.
     // replace number 5 with length of input array (props.classes.length)
@@ -26,6 +29,8 @@ export const ProfilePage = (props) => {
                     {ClassListRows}
                 </List>
             </ListDiv>
+            <AddFriend />
+            <IgnoreUser />
         </Main>
     )
 }
@@ -48,7 +53,6 @@ const Main = styled.div`
 `
 
 const Title = styled.div`
-    position: absolute;
     top: 5%;
 `
 const Row = styled.div`

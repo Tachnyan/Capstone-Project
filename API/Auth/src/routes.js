@@ -1,4 +1,4 @@
-import { register, login, confirmEmail } from './queries.js'
+import { register, login, confirmEmail, chatLogin } from './queries.js'
 import express from 'express'
 import path from 'path'
 import session from 'express-session';
@@ -12,13 +12,13 @@ export default function router(app)
         login(request.body)
         .then((val) =>
         {
-            request.session.userID = val
+            request.session.userID = val;
             request.session.save((err) => {
                 if (err){
                     console.log(err);
-                    request.sendStatus(500)
+                    response.sendStatus(500);
                 }else{
-                    response.sendStatus(200)
+                    response.sendStatus(200);
                 }
             })
         })
@@ -65,6 +65,20 @@ export default function router(app)
         }
     })
 
+    //gets User_Login and User_Pass to use in the chat room
+    app.get('/auth/chatLogin', (request, response) =>{
+        let userID = request.session.userID
+        chatLogin(userID)
+        .then((val) => {
+            // get User_Login and User_Pass to StudyRoom.jsx
+            response.json(val);
+        }).catch((err) => {
+            // error
+            console.log(err)
+            response.sendStatus(err)
+        })
+    })
+
 
     app.get(["/app","/app/*"], (request, response, next) => {
         if(request.session.userID === undefined){
@@ -79,6 +93,25 @@ export default function router(app)
     app.use("/login", express.static(path.join(__dirname, "/src/LoginBuild")))
     app.use("/app", express.static(path.join(__dirname, "/src/SiteBuild")))
 
+
+    app.use("/data/*", (request, response, next) => {
+        let userID = request.session.userID;
+        if (userID === undefined)
+        {
+            request.session.destroy((err) => {
+                if(err){
+                    console.log(err)
+                }
+                response.redirect('/login');
+            })
+        }else{
+            request.body.userID = userID;
+            console.log(request.body)
+            let url = `${process.env.DATA_URL}${request._parsedOriginalUrl.path.slice(5)}?userID=${userID}`
+            console.log(url)
+            response.redirect(307, url);
+        }
+    })
 
     app.get('*', (request, response) => {
         if(request.session.userID === undefined){

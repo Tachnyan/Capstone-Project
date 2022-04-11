@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import styled from "styled-components";
 import InputBox from "../components/InputBox";
 import CancelButton from "../components/CancelButton";
@@ -41,18 +41,78 @@ const TitleBox = styled.div`
     user-select: none;
 `;
 
-export function CreateRoom() {
-    return (
-        <div>
-            <MainColumn>
-                <MainRow><TitleBox>Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002"/></MainRow>
-                <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
-                <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
-                <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
-                <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
-            </MainColumn>
-        </div>
-    )
-}
+const CheckBox = styled.input`
+    position: relative;
+    color: white;
+    background: rgba(0,0,0,0.25);
+    border-radius: 2rem;
+    width: 20%;
+    height: 20%;
+    padding: 2vh;
+    margin: 1vh;
+`;
 
-export default CreateRoom;
+const StyledInputBox = styled.input`
+    position: relative;
+    color: white;
+    background: rgba(0,0,0,0.25);
+    border-radius: 2rem;
+    width: 80%;
+    height: 10%;
+    padding: 2vh;
+    margin: 1vh;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 3vh;
+    ::placeholder{
+        color: rgba(0, 0, 0, 0.8);
+        font-style: italic;
+    }
+`;
+
+export default class CreateRoom extends React.Component
+{
+    constructor(props){
+        super(props);
+        this.validator = this.validator.bind(this);
+
+        this.checkbox = document.getElementById("private");
+        this.passwordBox = document.getElementById("password");
+    }
+
+
+    componentDidMount()
+    {
+       this.checkbox = document.getElementById("private");
+       this.passwordBox = document.getElementById("password");
+    }
+
+    validator(){
+        if(this.checkbox.checked == true){
+            this.passwordBox.disabled = false;
+        }
+        else{
+            this.passwordBox.disabled = true;
+            this.passwordBox.value = '';
+        }
+    }
+
+    render(){
+        return(
+            <div>
+                <MainColumn>
+                    <MainRow><TitleBox>Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002"/></MainRow>
+                    <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
+                    <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
+                    <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
+
+                    <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.validator}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
+
+                    <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
+                </MainColumn>
+            </div>
+        );
+    }
+
+}
