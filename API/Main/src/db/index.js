@@ -53,7 +53,6 @@ function studygroups(){
             return resolve(results);
         });
     });
-
 };
 
 
