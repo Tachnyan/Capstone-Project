@@ -98,5 +98,21 @@ function ignoreuser(data){
     });
 };
 
+function addcourse(data){
+    return new Promise((resolve, reject) =>{
+        var sql = 'INSERT INTO Student_Has_Course VALUES(?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?));'
+        var insert = [null, data.userID, data.courseSubject, data.courseNumber, data.courseSection];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser};
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse};
