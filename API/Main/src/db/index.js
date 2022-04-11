@@ -114,5 +114,22 @@ function addcourse(data){
     });
 }
 
+function setpreferredname(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'UPDATE Student SET Student_Preferred = ? WHERE Student_ID = ?';
+        var insert = [data.preferredName, data.userID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse};
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname};
+
