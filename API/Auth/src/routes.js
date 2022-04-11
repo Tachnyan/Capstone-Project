@@ -71,8 +71,7 @@ export default function router(app)
         chatLogin(userID)
         .then((val) => {
             // get User_Login and User_Pass to StudyRoom.jsx
-            response.body = val;
-            response.sendStatus(200);
+            response.json(val);
         }).catch((err) => {
             // error
             console.log(err)
