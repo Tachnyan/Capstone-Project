@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import {config} from "../config"
 
 
 export default class AddFriend extends React.Component{
@@ -30,7 +29,7 @@ export default class AddFriend extends React.Component{
         axios.post(`${process.env.AUTH_URL}/data/addfriend`, this.state, {timeout:2000})
         .then((val) => {
             if(val.status == 200){
-                console.log("register successful");
+                console.log("Friend request sent");
                 this.success.style.display = 'flex';
                 this.failure.style.display = 'none';
             }
