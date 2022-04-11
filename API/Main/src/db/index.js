@@ -148,5 +148,21 @@ function studentcourses(data){
 }
 
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses};
+function deletecourse(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'DELETE FROM Student_Has_Course WHERE Student_Student_ID = ? AND Course_Course_ID = ?';
+        var insert = [data.userID, data.courseID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) =>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
 
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses};

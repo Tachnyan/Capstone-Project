@@ -98,6 +98,16 @@ router.post('/setpreferredname', async(req, res, next)=>{
     }
 });
 
+router.post('/deletecourse', async(req, res, next)=>{
+    try{
+        let results = await deletecourse(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+});
+
 router.get('/studentcourses', async(req, res, next)=>{  
     try{
         let results = await studentcourses(req.body);
@@ -107,5 +117,6 @@ router.get('/studentcourses', async(req, res, next)=>{
         console.log(e);
     }
 });
+
 
 export default router;
