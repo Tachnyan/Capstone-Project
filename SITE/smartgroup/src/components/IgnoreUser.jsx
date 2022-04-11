@@ -7,29 +7,44 @@ export default class IgnoreUser extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            ignoreUsername: ""
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
         this.username = document.getElementById("ignoreUsername");
-        this.success = document.getElementById("succeed");
-        this.failure = document.getElementById("failed");
+        this.success = document.getElementById("succeeded");
+        this.failure = document.getElementById("fail");
     }
 
     componentDidMount()
     {
        this.username = document.getElementById("ignoreUsername");
-       this.success = document.getElementById("succeed");
-       this.failure = document.getElementById("failed");
+       this.success = document.getElementById("succeeded");
+       this.failure = document.getElementById("fail");
+    }
+
+    handleChange(event)
+    {
+        let name = event.target.name;
+        this.setState({
+            [name]:event.target.value
+        });
     }
 
     handleSubmit(event)
     {
         event.preventDefault();
         console.log(event);
-        console.log(config);
-        if(this.state.username)
+        console.log("Hello");
+        if(this.state.username != "")
 
-        axios.post(`${process.env.AUTH_URL}/data/addfriend`, this.state, {timeout:2000})
+        axios.post(`${process.env.AUTH_URL}/data/ignoreuser`, this.state, {timeout:2000})
         .then((val) => {
             if(val.status == 200){
-                console.log("Friend request sent");
+                console.log("User Ignored");
                 this.success.style.display = 'flex';
                 this.failure.style.display = 'none';
             }
@@ -43,9 +58,9 @@ export default class IgnoreUser extends React.Component{
     render(){
         return (
             <Submission id="ignoreUser" onSubmit={this.handleSubmit}>
-                <SuccessBox id="succeed">User Ignored!</SuccessBox>
-                <ErrorBox id="failed">Error ignoring user!</ErrorBox>
-                <InputLine type="text" id="ignoreUsername" placeholder="Enter email"></InputLine>
+                <SuccessBox id="succeeded">User Ignored!</SuccessBox>
+                <ErrorBox id="fail">Error ignoring user!</ErrorBox>
+                <InputLine type="text" name="ignoreUsername" id="ignoreUsername" placeholder="Enter email" onChange={this.handleChange}></InputLine>
                 <Button type="submit" >Ignore User</Button>
             </Submission>
         )
