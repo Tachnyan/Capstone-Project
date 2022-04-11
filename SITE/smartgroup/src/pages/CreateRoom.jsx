@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InputBox from "../components/InputBox";
 import CancelButton from "../components/CancelButton";
 import CreateButton from "../components/CreateButton";
+import axios from 'axios';
 
 const MainColumn = styled.div`
     position: relative;
@@ -75,7 +76,18 @@ export default class CreateRoom extends React.Component
 {
     constructor(props){
         super(props);
-        this.validator = this.validator.bind(this);
+        this.state = {
+            roomID: "",
+            course: "",
+            roomLocation: "",
+            roomDescription: "",
+            numberofPeople: "",
+            startTime: "",
+            endTime: "",
+            timeframe: ""
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
 
         this.checkbox = document.getElementById("private");
         this.passwordBox = document.getElementById("password");
@@ -88,7 +100,11 @@ export default class CreateRoom extends React.Component
        this.passwordBox = document.getElementById("password");
     }
 
-    validator(){
+    handleChange(event){
+        let name = event.target.name;
+        this.setState({
+            [name]:event.target.value
+        })
         if(this.checkbox.checked == true){
             this.passwordBox.disabled = false;
         }
@@ -98,18 +114,30 @@ export default class CreateRoom extends React.Component
         }
     }
 
+    handleSubmit(event){
+        axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout: 2000})
+        .then((val) => {
+            if(val.status.statuscode == 200){
+                //This is the part where the room will be made with chatengine first
+                //The id will be obtained from the json and put into the id field
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     render(){
         return(
             <div>
                 <MainColumn>
-                    <MainRow><TitleBox>Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002"/></MainRow>
-                    <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm"/></MainRow>
-                    <MainRow><TitleBox>Start Time:</TitleBox><InputBox type = "text" placeholder="e.g. 1:00 pm"/><TitleBox>End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"/></MainRow>
-                    <MainRow><TitleBox>Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216"/></MainRow>
+                    <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
+                    <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
+                    <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
+                    <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
 
-                    <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.validator}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
+                    <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
 
-                    <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton content = "Create Room"/></MainRow>
+                    <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton id="roomInputs" content="Create Room" onSubmit={this.handleSubmit}/></MainRow>
                 </MainColumn>
             </div>
         );
