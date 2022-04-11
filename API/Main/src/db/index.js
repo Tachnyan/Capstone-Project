@@ -131,6 +131,22 @@ function setpreferredname(data){
     });
 }
 
+function studentcourses(data){
+    return new Promise((resolve, reject) => {
+        var sql = 'SELECT Course_Subject, Course_Number, Course_Section FROM Student_Has_Course, Course WHERE Student_Student_ID = ? AND Course_ID = Course_Course_ID';
+        var insert = [data.userID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname};
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses};
 
