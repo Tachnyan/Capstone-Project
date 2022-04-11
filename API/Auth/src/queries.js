@@ -5,6 +5,7 @@ import { randomUUID, createHash, randomInt, randomBytes } from 'crypto';
 import axios from 'axios';
 
 import mailer from './mailer.js'
+import { response } from 'express';
 
 async function register(data){
 
@@ -163,4 +164,32 @@ async function confirmEmail(data){
 
 }
 
-export { register, login, confirmEmail }
+async function chatLogin(data){
+    return new Promise((res, rej)=> {
+        pool.getConnection((err, connection) => {
+            if(err) {
+                rej(err);
+            } else {
+                let sql = "SELECT Login_User, Login_Pass FROM Login AS L LEFT JOIN Student AS S ON S.Student_ID = L.Student_Student_ID WHERE L.Hash_Verification = ?;"
+                let insert = [data]
+                sql = mysql.format(sql, insert)
+                connection.query(sql, async (err, result, fields) => {
+                    if(err){
+                        rej(500)
+                        console.log(err)
+                    } else{
+                        let object = {
+                            chatUser: result[0].Login_User.slice(0, 6), 
+                            chatSecret: result[0].Login_Pass
+                        }
+                        res(object)
+                        response.body = val;
+                        response.sendStatus(200);
+                    }
+                })
+            }
+        })
+    })
+}
+
+export { register, login, confirmEmail, chatLogin }
