@@ -46,7 +46,7 @@ function profile(){
 function studygroups(){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM Studygroup', (err, results) => {
+        pool.query('SELECT * FROM Studygroup, Studygroup_Has_Course GROUP BY Studygroup_ID = Studygroup_Studygroup_ID', (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -55,6 +55,7 @@ function studygroups(){
     });
 
 };
+
 
 function addfriend(data){
 
