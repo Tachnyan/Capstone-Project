@@ -55,6 +55,7 @@ router.get('/studygroups', async (req, res, next) => {
 router.post('/addfriend', async(req, res, next)=>{
     
     try{
+        req.body.userID = req.query.userID;
         let results = await addfriend(req.body);
         res.json(results);
     } catch(e){
