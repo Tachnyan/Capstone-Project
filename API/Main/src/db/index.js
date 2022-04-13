@@ -191,4 +191,4 @@ function friendrequests(data){
 }
 
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses, friendrequests};
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses, deletecourse, friendrequests};
