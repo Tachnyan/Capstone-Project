@@ -4,7 +4,6 @@ import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcou
 var router = express.Router();
 
 router.get('/friends', async (req, res, next) => {
-
     try{
         let results = await friends(req.query);
         res.json(results);
@@ -12,11 +11,9 @@ router.get('/friends', async (req, res, next) => {
         res.sendStatus(500);
         console.log(e);
     }
-
 });
 
 router.get('/profile', async (req, res, next) => {
-
     try{
         let results = await profile(req.query);
         res.json(results);
@@ -25,11 +22,9 @@ router.get('/profile', async (req, res, next) => {
         res.sendStatus(500);
         console.log(e);
     }
-
 });
 
 router.get('/classmates', async (req, res, next) => {
-
     try{
         let results = await classmates(req.query);
         res.json(results);
@@ -37,11 +32,9 @@ router.get('/classmates', async (req, res, next) => {
         res.sendStatus(500);
         console.log(e);
     }
-
 });
 
 router.get('/studygroups', async (req, res, next) => {
-
     try{
         let results = await studygroups();
         res.json(results);
@@ -49,7 +42,6 @@ router.get('/studygroups', async (req, res, next) => {
         res.sendStatus(500);
         console.log(e);
     }
-
 });
 
 router.get('/friendrequests', async(req,res,next) => {
@@ -64,7 +56,6 @@ router.get('/friendrequests', async(req,res,next) => {
 })
 
 router.post('/addfriend', async(req, res, next)=>{
-    
     try{
         req.body.userID = req.query.userID;
         let results = await addfriend(req.body);
@@ -75,8 +66,7 @@ router.post('/addfriend', async(req, res, next)=>{
     }
 });
 
-router.post('/ignoreuser', async(req, res, next)=>{
-    
+router.post('/ignoreuser', async(req, res, next)=>{  
     try{
         req.body.userID = req.query.userID;
         let results = await ignoreuser(req.body);
@@ -96,11 +86,9 @@ router.post('/addcourse', async(req, res, next)=>{
     }catch(e){
         res.sendStatus(500);
         console.log(e)
-    }
-    
+    } 
 })
 router.post('/setpreferredname', async(req, res, next)=>{
-    
     try{
         req.body.userID = req.query.userID;
         let results = await setpreferredname(req.body);
@@ -132,6 +120,5 @@ router.get('/studentcourses', async(req, res, next)=>{
         console.log(e);
     }
 });
-
 
 export default router;
