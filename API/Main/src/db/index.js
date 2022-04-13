@@ -5,7 +5,7 @@ import { pool } from '../config.js'
 
 
 function friends(data){
-
+    
     return new Promise((resolve, reject) => {
         let sql = `SELECT Student_First, Student_Last FROM Student 
                    WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = ?)`
@@ -161,7 +161,6 @@ function studentcourses(data){
         });
     });
 }
-
 
 function deletecourse(data){
     return new Promise((resolve, reject) => {
