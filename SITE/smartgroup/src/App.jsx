@@ -5,6 +5,7 @@ import { StudyGroupsList } from './pages/StudyGroupsList'
 import CreateRoom  from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
+import { Social } from './pages/Social.jsx'
 
 import Nav from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
@@ -61,6 +62,7 @@ function App() {
         <Routes>
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
+          <Route path="/app/Social" element={<Social friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>
