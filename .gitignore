@@ -4,6 +4,7 @@
 /API/SSO/src/SiteBuild
 /TestHTTPRequest
 
+*.log
 *.env
 *.DS_Store
 

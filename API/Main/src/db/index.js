@@ -1,13 +1,17 @@
 import mysql from 'mysql';
+import { format } from 'path';
 import { pool } from '../config.js'
 
 
 
-function friends(){
+function friends(data){
 
     return new Promise((resolve, reject) => {
-      
-        pool.query('SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\')', (err, results) => {
+        let sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = ?)'
+        let insert = [data.userID]
+        sql = mysql.format(sql, insert)
+
+        pool.query(sql, (err, results) => {
 
             if(err){
                 return reject(err);
@@ -18,10 +22,13 @@ function friends(){
 
 };
 
-function classmates(){
+function classmates(data){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Student_ID from Student_Has_Course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM Student_Has_Course WHERE Student_Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'))', (err, results) => {
+        let sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Student_ID from Student_Has_Course WHERE Course_Course_ID IN (SELECT Course_Course_ID FROM Student_Has_Course WHERE Student_Student_ID = ?))'
+        let insert = [data.userID]
+        sql = mysql.format(sql, insert)
+        pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }
@@ -31,10 +38,13 @@ function classmates(){
 
 };
 
-function profile(){
+function profile(data){
 
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM Student WHERE Student_ID = \'9a8349b3-abf6-11ec-90c1-7c10c952a9ce\'', (err, results) => {
+        let sql = 'SELECT * FROM Student WHERE Student_ID = ?'
+        let insert = [data.userID]
+        sql = mysql.format(sql, insert)
+        pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
             }

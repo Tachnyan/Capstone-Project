@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/friends', async (req, res, next) => {
 
     try{
-        let results = await friends();
+        let results = await friends(req.query);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -18,7 +18,7 @@ router.get('/friends', async (req, res, next) => {
 router.get('/profile', async (req, res, next) => {
 
     try{
-        let results = await profile();
+        let results = await profile(req.query);
         res.json(results);
 
     } catch(e){
@@ -31,7 +31,7 @@ router.get('/profile', async (req, res, next) => {
 router.get('/classmates', async (req, res, next) => {
 
     try{
-        let results = await classmates();
+        let results = await classmates(req.query);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
