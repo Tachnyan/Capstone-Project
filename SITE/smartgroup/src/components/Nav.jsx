@@ -41,6 +41,9 @@ export default class Nav extends React.Component
                         <Link to="/app/Profile">Profile</Link>
                     </li>
                     <li>
+                        <Link to="/app/Social">Social</Link>
+                    </li>
+                    <li>
                         <Link to="/app/StudyGroupsList">Study Groups List</Link>
                     </li>
                     <li>
