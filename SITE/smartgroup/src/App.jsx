@@ -45,6 +45,14 @@ function App() {
     });
   }, []);
 
+  //get  friendrequest list from Main API and set to postStudygroups const
+  const [postFriendRequest, setPostFriendRequest] = React.useState([]);
+  React.useEffect(() => {
+    axios.get(`${process.env.AUTH_URL}/data/friendrequests`).then((response) => {
+      setPostFriendRequest(response.data);
+    });
+  }, []);
+
 
   const [postChatInfo, setChatInfo] = React.useState([]);
   React.useEffect(() => {
@@ -62,7 +70,7 @@ function App() {
         <Routes>
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
-          <Route path="/app/Social" element={<Social friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
+          <Route path="/app/Social" element={<Social friendsList = {postFriends} classmatesList = {postClassmates} requestList = {postFriends}/>}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>

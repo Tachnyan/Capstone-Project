@@ -8,12 +8,17 @@ export const Social = (props) => {
     //build array of rows for friends list table
     //fill each row with name of friend
     var FriendsListRows = []
-    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_First} {friend.Student_Last}<SocialButton route="/app" content="Remove"/></td></ListRow>))
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><Cell>{friend.Student_First} {friend.Student_Last}</Cell><Cell><SocialButton route="/app" content="-"/></Cell></ListRow>))
 
     //build array of rows for friends list table
     //fill each row with name of classmate
     var ClassmatesListRows = []
-    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.Student_First} {classmate.Student_Last} </td></ListRow>))
+    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><Cell> {classmate.Student_First} {classmate.Student_Last}</Cell><Cell> <SocialButton route="/app" content="-"/></Cell></ListRow>))
+    
+    //build array of rows for friends list table
+    //fill each row with name of classmate
+    var RequestListRows = []
+    props.requestList.forEach(classmate => RequestListRows.push(<ListRow><Cell> {classmate.Student_First} {classmate.Student_Last}</Cell><Cell><SocialButton route="/app" content="+"/></Cell><Cell><SocialButton route="/app" content="-"/></Cell></ListRow>))
     
     return (
         <Main>
@@ -41,7 +46,7 @@ export const Social = (props) => {
                 <ListDiv style = {{width: "85%"}}>
                 <FriendsListHead><u>Pending Friend Requests</u></FriendsListHead>
                 <RequestList>
-                    {FriendsListRows}
+                    {RequestListRows}
                 </RequestList>
                 </ListDiv>
             </RequestDiv>
@@ -145,4 +150,7 @@ const ListRow = styled.tr`
     margin-top: 10%;
     height: 20%;
     width: 100%;
+`
+
+const Cell = styled.td`
 `
