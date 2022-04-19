@@ -174,5 +174,21 @@ function deletecourse(data){
     });
 }
 
+function friendrequests(data){
+    return new Promise((resolve, reject) =>{
+        var sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = ?)'
+        var insert = [data.userID];
+        sql = mysql.format(sql, insert);
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(200);
+            };
+        });
+    });
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses};
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, setpreferredname, studentcourses, friendrequests};
