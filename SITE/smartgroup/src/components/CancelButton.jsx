@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 export default function CancelButton({content}){
-    return <Link to="/StudyGroupsList"><StyledButton>{content}</StyledButton></Link>
+    return <Link to="/app/StudyGroupsList"><StyledButton>{content}</StyledButton></Link>
 }
 
 const StyledButton = styled.button`

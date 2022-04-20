@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 export default function CreateButton({content}){
-    return <Link to="/StudyRoom"><StyledButton>{content}</StyledButton></Link>
+    return <Link to="/app/StudyRoom"><StyledButton>{content}</StyledButton></Link>
 }
 
 const StyledButton = styled.button`
