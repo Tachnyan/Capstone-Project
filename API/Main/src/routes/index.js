@@ -44,7 +44,7 @@ router.get('/studygroups', async (req, res, next) => {
     }
 });
 
-router.get('/friendrequests', async(req,res,next) => {
+router.get('/friendrequests', async(req, res, next) => {
 
     try{
         let results = await friendrequests(req.query);

@@ -188,7 +188,7 @@ function friendrequests(data){
                 reject(err);
             }
             else{
-                resolve(200);
+                resolve(results);
             };
         });
     });
