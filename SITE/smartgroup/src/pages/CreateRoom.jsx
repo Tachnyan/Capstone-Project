@@ -115,6 +115,7 @@ export default class CreateRoom extends React.Component
     }
 
     handleSubmit(event){
+        console.log("HELLO")
         //This is the part where the room will be made with chatengine first
         //The id will be obtained from the json and put into the id field
         axios.post('https://api.chatengine.io/chats/', {title: roomDescription}, {headers: {
@@ -122,22 +123,23 @@ export default class CreateRoom extends React.Component
             //This needs to be the current user's username and password.
             //Could I use the same route for chatLogin maybe?
             //Do I even need to use the route, or are these things already made?
-            "User-Name": {props.user},
-            "User-Secret": {props.secret}
+            "User-Name": props.user,
+            "User-Secret": props.secret
         }})
         .then((response) => {
+            callback && callback(response.data);
             //Get id from the response
             //Actually use the route to send the id and all other stuff to the database
-            roomID = response.id
+            /*roomID = response.id
             axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout:2000})
             .then((val) => {
                 if(val.status.statuscode == 200){
-
+                    console.log("Chatroom created");
                 }
             })
             .catch((err) => {
-
-            })
+                console.log("error");
+            })*/
         })
         .catch((err) => {
             console.log(err);

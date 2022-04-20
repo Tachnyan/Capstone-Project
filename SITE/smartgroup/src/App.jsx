@@ -5,7 +5,7 @@ import { StudyGroupsList } from './pages/StudyGroupsList'
 import CreateRoom  from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
-
+//import { postChatInfo } from './singleton.js'
 import Nav from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
@@ -43,7 +43,6 @@ function App() {
       setPostStudygroups(response.data);
     });
   }, []);
-
 
   const [postChatInfo, setChatInfo] = React.useState([]);
   React.useEffect(() => {
