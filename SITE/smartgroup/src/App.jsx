@@ -45,11 +45,20 @@ function App() {
     });
   }, []);
 
-  //get  friendrequest list from Main API and set to postStudygroups const
+  //get  friendrequest list from Main API and set to postFriendRequest const
   const [postFriendRequest, setPostFriendRequest] = React.useState([]);
   React.useEffect(() => {
     axios.get(`${process.env.AUTH_URL}/data/friendrequests`).then((response) => {
       setPostFriendRequest(response.data);
+    });
+  }, []);
+
+
+  //get list of ignored users from Main API and set to postIgnoredUsers const
+  const [postIgnoredUsers, setPostIgnoredUsers] = React.useState([]);
+  React.useEffect(() => {
+    axios.get(`${process.env.AUTH_URL}/data/ignorelist`).then((response) => {
+      setPostIgnoredUsers(response.data);
     });
   }, []);
 
@@ -70,7 +79,7 @@ function App() {
         <Routes>
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
-          <Route path="/app/Social" element={<Social friendsList = {postFriends} classmatesList = {postClassmates} requestList = {postFriendRequest}/>}/>
+          <Route path="/app/Social" element={<Social friendsList = {postFriends} ignoredList = {postIgnoredUsers} requestList = {postFriendRequest}/>}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>

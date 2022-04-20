@@ -11,14 +11,14 @@ export const Social = (props) => {
     props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><Cell>{friend.Student_First} {friend.Student_Last}</Cell><Cell><SocialButton route="/app" content="-"/></Cell></ListRow>))
 
     //build array of rows for friends list table
-    //fill each row with name of classmate
-    var ClassmatesListRows = []
-    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><Cell> {classmate.Student_First} {classmate.Student_Last}</Cell><Cell> <SocialButton route="/app" content="-"/></Cell></ListRow>))
+    //fill each row with name of ignored user
+    var ignoredListRows = []
+    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route="/app" content="-"/></Cell></ListRow>))
     
     //build array of rows for friends list table
-    //fill each row with name of classmate
+    //fill each row with name of request
     var RequestListRows = []
-    props.requestList.forEach(classmate => RequestListRows.push(<ListRow><Cell> {classmate.Student_First} {classmate.Student_Last}</Cell><Cell><SocialButton route="/app" content="+"/></Cell><Cell><SocialButton route="/app" content="-"/></Cell></ListRow>))
+    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route="/app" content="+"/></Cell><Cell><SocialButton route="/app" content="-"/></Cell></ListRow>))
     
     return (
         <Main>
@@ -37,7 +37,7 @@ export const Social = (props) => {
                 <ListDiv>
                 <FriendsListHead><u>Ignored</u></FriendsListHead>
                 <List>
-                    {ClassmatesListRows}     
+                    {ignoredListRows}     
                 </List>
                 <IgnoreUser/>
                 </ListDiv>
