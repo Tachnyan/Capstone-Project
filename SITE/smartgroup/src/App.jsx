@@ -7,6 +7,7 @@ import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
 import { Social } from './pages/Social.jsx'
 
+//import { postChatInfo } from './singleton.js'
 import Nav from './components/Nav'
 import GlobalCSS from './GlobalStyles.css.js'
 
