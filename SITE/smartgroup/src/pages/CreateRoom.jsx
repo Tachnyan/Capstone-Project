@@ -75,7 +75,8 @@ const StyledInputBox = styled.input`
 
 export default class CreateRoom extends React.Component
 {
-    constructor(props){
+    constructor(props)
+    {
         super(props);
         this.state = {
             roomID: "",
@@ -87,8 +88,8 @@ export default class CreateRoom extends React.Component
             endTime: "",
             timeframe: ""
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
         this.checkbox = document.getElementById("private");
         this.passwordBox = document.getElementById("password");
@@ -116,11 +117,10 @@ export default class CreateRoom extends React.Component
     }
 
     handleSubmit(event){
-        console.log("HELLO")
         event.preventDefault();
+        console.log("HELLO")
         console.log(event);
         console.log(this.state);
-        console.log(config);
         //This is the part where the room will be made with chatengine first
         //The id will be obtained from the json and put into the id field
         axios.post('https://api.chatengine.io/chats/', {title: this.state.roomDescription}, {headers: {
@@ -136,14 +136,13 @@ export default class CreateRoom extends React.Component
             if(response.status == 200)
             {
                 this.state.roomID = response.body.id;
-
+                console.log(this.state.roomID);
                 
                 
             }
             //Get id from the response
             //Actually use the route to send the id and all other stuff to the database
-            /*roomID = response.id
-            axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout:2000})
+            /*axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout:2000})
             .then((val) => {
                 if(val.status.statuscode == 200){
                     console.log("Chatroom created");
@@ -162,20 +161,14 @@ export default class CreateRoom extends React.Component
     // Idk what's happening
     render(){
         return(
-            <div>
-                <MainColumn onSubmit={this.handleSubmit}>
-                    {/* <RoomSubmission id="roomInputs" onSubmit={this.handleSubmit}> */}
-                        <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
-                        <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
-                        <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
-                        <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
+            <MainColumn onSubmit={this.handleSubmit}>
+                <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
 
-                        <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
-
-                        <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"/></MainRow>
-                    {/* </RoomSubmission> */}
-                </MainColumn>
-            </div>
+                <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
+            </MainColumn>
         );
     }
 
