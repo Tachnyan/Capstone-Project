@@ -70,26 +70,40 @@ function studygroups(){
 
 function addfriend(data){
     return new Promise((resolve, reject) => {
-        var sql = `INSERT INTO Student_Has_Friend 
-                   VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));`;
-        var insert = [null, data.userID, data.friendUsername];
+        //Query 1: Check if they don't have that person friended already
+        var sql = `SELECT * FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
+        var insert = [data.userID, data.friendUsername];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
-            if(err){
-                return reject(err);
+            if(results.length > 0){
+                reject(500);
             }
             else{
-                sql = `INSERT INTO Student_Has_Friend
-                       VALUES (?, (SELECT Student_Student_ID FROM Login WHERE Login_User = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?));`;
-                insert = [null, data.friendUsername, data.userID];
+                //Query 2: Check if they have already sent a friend request
+                sql = `SELECT * FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
+                insert = [data.userID, data.friendUsername];
                 sql = mysql.format(sql, insert);
                 pool.query(sql, (err, results) => {
-                    if(err){
-                        return reject(err);
+                    if(results.length > 0){
+                        reject(500);
                     }
-                    return resolve(results);
+                    else{
+                        //Query 2: Send Friend Request
+                        sql = `INSERT INTO Student_Has_Pending 
+                                   VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));`;
+                        insert = [null, data.userID, data.friendUsername];
+                        sql = mysql.format(sql, insert);
+                        pool.query(sql, (err, results) => {
+                            if(err){
+                                return reject(err);
+                            }
+                            else{
+                                return resolve(results);
+                            };
+                        });
+                    }
                 });
-            };
+            }
         });
     });
 };
@@ -180,7 +194,7 @@ function deletecourse(data){
 
 function friendrequests(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student.Student_First, Student.Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_Has_Pending.Student_Pending_ID FROM Student_Has_Pending WHERE Student_Has_Pending.Student_User_ID = ?);'
+        var sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_User_ID FROM Student_Has_Pending WHERE Student_Pending_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
