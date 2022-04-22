@@ -80,7 +80,8 @@ function addfriend(data){
             }
             else{
                 //Query 2: Check if they have already sent a friend request
-                sql = `SELECT * FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
+                sql = `SELECT * FROM Student_Has_Pending WHERE Student_User_ID = ? 
+                AND Student_Pending_ID = (SELECT Student_Student_ID FROM Login WHERE Login_User = ?)`;
                 insert = [data.userID, data.friendUsername];
                 sql = mysql.format(sql, insert);
                 pool.query(sql, (err, results) => {
