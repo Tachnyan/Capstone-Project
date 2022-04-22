@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InputBox from "../components/InputBox";
 import CancelButton from "../components/CancelButton";
 import CreateButton from "../components/CreateButton";
+import Button from "../components/Button";
 import axios from 'axios';
 
 const MainColumn = styled.div`
@@ -116,6 +117,10 @@ export default class CreateRoom extends React.Component
 
     handleSubmit(event){
         console.log("HELLO")
+        event.preventDefault();
+        console.log(event);
+        console.log(this.state);
+        console.log(config);
         //This is the part where the room will be made with chatengine first
         //The id will be obtained from the json and put into the id field
         axios.post('https://api.chatengine.io/chats/', {title: roomDescription}, {headers: {
@@ -146,18 +151,22 @@ export default class CreateRoom extends React.Component
         })
     };
 
+    // Need help down here
+    // Idk what's happening
     render(){
         return(
             <div>
                 <MainColumn>
-                    <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
-                    <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
-                    <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
-                    <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
+                    <RoomSubmission id="roomInputs" onSubmit={this.handleSubmit}>
+                        <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
+                        <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
+                        <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
+                        <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
 
-                    <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
+                        <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
 
-                    <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton id="roomInputs" content="Create Room" onSubmit={this.handleSubmit}/></MainRow>
+                        <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"/></MainRow>
+                    </RoomSubmission>
                 </MainColumn>
             </div>
         );
