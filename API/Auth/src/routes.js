@@ -4,6 +4,8 @@ import path from 'path'
 import session from 'express-session';
 const __dirname = path.resolve()
 
+import { ajv } from './validation.js'
+
 export default function router(app) 
 {
 
@@ -23,7 +25,7 @@ export default function router(app)
             })
         })
         .catch((err) =>{
-            response.sendStatus(err)
+            response.status(err.code).send(err.msg)
         })
     });
 
@@ -40,13 +42,19 @@ export default function router(app)
 
     //Register Request: requires fname, lname, email, and password. 
     app.post('/auth/register' , async (request, response) => {
-        await register(request.body)
-        .then((val) => {
+        const validate = ajv.getSchema("registration")
+        console.log(validate(request.body))
+        if(validate(request.body)){
+            await register(request.body)
+            .then((val) => {
             response.sendStatus(val)
-        }).catch((err) => {
+            }).catch((err) => {
             response.sendStatus(err)
-        })
-        
+            });
+        } else {
+            response.msg = ("Invalid Request Body")
+            response.status(400).send("Invalid Request Body")
+        }
     })
 
     //clears userID from session data. 
