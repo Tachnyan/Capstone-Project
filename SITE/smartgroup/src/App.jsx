@@ -61,7 +61,7 @@ function App() {
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
           <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
-          <Route path="/app/CreateRoom" element={<CreateRoom/>}/>
+          <Route path="/app/CreateRoom" element={<CreateRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>
           <Route path="/app/StudyRoom" element={<StudyRoom user={postChatInfo.chatUser} secret={postChatInfo.chatSecret}/>}/>
         </Routes>
       </div>

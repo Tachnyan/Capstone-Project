@@ -78,6 +78,8 @@ export default class CreateRoom extends React.Component
     constructor(props)
     {
         super(props);
+        this.user = props.user;
+        this.secret = props.secret;
         this.state = {
             roomID: "",
             course: "",
@@ -128,8 +130,8 @@ export default class CreateRoom extends React.Component
             //This needs to be the current user's username and password.
             //Could I use the same route for chatLogin maybe?
             //Do I even need to use the route, or are these things already made?
-            "User-Name": props.user,
-            "User-Secret": props.secret
+            "User-Name": this.user,
+            "User-Secret": this.secret
         }})
         .then((response) => {
             callback && callback(response.data);
@@ -166,7 +168,7 @@ export default class CreateRoom extends React.Component
                 <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
-
+                
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
             </MainColumn>
         );
