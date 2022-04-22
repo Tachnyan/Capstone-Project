@@ -180,7 +180,7 @@ function deletecourse(data){
 
 function friendrequests(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student.Student_First, Student.Student_Last FROM Student WHERE Student.Student_ID = (SELECT Student_Has_Pending.Student_Pending_ID FROM Student_Has_Pending WHERE Student_Has_Pending.Student_User_ID = ?);'
+        var sql = 'SELECT Student.Student_First, Student.Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_Has_Pending.Student_Pending_ID FROM Student_Has_Pending WHERE Student_Has_Pending.Student_User_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
@@ -196,7 +196,7 @@ function friendrequests(data){
 
 function ignorelist(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID = (SELECT Student_Blocked_ID FROM Student_Has_Blocked WHERE Student_User_ID = ?);'
+        var sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Blocked_ID FROM Student_Has_Blocked WHERE Student_User_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
