@@ -212,35 +212,50 @@ function ignorelist(data){
 
 function createstudygroup(data){
     return new Promise((resolve, reject) =>{
-        var sql = `INSERT INTO Studygroup
-                   VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
-        var insert = [data.Studygroup_ID, data.Studygroup_Material, data.Studygroup_Location, data.Studygroup_Privacy, data.Studygroup_Start, data.Studygroup_End, data.userID];
+        var sql = `SELECT Course_Subject, Course_Number, Course_Section
+                   FROM Course
+                   WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?`;
+        var insert = [data.Course_Subject, data.Course_Number, data.Course_Section];
         sql = mysql.format(sql, insert);
-        pool.query(sql, (err, results) => {
+        pool.query(sql, (err, result) =>{
             if(err){
                 reject(err);
+            }else if(result.length == 0){
+                resolve(400);
+            }else{
+                var sql = `INSERT INTO Studygroup
+                           VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
+                var insert = [data.Studygroup_ID, data.Studygroup_Material, data.Studygroup_Location, data.Studygroup_Privacy, data.Studygroup_Start, data.Studygroup_End, data.userID];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        reject(err);
+                    }else{
+                        var sql = `INSERT INTO Studygroup_Has_Student
+                                   VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
+                        var insert = [null, data.Studygroup_ID, data.userID];
+                        sql = mysql.format(sql, insert);
+                        pool.query(sql, (err, results) => {
+                            if(err){
+                                reject(err);
+                            }else{
+                                var sql = `INSERT INTO Studygroup_Has_Course
+                                        VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
+                                    var insert = [null, data.Studygroup_ID, data.Course_Subject, data.Course_Number, data.Course_Section];
+                                    sql = mysql.format(sql, insert);
+                                    pool.query(sql, (err, results) => {
+                                        if(err){
+                                            reject(err);
+                                        }else{
+                                            resolve(200);
+                                        }
+                                    });
+                            };
+                        });
+                    }
+                });
             }
-        });
-
-        var sql = `INSERT INTO Studygroup_Has_Student
-                   VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
-        var insert = [null, data.Studygroup_ID, data.userID];
-        sql = mysql.format(sql, insert);
-        pool.query(sql, (err, results) => {
-            if(err){
-                reject(err);
-            }
-        });
-
-        var sql = `INSERT INTO Studygroup_Has_Course
-                   VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
-        var insert = [null, data.Studygroup_ID, data.Course_Subject, data.Course_Number, data.Course_Section];
-        sql = mysql.format(sql, insert);
-        pool.query(sql, (err, results) => {
-            if(err){
-                reject(err);
-            }
-        });
+        });       
     });
 }
 
