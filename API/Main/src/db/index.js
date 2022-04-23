@@ -72,7 +72,7 @@ function studygroups(){
 function addfriend(data){
     return new Promise((resolve, reject) => {
         //Query 1: Check if they don't have that person friended already
-        var sql = `SELECT * FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
+        var sql = `SELECT * FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = (SELECT Student_Student_ID FROM Login WHERE Login_User = ?)`;
         var insert = [data.userID, data.friendUsername];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
@@ -113,18 +113,30 @@ function addfriend(data){
 
 function ignoreuser(data){
     return new Promise((resolve, reject) => {
-        var sql = `INSERT INTO Student_Has_Blocked
-                   VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));`;
-        var insert = [null, data.userID, data.ignoreUsername];
+        //Query 1: Check if they are already ignored
+        var sql = `SELECT * FROM Student_Has_Blocked WHERE Student_User_ID = ? AND Student_Blocked_ID = (SELECT Student_Student_ID FROM Login WHERE Login_User = ?)`
+        var insert = [data.userID, data.ignoreUsername];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
-            if(err){
-                reject(err);
+            if(results.length > 0){
+                reject(500);
             }
             else{
-                resolve(200);
-            };
-        });
+                //Query 2: Ignore the user
+                sql = `INSERT INTO Student_Has_Blocked
+                        VALUES (?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_Student_ID FROM Login WHERE Login_User = ?));`;
+                insert = [null, data.userID, data.ignoreUsername];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        reject(err);
+                    }
+                    else{
+                        resolve(200);
+                    };
+                });
+            }
+        })
     });
 };
 
