@@ -1,5 +1,5 @@
 import express from 'express';
-import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist} from '../db/index.js'
+import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist, unfriend, unignore, acceptfriend, denyfriend} from '../db/index.js'
 
 var router = express.Router();
 
@@ -125,6 +125,46 @@ router.get('/studentcourses', async(req, res, next)=>{
     try{
         req.body.userID = req.query.userID;
         let results = await studentcourses(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+});
+
+router.post('/unfriend', async(req, res, next) =>{
+    try{
+        let results = await unfriend(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+});
+
+router.post('/unignore', async(req, res, next) =>{
+    try{
+        let results = await unignore(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+});
+
+router.post('/denyfriend', async(req, res, next) =>{
+    try{
+        let results = await denyfriend(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+});
+
+router.post('/acceptfriend', async(req, res, next) =>{
+    try{
+        let results = await acceptfriend(req.body);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
