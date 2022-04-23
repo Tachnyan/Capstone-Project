@@ -259,5 +259,21 @@ function createstudygroup(data){
     });
 }
 
+function unfriend(data){
+    console.log("Unfriend")
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup};
+function unignore(data){
+    console.log("Unignore")
+}
+
+function acceptfriend(data){
+    console.log("Accept friend")
+}
+
+function denyfriend(data){
+    console.log("Deny friend")
+}
+
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup, unfriend, unignore, acceptfriend, denyfriend};
