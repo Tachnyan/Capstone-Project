@@ -155,7 +155,7 @@ router.post('/unfriend', async(req, res, next) =>{
 
 router.post('/unignore', async(req, res, next) =>{
     try{
-        let results = await unignore(req.body, req.query.id);
+        let results = await unignore(req.query);
         res.json(results);
     } catch(e){
         res.sendStatus(500);

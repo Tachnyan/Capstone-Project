@@ -1,8 +1,33 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
+import axios from "axios";
 
-export default function SocialButton({route,content}){
-    return <Link to={route}><StyledButton>{content}</StyledButton></Link>
+export default class SocialButton extends React.Component
+{
+    constructor(props)
+    {
+        super(props)
+        this.url = props.route;
+        this.content = props.content;
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick()
+    {
+        axios.get(this.url, {timeout:5000})
+        .then((val) => {
+
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    render()
+    {
+        return(
+            <StyledButton onClick={this.handleClick}>{this.content}</StyledButton>
+        )
+    }   
 }
 
 const StyledButton = styled.button`

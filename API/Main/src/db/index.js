@@ -311,9 +311,9 @@ function unfriend(data, studentid){
     });
 }
 
-function unignore(data, studentid){
+function unignore(data){
     var sql = `DELETE FROM Student_Has_Blocked WHERE Student_User_ID = ? AND Student_Blocked_ID = ?`;
-    var insert = [data.userID, studentid];
+    var insert = [data.userID, data.id];
     sql = mysql.format(sql, insert);
     pool.query(sql, (err, results) => {
         if(err){
