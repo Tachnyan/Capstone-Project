@@ -13,12 +13,12 @@ export const Social = (props) => {
     //build array of rows for friends list table
     //fill each row with name of ignored user
     var ignoredListRows = []
-    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route="/app/unignore" content="-"/></Cell></ListRow>))
+    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route={`/app/unignore?id=${friend.Student_ID}`} content="-"/></Cell></ListRow>))
     
     //build array of rows for friends list table
     //fill each row with name of request
     var RequestListRows = []
-    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route="/app/acceptfriend" content="+"/></Cell><Cell><SocialButton route="/denyfriend" content="-"/></Cell></ListRow>))
+    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route={`/app/acceptfriend?id=${friend.Student_ID}`} content="+"/></Cell><Cell><SocialButton route={`/app/denyfriend?id=${friend.Student_ID}`} content="-"/></Cell></ListRow>))
     
     return (
         <Main>
