@@ -107,7 +107,12 @@ export default function router(app)
         }else{
             request.body.userID = userID;
             console.log(request.body)
-            let url = `${process.env.DATA_URL}${request._parsedOriginalUrl.path.slice(5)}?userID=${userID}`
+            let url = `${process.env.DATA_URL}${request._parsedOriginalUrl.path.slice(5)}`
+            if(request.method == "GET")
+            {
+                if(url.includes("?")) url += `&userID=${userID}`;
+                else url += `?userID=${userID}`;
+            }
             console.log(url)
             response.redirect(307, url);
         }

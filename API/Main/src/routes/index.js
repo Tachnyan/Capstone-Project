@@ -155,7 +155,7 @@ router.post('/unfriend', async(req, res, next) =>{
 
 router.post('/unignore', async(req, res, next) =>{
     try{
-        let results = await unignore(req.body);
+        let results = await unignore(req.body, req.query.id);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -165,7 +165,7 @@ router.post('/unignore', async(req, res, next) =>{
 
 router.post('/denyfriend', async(req, res, next) =>{
     try{
-        let results = await denyfriend(req.body);
+        let results = await denyfriend(req.body, req.query.id);
         res.json(results);
         res.redirect('/app/Social')
     } catch(e){
@@ -176,7 +176,7 @@ router.post('/denyfriend', async(req, res, next) =>{
 
 router.post('/acceptfriend', async(req, res, next) =>{
     try{
-        let results = await acceptfriend(req.body);
+        let results = await acceptfriend(req.body, req.query.id);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
