@@ -145,7 +145,7 @@ router.post('/createstudygroup', async(req, res, next)=>{
 
 router.post('/unfriend', async(req, res, next) =>{
     try{
-        let results = await unfriend(req.body);
+        let results = await unfriend(req.body, req.query.id);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -167,7 +167,7 @@ router.post('/denyfriend', async(req, res, next) =>{
     try{
         let results = await denyfriend(req.body);
         res.json(results);
-        res.redirect('/Social')
+        res.redirect('/app/Social')
     } catch(e){
         res.sendStatus(500);
         console.log(e);

@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import { format } from 'path';
+import { format, resolve } from 'path';
 import { pool } from '../config.js'
 
 
@@ -7,7 +7,7 @@ import { pool } from '../config.js'
 function friends(data){
     
     return new Promise((resolve, reject) => {
-        let sql = `SELECT Student_First, Student_Last FROM Student 
+        let sql = `SELECT Student_ID, Student_First, Student_Last FROM Student 
                    WHERE Student_ID IN (SELECT Student_Friended_ID FROM Student_Has_Friend WHERE Student_User_ID = ?)`
         let insert = [data.userID]
         sql = mysql.format(sql, insert)
@@ -209,7 +209,7 @@ function deletecourse(data){
 
 function friendrequests(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student.Student_First, Student.Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_Has_Pending.Student_Pending_ID FROM Student_Has_Pending WHERE Student_Has_Pending.Student_User_ID = ?);'
+        var sql = 'SELECT Student_ID, Student_First, Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_Pending_ID FROM Student_Has_Pending WHERE Student_User_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
@@ -225,7 +225,7 @@ function friendrequests(data){
 
 function ignorelist(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Blocked_ID FROM Student_Has_Blocked WHERE Student_User_ID = ?);'
+        var sql = 'SELECT Student_ID, Student_First, Student_Last FROM Student WHERE Student_ID IN (SELECT Student_Blocked_ID FROM Student_Has_Blocked WHERE Student_User_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
@@ -288,8 +288,27 @@ function createstudygroup(data){
     });
 }
 
-function unfriend(data){
-    console.log("Unfriend")
+function unfriend(data, studentid){
+    var sql = `DELETE FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
+    var insert = [data.userID, studentid];
+    sql = mysql.format(sql, insert);
+    pool.query(sql, (err, results) => {
+        if(err){
+            reject(500);
+        }else{
+            sql = `DELETE FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
+            insert = [studentid, data.userID];
+            sql = mysql.format(sql, insert);
+            pool.query(sql, (err, results) => {
+                if(err){
+                    reject(500);
+                }
+                else{
+                    resolve(200);
+                }
+            })
+        }
+    });
 }
 
 function unignore(data){

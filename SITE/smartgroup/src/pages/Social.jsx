@@ -8,17 +8,17 @@ export const Social = (props) => {
     //build array of rows for friends list table
     //fill each row with name of friend
     var FriendsListRows = []
-    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><Cell>{friend.Student_First} {friend.Student_Last}</Cell><Cell><SocialButton route="/unfriend" content="-"/></Cell></ListRow>))
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><Cell>{friend.Student_First} {friend.Student_Last}</Cell><Cell><SocialButton route={`/app/unfriend?id=${friend.Student_ID}`} content="-"/></Cell></ListRow>))
 
     //build array of rows for friends list table
     //fill each row with name of ignored user
     var ignoredListRows = []
-    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route="/unignore" content="-"/></Cell></ListRow>))
+    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route="/app/unignore" content="-"/></Cell></ListRow>))
     
     //build array of rows for friends list table
     //fill each row with name of request
     var RequestListRows = []
-    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route="/acceptfriend" content="+"/></Cell><Cell><SocialButton route="/denyfriend" content="-"/></Cell></ListRow>))
+    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route="/app/acceptfriend" content="+"/></Cell><Cell><SocialButton route="/denyfriend" content="-"/></Cell></ListRow>))
     
     return (
         <Main>
