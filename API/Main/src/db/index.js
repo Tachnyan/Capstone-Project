@@ -288,20 +288,20 @@ function createstudygroup(data){
     });
 }
 
-function unfriend(data, studentid){
+function unfriend(data){
     var sql = `DELETE FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
-    var insert = [data.userID, studentid];
+    var insert = [data.userID, data.id];
     sql = mysql.format(sql, insert);
     pool.query(sql, (err, results) => {
         if(err){
             reject(500);
         }else{
             sql = `DELETE FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
-            insert = [studentid, data.userID];
+            insert = [data.id, data.userID];
             sql = mysql.format(sql, insert);
             pool.query(sql, (err, results) => {
                 if(err){
-                    reject(500);
+                    reject(500)
                 }
                 else{
                     resolve(200);
@@ -319,21 +319,21 @@ function unignore(data){
         if(err){
             reject(500);
         }else{
-            results.resolve(200);
+            results.resolve(200)
         }
     });
 }
 
-function acceptfriend(data, studentid){
+function acceptfriend(data){
     var sql = `DELETE FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
-    var insert = [data.userID, studentid];
+    var insert = [data.userID, data.id];
     sql = mysql.format(sql, insert);
     pool.query(sql, (err, results) => {
         if(err){
             reject(500);
         }else{
             sql = `INSERT INTO Student_Has_Friend VALUES (null, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`
-            insert = [data.userID, studentid];
+            insert = [data.userID, data.id];
             sql = mysql.format(sql, insert);
             pool.query(sql, (err, results) => {
                 if(err){
@@ -341,7 +341,7 @@ function acceptfriend(data, studentid){
                 }
                 else{
                     sql = `INSERT INTO Student_Has_Friend VALUES (null, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`
-                    insert = [studentid, data.userID];
+                    insert = [data.id, data.userID];
                     sql = mysql.format(sql, insert);
                     pool.query(sql, (err, results) =>{
                         if(err){
@@ -357,9 +357,9 @@ function acceptfriend(data, studentid){
     });
 }
 
-function denyfriend(data, studentid){
+function denyfriend(data){
     var sql = `DELETE FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
-    var insert = [data.userID, studentid];
+    var insert = [data.userID, data.id];
     sql = mysql.format(sql, insert);
     pool.query(sql, (err, results) => {
         if(err){

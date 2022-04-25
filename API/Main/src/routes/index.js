@@ -143,9 +143,9 @@ router.post('/createstudygroup', async(req, res, next)=>{
     }
 });
 
-router.post('/unfriend', async(req, res, next) =>{
+router.get('/unfriend', async(req, res, next) =>{
     try{
-        let results = await unfriend(req.body, req.query.id);
+        let results = await unfriend(req.query);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
@@ -153,7 +153,7 @@ router.post('/unfriend', async(req, res, next) =>{
     }
 });
 
-router.post('/unignore', async(req, res, next) =>{
+router.get('/unignore', async(req, res, next) =>{
     try{
         let results = await unignore(req.query);
         res.json(results);
@@ -163,9 +163,9 @@ router.post('/unignore', async(req, res, next) =>{
     }
 });
 
-router.post('/denyfriend', async(req, res, next) =>{
+router.get('/denyfriend', async(req, res, next) =>{
     try{
-        let results = await denyfriend(req.body, req.query.id);
+        let results = await denyfriend(req.query);
         res.json(results);
         res.redirect('/app/Social')
     } catch(e){
@@ -174,9 +174,9 @@ router.post('/denyfriend', async(req, res, next) =>{
     }
 });
 
-router.post('/acceptfriend', async(req, res, next) =>{
+router.get('/acceptfriend', async(req, res, next) =>{
     try{
-        let results = await acceptfriend(req.body, req.query.id);
+        let results = await acceptfriend(req.query);
         res.json(results);
     } catch(e){
         res.sendStatus(500);
