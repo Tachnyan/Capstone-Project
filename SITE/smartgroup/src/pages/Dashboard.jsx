@@ -62,6 +62,9 @@ const RecommendedList = styled.table`
     ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
+    @media only screen and (max-device-width: 768px){
+        font-size: 2.5rem;
+    }
 `
 
 const RecommendedDiv = styled.div`
@@ -110,10 +113,11 @@ const Main = styled.div`
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: 75vw;
-    height: 75vh;
-    max-width: 600px;
-    max-height: 700px
+    width: 50xvw;
+    height: 60vh;
+    @media only screen and (max-device-width: 768px){
+        width: 90vw;
+    }
 `
 
 const List = styled.table`
@@ -128,6 +132,9 @@ const List = styled.table`
     width: 0px;
     background: transparent; /* make scrollbar transparent */
     }
+    @media only screen and (max-device-width: 768px){
+        font-size: 2.5rem;
+    }
 `
 
 const FriendsListHead = styled.div`
@@ -136,6 +143,9 @@ const FriendsListHead = styled.div`
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+    @media only screen and (max-device-width: 768px){
+        font-size: 3.5rem;
+    }
 `
 
 const ListRow = styled.tr`
