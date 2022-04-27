@@ -1,22 +1,23 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
 
-export default function CreateButton({content}){
-    return <Link to="/app/StudyRoom"><StyledButton>{content}</StyledButton></Link>
+export default function Button({content, id, onClick}){
+    return <StyledButton id = {id} onClick={onClick}>{content}</StyledButton>
 }
+
 
 const StyledButton = styled.button`
     position: relative;
     background: green;
-    width: 8rem;
-    height: 100%;
-    padding: 0px;
+    width: fit-content;
+    height: 2rem;
+    padding: 5px;
     margin: 2vh;
     border: none;
     outline: none;
     border-radius: 2rem;
     transition: 0.15s ease-in-out;
-    font-size: 2vh;
+    font-size: 1.15rem;
+    color: white;
     :hover{
         background: green;
         transform: translateY(-2px);
@@ -24,6 +25,9 @@ const StyledButton = styled.button`
         transition: box-shadow 0.15s ease-in-out;
     }
     :active{
-        transform: translateY(2px)
+        transform: translateY(2px);
+        transition: transform 0.15s;
+        box-shadow: none;
+
     }
 `;
