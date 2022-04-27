@@ -209,7 +209,7 @@ function deletecourse(data){
 
 function friendrequests(data){
     return new Promise((resolve, reject) =>{
-        var sql = 'SELECT Student_ID, Student_First, Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_Pending_ID FROM Student_Has_Pending WHERE Student_User_ID = ?);'
+        var sql = 'SELECT Student_ID, Student_First, Student_Last FROM Student WHERE Student.Student_ID IN (SELECT Student_User_ID FROM Student_Has_Pending WHERE Student_Pending_ID = ?);'
         var insert = [data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
