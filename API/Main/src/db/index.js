@@ -84,7 +84,7 @@ function addfriend(data){
                 sql = `SELECT * FROM Student_Has_Pending WHERE Student_User_ID = ? 
                 AND Student_Pending_ID = (SELECT Student_Student_ID FROM Login WHERE Login_User = ?)`;
                 insert = [data.userID, data.friendUsername];
-                sql = mysql.format(sql, insert);
+                sql = mysql.format(sql, insert)
                 pool.query(sql, (err, results) => {
                     if(results.length > 0){
                         reject(500);
@@ -359,7 +359,7 @@ function acceptfriend(data){
 
 function denyfriend(data){
     var sql = `DELETE FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
-    var insert = [data.userID, data.id];
+    var insert = [data.id, data.userID]
     sql = mysql.format(sql, insert);
     pool.query(sql, (err, results) => {
         if(err){
