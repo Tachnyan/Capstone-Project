@@ -132,25 +132,24 @@ export default class CreateRoom extends React.Component
             "User-Secret": this.secret
         }})
         .then((response) => {
-            callback && callback(response.data);
-            if(response.status == 200)
+            //callback && callback(response.data);
+            if(response.status == 201)
             {
-                this.state.roomID = response.body.id;
-                console.log(this.state.roomID);
-                
-                
-            }
-            //Get id from the response
-            //Actually use the route to send the id and all other stuff to the database
-            /*axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout:2000})
-            .then((val) => {
+                //Get id from the response
+                console.log(response.data.id)
+                this.state.roomID = response.data.id;
+                //Actually use the route to send the id and all other stuff to the database
+                /*axios.post(`${process.env.AUTH_URL}/data/createroom`, this.state, {timeout:2000})
+                .then((val) => {
                 if(val.status.statuscode == 200){
                     console.log("Chatroom created");
-                }
-            })
-            .catch((err) => {
-                console.log("error");
-            })*/
+                }})
+                .catch((err) => {
+                    console.log("error");
+                })*/
+                
+            }
+            
         })
         .catch((err) => {
             console.log(err);
