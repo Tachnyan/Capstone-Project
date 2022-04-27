@@ -81,14 +81,13 @@ export default class CreateRoom extends React.Component
         this.user = props.user;
         this.secret = props.secret;
         this.state = {
-            roomID: "",
-            course: "",
-            roomLocation: "",
-            roomDescription: "",
-            numberofPeople: "",
-            startTime: "",
-            endTime: "",
-            timeframe: ""
+            Course_Subject: "",
+            Studygroup_ID: "",
+            Studygroup_Material: "",
+            Studygroup_Location: "",
+            Studygroup_Privacy: "Open",
+            Studygroup_Start: "",
+            Studygroup_End: ""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -120,10 +119,14 @@ export default class CreateRoom extends React.Component
 
     handleSubmit(event){
         event.preventDefault();
-        console.log(this.state.roomDescription);
+        let fullClass = this.state.Course_Subject;
+        const classArray = fullClass.split(" ");
+        this.state.Course_Subject = classArray[0];
+        this.state.Course_Number = classArray[1];
+        this.state.Course_Section = classArray[2];
         //This is the part where the room will be made with chatengine first
         //The id will be obtained from the json and put into the id field
-        axios.post('https://api.chatengine.io/chats/', {title: this.state.roomDescription}, {headers: {
+        axios.post('https://api.chatengine.io/chats/', {title: this.state.Studygroup_Material}, {headers: {
             "Public-Key": process.env.CHAT_ID,
             //This needs to be the current user's username and password.
             //Could I use the same route for chatLogin maybe?
@@ -137,7 +140,8 @@ export default class CreateRoom extends React.Component
             {
                 //Get id from the response
                 console.log(response.data.id)
-                this.state.roomID = response.data.id;
+                this.state.Studygroup_ID = response.data.id;
+                console.log("Attempting to create study room")
                 //Actually use the route to send the id and all other stuff to the database
                 axios.post(`${process.env.DATA_URL}/data/createstudygroup`, this.state, {timeout:2000})
                 .then((val) => {
@@ -161,11 +165,11 @@ export default class CreateRoom extends React.Component
     render(){
         return(
             <MainColumn onSubmit={this.handleSubmit}>
-                <MainRow><TitleBox>Course:</TitleBox><InputBox name="course" type = "text" id="course" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox name="roomDescription" type = "text" id="roomDescription" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="startTime" type = "text" id="startTime" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="endTime" type = "text" id="endTime" placeholder="e.g. 2:00 pm" value={this.state.endTime} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Study Room:</TitleBox><InputBox name="roomLocation" type = "text" id="roomLocation" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
+                <MainRow><TitleBox>Course:</TitleBox><InputBox name="Course_Subject" type = "text" id="Course_Subject" placeholder="e.g. CSC 405 002" value={this.state.Course_Subject} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox name="Studygroup_Material" type = "text" id="Studygroup_Material" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.Studygroup_Material} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="Studygroup_Start" type = "text" id="Studygroup_Start" placeholder="e.g. 2022-04-22 17:00:00" value={this.state.Studygroup_Start} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="Studygroup_End" type = "text" id="Studygroup_End" placeholder="e.g. 2022-04-22 18:00:00" value={this.state.Studygroup_End} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Study Room:</TitleBox><InputBox name="Studygroup_Location" type = "text" id="Studygroup_Location" placeholder="e.g. IESB 216" value={this.state.Studygroup_Location} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="Studygroup_Privacy" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
             </MainColumn>
         );
