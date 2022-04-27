@@ -331,10 +331,11 @@ function unignore(data){
 function acceptfriend(data){
     return new Promise((resolve, reject) => {
         var sql = `DELETE FROM Student_Has_Pending WHERE Student_User_ID = ? AND Student_Pending_ID = ?`;
-        var insert = [data.userID, data.id];
+        var insert = [data.id, data.userID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
             if(err){
+                console.log(err)
                 reject(500);
             }else{
                 sql = `INSERT INTO Student_Has_Friend VALUES (null, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`
@@ -342,6 +343,7 @@ function acceptfriend(data){
                 sql = mysql.format(sql, insert);
                 pool.query(sql, (err, results) => {
                     if(err){
+                        console.log(err)
                         reject(500);
                     }
                     else{
@@ -350,6 +352,7 @@ function acceptfriend(data){
                         sql = mysql.format(sql, insert);
                         pool.query(sql, (err, results) =>{
                             if(err){
+                                console.log(err)
                                 reject(500);
                             }
                             else{

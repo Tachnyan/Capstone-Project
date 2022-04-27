@@ -17,8 +17,8 @@ export const Social = (props) => {
     
     //build array of rows for friends list table
     //fill each row with name of request
-    var RequestListRows = []
-    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/acceptfriend?id=${request.userID}`} content="+"/></Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/denyfriend?id=${request.userID}`} content="-"/></Cell></ListRow>))
+    var RequestListRows = [];
+    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/acceptfriend?id=${request.Student_ID}`} content="+"/></Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/denyfriend?id=${request.Student_ID}`} content="-"/></Cell></ListRow>))
     
     return (
         <Main>
