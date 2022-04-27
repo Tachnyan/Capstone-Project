@@ -120,9 +120,7 @@ export default class CreateRoom extends React.Component
 
     handleSubmit(event){
         event.preventDefault();
-        console.log("HELLO")
-        console.log(event);
-        console.log(this.state);
+        console.log(this.state.roomDescription);
         //This is the part where the room will be made with chatengine first
         //The id will be obtained from the json and put into the id field
         axios.post('https://api.chatengine.io/chats/', {title: this.state.roomDescription}, {headers: {
@@ -164,11 +162,11 @@ export default class CreateRoom extends React.Component
     render(){
         return(
             <MainColumn onSubmit={this.handleSubmit}>
-                <MainRow><TitleBox id="course">Course:</TitleBox><InputBox type = "text" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox id="roomDescription">Description/Study Goals:</TitleBox><InputBox type = "text" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox id="startTime">Start Time:</TitleBox><InputBox name="field3" type = "text" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox id="endTime">End Time:</TitleBox><InputBox type = "text" placeholder="e.g. 2:00 pm"value={this.state.endTime} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox id="roomLocation">Study Room:</TitleBox><InputBox type = "text" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
-                
+                <MainRow><TitleBox>Course:</TitleBox><InputBox name="course" type = "text" id="course" placeholder="e.g. CSC-405-002" value={this.state.course} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox name="roomDescription" type = "text" id="roomDescription" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.roomDescription} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="startTime" type = "text" id="startTime" placeholder="e.g. 1:00 pm" value={this.state.startTime} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="endTime" type = "text" id="endTime" placeholder="e.g. 2:00 pm" value={this.state.endTime} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Study Room:</TitleBox><InputBox name="roomLocation" type = "text" id="roomLocation" placeholder="e.g. IESB 216" value={this.state.roomLocation} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="private" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><Button type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
             </MainColumn>
         );
