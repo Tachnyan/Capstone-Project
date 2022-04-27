@@ -139,14 +139,14 @@ export default class CreateRoom extends React.Component
                 console.log(response.data.id)
                 this.state.roomID = response.data.id;
                 //Actually use the route to send the id and all other stuff to the database
-                /*axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:2000})
+                axios.post(`${process.env.DATA_URL}/data/createstudygroup`, this.state, {timeout:2000})
                 .then((val) => {
                 if(val.status.statuscode == 200){
                     console.log("Chatroom created");
                 }})
                 .catch((err) => {
                     console.log("error");
-                })*/
+                })
                 
             }
             
