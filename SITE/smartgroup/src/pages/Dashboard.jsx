@@ -23,7 +23,6 @@ export const Dashboard = (props) => {
                 <List>
                     {FriendsListRows}       
                 </List>
-                <AddFriend/>
                 </ListDiv>
 
                 {/* Classmates List */}
