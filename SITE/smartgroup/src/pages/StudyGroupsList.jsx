@@ -9,6 +9,40 @@ export function StudyGroupsList(props) {
   var StudygroupsListRows = []
   props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_id} course = '!' location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = '3' timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} />))
   
+  function join()
+  {
+    // Attempts to add user to the chat room first before adding to the database
+    // group.Studygroup_id in the post link needs to be the group id of the clicked on row
+    // username: this.user I think needs to be the username of the person currently logged in, see below
+    axios.post(`https://api.chatengine.io/chats/${group.Studygroup_id}/people/`, {username: this.user}, {headers: {
+        "Public-Key": process.env.CHAT_ID,
+        // Okay I think things are going to get weird
+        // I'm pretty sure this user and secret has to be the user and secret of the chat admin, not whoever's logged in
+        "User-Name": adminUsername,
+        "User-Secret": adminSecret
+    }})
+    .then((response) => {
+        //callback && callback(response.data);
+        if(response.status == 201)
+        {
+            // Now we actually do the api route to add the user to the database
+            // this.state needs to be swapped out
+            axios.post(`${process.env.AUTH_URL}/data/studygroup/join`, this.state, {timeout:2000})
+            .then((response) => {
+                console.log(response.status)
+                if(response.status == 200){
+                    console.log("Chatroom joined");
+            }})
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+  }
+
   return (
     <div className="studygroupslist">
       <header>
