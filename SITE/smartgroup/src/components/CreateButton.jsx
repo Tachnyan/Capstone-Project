@@ -30,4 +30,8 @@ const StyledButton = styled.button`
         box-shadow: none;
 
     }
+    @media only screen and (orientation: portrait) {
+        height: fit-content;
+        font-size: 2rem;
+    }
 `;
