@@ -330,6 +330,37 @@ function createstudygroup(data){
     });
 }
 
+function joinstudygroup(data){
+    return new Promise((resolve, reject) =>{
+        //Add to chatroom
+        axios.post(`https://api.chatengine.io/chats/${data.Studygroup_ID}/people/`, {username: data.user}, {headers: {
+            "Public-Key": process.env.CHAT_ID,
+            "User-Name": process.env.CHAT_USER,
+            "User-Secret": process.env.CHAT_SECRET
+        }})
+        .then((response => {
+            if(response.status == 201)
+            {
+                //Add to database
+                var sql = `INSERT INTO Studygroup_Has_Student
+                VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
+                var insert = [null, data.Studygroup_ID, data.userID];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        reject(err);
+                    }else{
+                        resolve(200);
+                    }
+                })
+            }
+        }))
+        .catch((err) => {
+            reject(err);
+        })
+    })
+}
+
 function unfriend(data){
     return new Promise((resolve, reject) => {
         var sql = `DELETE FROM Student_Has_Friend WHERE Student_User_ID = ? AND Student_Friended_ID = ?`;
@@ -424,4 +455,4 @@ function denyfriend(data){
 }
 
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup, unfriend, unignore, acceptfriend, denyfriend};
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend};

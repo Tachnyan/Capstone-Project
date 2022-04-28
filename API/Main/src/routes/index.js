@@ -1,5 +1,5 @@
 import express from 'express';
-import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist, createstudygroup, unfriend, unignore, acceptfriend, denyfriend} from '../db/index.js'
+import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend} from '../db/index.js'
 
 var router = express.Router();
 
@@ -150,6 +150,17 @@ router.post('/createstudygroup', async(req, res, next)=>{
         console.log(e);
     }
 });
+
+router.post('/joinstudygroup', async(req, res, next) =>{
+    try{
+        req.body.userID = req.query.userID;
+        let results = await joinstudygroup(req.body);
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+        console.log(e);
+    }
+})
 
 router.get('/unfriend', async(req, res, next) =>{
     try{
