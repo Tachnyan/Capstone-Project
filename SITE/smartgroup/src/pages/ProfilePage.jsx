@@ -29,8 +29,6 @@ export const ProfilePage = (props) => {
                     {ClassListRows}
                 </List>
             </ListDiv>
-            <AddFriend />
-            <IgnoreUser />
         </Main>
     )
 }

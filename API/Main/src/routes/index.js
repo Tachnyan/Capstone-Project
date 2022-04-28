@@ -69,8 +69,12 @@ router.get('/ignorelist', async(req, res, next) => {
 router.post('/addfriend', async(req, res, next)=>{
     try{
         req.body.userID = req.query.userID;
-        let results = await addfriend(req.body);
-        res.json(results);
+        addfriend(req.body) 
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -80,8 +84,12 @@ router.post('/addfriend', async(req, res, next)=>{
 router.post('/ignoreuser', async(req, res, next)=>{  
     try{
         req.body.userID = req.query.userID;
-        let results = await ignoreuser(req.body);
-        res.json(results);
+        ignoreuser(req.body)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -145,8 +153,12 @@ router.post('/createstudygroup', async(req, res, next)=>{
 
 router.get('/unfriend', async(req, res, next) =>{
     try{
-        let results = await unfriend(req.query);
-        res.json(results);
+        unfriend(req.query)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -155,8 +167,12 @@ router.get('/unfriend', async(req, res, next) =>{
 
 router.get('/unignore', async(req, res, next) =>{
     try{
-        let results = await unignore(req.query);
-        res.json(results);
+        unignore(req.query)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -165,9 +181,12 @@ router.get('/unignore', async(req, res, next) =>{
 
 router.get('/denyfriend', async(req, res, next) =>{
     try{
-        let results = await denyfriend(req.query);
-        res.json(results);
-        res.redirect('/app/Social')
+        denyfriend(req.query)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -176,8 +195,12 @@ router.get('/denyfriend', async(req, res, next) =>{
 
 router.get('/acceptfriend', async(req, res, next) =>{
     try{
-        let results = await acceptfriend(req.query);
-        res.json(results);
+        acceptfriend(req.query)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
