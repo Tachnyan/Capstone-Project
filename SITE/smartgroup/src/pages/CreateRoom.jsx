@@ -30,6 +30,10 @@ const MainRow = styled.div`
     height: 13vh;
     width: 50vw;
     max-width: 1000px;
+    @media only screen and (orientation: portrait) {
+        flex-direction: column;
+        overflow: auto;
+    }
 `;
 
 const TitleBox = styled.div`
@@ -42,6 +46,10 @@ const TitleBox = styled.div`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    @media only screen and (orientation: portrait) {
+        white-space: wrap;
+        font-size: 1.8vh;
+    }
 `;
 
 const CheckBox = styled.input`
@@ -93,15 +101,11 @@ export default class CreateRoom extends React.Component
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        this.checkbox = document.getElementById("private");
-        this.passwordBox = document.getElementById("password");
     }
 
 
     componentDidMount()
     {
-       this.checkbox = document.getElementById("private");
-       this.passwordBox = document.getElementById("password");
     }
 
     handleChange(event){
@@ -109,13 +113,6 @@ export default class CreateRoom extends React.Component
         this.setState({
             [name]:event.target.value
         })
-        if(this.checkbox.checked == true){
-            this.passwordBox.disabled = false;
-        }
-        else{
-            this.passwordBox.disabled = true;
-            this.passwordBox.value = '';
-        }
     }
 
     handleSubmit(event){
@@ -171,7 +168,6 @@ export default class CreateRoom extends React.Component
                 <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox name="Studygroup_Material" type = "text" id="Studygroup_Material" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.Studygroup_Material} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="Studygroup_Start" type = "text" id="Studygroup_Start" placeholder="e.g. 2022-04-22 17:00:00" value={this.state.Studygroup_Start} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="Studygroup_End" type = "text" id="Studygroup_End" placeholder="e.g. 2022-04-22 18:00:00" value={this.state.Studygroup_End} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox>Study Room:</TitleBox><InputBox name="Studygroup_Location" type = "text" id="Studygroup_Location" placeholder="e.g. IESB 216" value={this.state.Studygroup_Location} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Private Room:</TitleBox><CheckBox type="checkbox" id="Studygroup_Privacy" onChange={this.handleChange}/><StyledInputBox type="text" placeholder="Password" id="password" disabled/></MainRow>
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
             </MainColumn>
         );
