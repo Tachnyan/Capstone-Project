@@ -61,7 +61,6 @@ export default class StudyGroupsList extends React.Component {
             Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
             <Link to="/app"><button>Back to Menu</button></Link>
             <Link to="/app/CreateRoom"><button>Create Group</button></Link>
-            <button>Join Group</button>
           </h1>
         </header>
         <div class="TableOverflow">
