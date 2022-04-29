@@ -195,18 +195,18 @@ export default class CreateRoom extends React.Component
         this.state.Course_Subject = classArray[0];
         this.state.Course_Number = classArray[1];
         this.state.Course_Section = classArray[2];
-        axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:5000})
+        axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:6000})
         .then((response) => {
             console.log(response.status)
             if(response.status == 200){
                 console.log("Chatroom created");
-                this.success.display = "block";
-                this.failure.display = "none";
+                this.success.style.display = "flex";
+                this.failure.style.display = "none";
         }})
         .catch((err) => {
             console.log(err);
-            this.success.display = "none";
-            this.failure.display = "block";
+            this.success.style.display = "none";
+            this.failure.style.display = "flex";
         })
         
     }
