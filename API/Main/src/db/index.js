@@ -143,16 +143,26 @@ function ignoreuser(data){
 
 function addcourse(data){
     return new Promise((resolve, reject) =>{
-        var sql = `INSERT INTO Student_Has_Course
-                   VALUES(?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?));`
-        var insert = [null, data.userID, data.courseSubject, data.courseNumber, data.courseSection];
+        var sql = `SELECT * FROM Student_Has_Course WHERE Student_Student_ID = ? AND Course_Course_ID = ?;`
+        var insert = [data.userID, data.courseID];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) => {
-            if(err){
-                reject(err);
+            if(results.length > 0){
+                reject(500);
             }
             else{
-                resolve(200);
+                //Query 2: Insert into student has course
+                sql = `INSERT INTO Student_Has_Course VALUES(?, (SELECT Student_ID FROM Student WHERE Student_ID = ?), (SELECT Course_ID FROM Course WHERE Course_ID = ?));`
+                insert = [null, data.userID, data.courseID];
+                sql = mysql.format(sql, insert);
+                pool.query(sql, (err, results) => {
+                    if(err){
+                        reject(err);
+                    }
+                    else{
+                        resolve(200);
+                    };
+                });
             };
         });
     });
