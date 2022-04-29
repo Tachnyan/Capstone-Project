@@ -55,9 +55,10 @@ function profile(data){
 
 function studygroups(){
     return new Promise((resolve, reject) => {
-        var sql = `SELECT Studygroup_ID, Course_Subject, Course_Number, Studygroup_Location, Studygroup_Material, COUNT(Student_Student_ID) AS Student_Count, Studygroup_Start, Studygroup_End 
-                   FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course 
-                   WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND Course_Course_ID = Course_ID;`;
+        var sql = `SELECT Studygroup_ID, Course_Subject, Course_Number, Course_Section, Studygroup_Location, Studygroup_Material, COUNT(DISTINCT SHS.Student_Student_ID) AS Student_Count, Studygroup_Start, Studygroup_End 
+                   FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course AS SHC 
+                   WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND SHC.Studygroup_Studygroup_ID = Studygroup_ID AND Course_Course_ID = Course_ID
+                   GROUP BY Studygroup_ID;`;
         pool.query(sql, (err, results) => {
             if(err){
                 return reject(err);
@@ -250,7 +251,7 @@ function createstudygroup(data){
             if(err){
                 reject(err);
             }else if(result.length == 0){
-                resolve(400);
+                reject(400);
             }else{
                 var sql = `INSERT INTO Studygroup
                            VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
@@ -269,7 +270,7 @@ function createstudygroup(data){
                                 reject(err);
                             }else{
                                 var sql = `INSERT INTO Studygroup_Has_Course
-                                        VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
+                                           VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
                                     var insert = [null, data.Studygroup_ID, data.Course_Subject, data.Course_Number, data.Course_Section];
                                     sql = mysql.format(sql, insert);
                                     pool.query(sql, (err, results) => {
