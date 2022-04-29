@@ -71,6 +71,14 @@ function App() {
     });
   }, []);
 
+   //get student's course list from Main API and set to postCourses const
+   const [postCourses, setPostCourses] = React.useState([]);
+   React.useEffect(() => {
+     axios.get(`${process.env.AUTH_URL}/data/studentcourses`).then((response) => {
+       setPostCourses(response.data);
+     });
+   }, []);
+
   return (
     <div className="App">
       <GlobalCSS></GlobalCSS>
@@ -79,7 +87,7 @@ function App() {
       <div className='App-body'>
         <Routes>
           <Route path="/app" element={<Dashboard friendsList = {postFriends} classmatesList = {postClassmates}/>}/>
-          <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last}/>))}/>
+          <Route path="/app/Profile" element={postProfile.map(student =>(<ProfilePage school = "Louisiana Tech University" firstName = {student.Student_First} lastName = {student.Student_Last} courseList = {postCourses}/>))}/>
           <Route path="/app/Social" element={<Social friendsList = {postFriends} ignoredList = {postIgnoredUsers} requestList = {postFriendRequest}/>}/>
           <Route path="/app/StudyGroupsList" element={<StudyGroupsList studygroupsList = {postStudygroups}/>}/>
           <Route path="/app/CreateRoom" element={<CreateRoom user={postChatInfo.chatUser}/>}/>
