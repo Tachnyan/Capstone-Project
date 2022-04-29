@@ -12,7 +12,6 @@ export function StudyGroupsList(props) {
   
   function join()
   {
-    console.log("hello")
     //This function is for the onclick for the entries
     //Idk if I'm gonna do a state here
     //Just need the user and the chat id to join a room
@@ -34,8 +33,8 @@ export function StudyGroupsList(props) {
       <header>
         <h1>
           Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
-          <Link to="/"><button>Back to Menu</button></Link>
-          <Link to="/CreateRoom"><button>Create Group</button></Link>
+          <Link to="/app"><button>Back to Menu</button></Link>
+          <Link to="/app/CreateRoom"><button>Create Group</button></Link>
           <button onClick={join}>Join Group</button>
         </h1>
       </header>
