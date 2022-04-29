@@ -24,4 +24,7 @@ const StyledInputBox = styled.input`
     @media only screen and (orientation: portrait) {
         font-size: 2vh;
     }
+    @-moz-document url-prefix(){
+        font-size: 2vh;
+    }
 `;
