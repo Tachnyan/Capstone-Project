@@ -11,7 +11,7 @@ const MainColumn = styled.form`
     position: relative;
     display: flex;
     align-items: center;
-    flex-direction column;
+    flex-direction: column;
     height: 70vh;
     width: 60vw;
     max-width: 1000px;
@@ -26,7 +26,7 @@ const MainRow = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    flex-direction row;
+    flex-direction: row;
     height: 13vh;
     width: 50vw;
     max-width: 1000px;
@@ -106,13 +106,13 @@ const StyledOption = styled.option`
 const ErrorBox = styled.div`
     color:red;
     display:none;
-    background: rgba(0,0,0,.5)
+    background: rgba(0,0,0,.5);
 `
 
 const SuccessBox = styled.div`
     color:green;
     display:none;
-    background: rgba(0,0,0,.5)
+    background: rgba(0,0,0,.5);
 `
 
 export default class CreateRoom extends React.Component
