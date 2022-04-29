@@ -106,13 +106,13 @@ const StyledOption = styled.option`
 const ErrorBox = styled.div`
 color:red;
 display:none;
-background: rgba(0,0,0,.5)
+background: rgba(0,0,0,.5);
 `
 
 const SuccessBox = styled.div`
 color:green;
 display:none;
-background: rgba(0,0,0,.5)
+background: rgba(0,0,0,.5);
 `
 
 export default class CreateRoom extends React.Component
@@ -132,6 +132,7 @@ export default class CreateRoom extends React.Component
         this.state.user = props.user;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validate = this.validate.bind(this);
 
         this.success = document.getElementById("successMessage");
         this.failure = document.getElementById("failMessage");
@@ -148,26 +149,16 @@ export default class CreateRoom extends React.Component
 
     handleChange(event){
         let name = event.target.name;
+        let value = event.target.value;
         this.setState({
-            [name]:event.target.value
+            [name]:value
         }, () => {
-            if(event.target.name == "Course_Subject"){
-                const courseExp = /[A-Za-z]{3,4} [0-9]{3} [0-9]{3}/;
-                console.log(courseExp)
-                console.log(courseExp.test(this.state.value))
-                if(!courseExp.test(this.state.Course_Subject)){
-                    this.courseErrMessage.style.display = 'flex';
-                }
-                else{
-                    this.courseErrMessage.style.display = 'none';
-                }
-            }
-            console.log(name)
-            console.log(event.target.value)
+            this.validate(name)
         })
+       
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
         event.preventDefault();
         let fullClass = this.state.Course_Subject;
         const classArray = fullClass.split(" ");
@@ -176,21 +167,49 @@ export default class CreateRoom extends React.Component
         this.state.Course_Section = classArray[2];
         this.state.Studygroup_Start = this.state.Studygroup_Start.replace('T', ' ') + ':00';
         this.state.Studygroup_End = this.state.Studygroup_End.replace('T', ' ') + ':00';
-        axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:5000})
-        .then((response) => {
-            console.log(response.status)
-            if(response.status == 200){
-                console.log("Chatroom created");
-                this.success.style.display = 'flex';
-                this.failure.style.display = 'none';
+        if (this.validate("submit")) {
+
+            axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, { timeout: 5000 })
+                .then((response) => {
+                    console.log(response.status)
+                    if (response.status == 200) {
+                        console.log("Chatroom created");
+                        this.success.style.display = 'flex';
+                        this.failure.style.display = 'none';
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.success.style.display = 'none';
+                    this.failure.style.display = 'flex';
+                })
+        }
+
+    }
+
+    validate(name){
+        let valid = true;
+
+        if(name == "Course_Subject" || name == "submit"){
+            const courseExp = /[A-Za-z]{3,4} [0-9]{3} [0-9]{3}/;
+            
+            if(!courseExp.test(this.state.Course_Subject)){
+                this.courseErrMessage.style.display = 'flex';
+                valid = false
             }
-        })
-        .catch((err) => {
-            console.log(err);
-            this.success.style.display = 'none';
-            this.failure.style.display = 'flex';
-        })
-        
+            else{
+                this.courseErrMessage.style.display = 'none';
+
+                let fullClass = this.state.Course_Subject;
+                const classArray = fullClass.split(" ");
+                this.state.Course_Subject = classArray[0];
+                this.state.Course_Number = classArray[1];
+                this.state.Course_Section = classArray[2];
+            }
+
+        }
+
+        return valid;
     }
 
     render(){
