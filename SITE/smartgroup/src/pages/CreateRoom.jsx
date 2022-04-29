@@ -87,8 +87,6 @@ export default class CreateRoom extends React.Component
     constructor(props)
     {
         super(props);
-        this.user = props.user;
-        this.secret = props.secret;
         this.state = {
             Course_Subject: "",
             Studygroup_ID: "",
@@ -98,6 +96,7 @@ export default class CreateRoom extends React.Component
             Studygroup_Start: "",
             Studygroup_End: ""
         }
+        this.state.user = props.user;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -124,42 +123,17 @@ export default class CreateRoom extends React.Component
         this.state.Course_Subject = classArray[0];
         this.state.Course_Number = classArray[1];
         this.state.Course_Section = classArray[2];
-        //This is the part where the room will be made with chatengine first
-        //The id will be obtained from the json and put into the id field
-        axios.post('https://api.chatengine.io/chats/', {title: this.state.Studygroup_Material}, {headers: {
-            "Public-Key": process.env.CHAT_ID,
-            //This needs to be the current user's username and password.
-            //Could I use the same route for chatLogin maybe?
-            //Do I even need to use the route, or are these things already made?
-            "User-Name": this.user,
-            "User-Secret": this.secret
-        }})
+        axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:5000})
         .then((response) => {
-            //callback && callback(response.data);
-            if(response.status == 201)
-            {
-                //Get id from the response
-                console.log(response.data.id)
-                this.state.Studygroup_ID = response.data.id;
-                console.log("Attempting to create study room")
-                //Actually use the route to send the id and all other stuff to the database
-                axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:2000})
-                .then((response) => {
-                    console.log(response.status)
-                    if(response.status == 200){
-                        console.log("Chatroom created");
-                }})
-                .catch((err) => {
-                    console.log(err);
-                })
-                
-            }
-            
-        })
+            console.log(response.status)
+            if(response.status == 200){
+                console.log("Chatroom created");
+        }})
         .catch((err) => {
             console.log(err);
         })
-    };
+        
+    }
 
     // Need help down here
     // Idk what's happening

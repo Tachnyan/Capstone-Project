@@ -1,6 +1,7 @@
 import mysql from 'mysql';
 import { format, resolve } from 'path';
 import { pool } from '../config.js'
+import axios from 'axios';
 
 
 
@@ -242,50 +243,80 @@ function ignorelist(data){
 
 function createstudygroup(data){
     return new Promise((resolve, reject) =>{
-        var sql = `SELECT Course_Subject, Course_Number, Course_Section
-                   FROM Course
-                   WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?`;
-        var insert = [data.Course_Subject, data.Course_Number, data.Course_Section];
-        sql = mysql.format(sql, insert);
-        pool.query(sql, (err, result) =>{
-            if(err){
-                reject(err);
-            }else if(result.length == 0){
-                reject(400);
-            }else{
-                var sql = `INSERT INTO Studygroup
-                           VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
-                var insert = [data.Studygroup_ID, data.Studygroup_Material, data.Studygroup_Location, data.Studygroup_Privacy, data.Studygroup_Start, data.Studygroup_End, data.userID];
+        //This is the part where the room will be made with chatengine first
+        //The id will be obtained from the json and put into the id field
+        axios.post('https://api.chatengine.io/chats/', {title: data.Studygroup_Material}, {headers: {
+            "Public-Key": process.env.CHAT_ID,
+            "User-Name": process.env.CHAT_USER,
+            "User-Secret": process.env.CHAT_SECRET
+        }})
+        .then((response) => {
+            //callback && callback(response.data);
+            if(response.status == 201)
+            {
+                data.Studygroup_ID = response.data.id
+                var sql = `SELECT Course_Subject, Course_Number, Course_Section
+                        FROM Course
+                        WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?`;
+                var insert = [data.Course_Subject, data.Course_Number, data.Course_Section];
                 sql = mysql.format(sql, insert);
-                pool.query(sql, (err, results) => {
+                pool.query(sql, (err, result) =>{
                     if(err){
                         reject(err);
+                    }else if(result.length == 0){
+                        reject(400);
                     }else{
-                        var sql = `INSERT INTO Studygroup_Has_Student
-                                   VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
-                        var insert = [null, data.Studygroup_ID, data.userID];
+                        var sql = `INSERT INTO Studygroup
+                                VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
+                        var insert = [data.Studygroup_ID, data.Studygroup_Material, data.Studygroup_Location, data.Studygroup_Privacy, data.Studygroup_Start, data.Studygroup_End, data.userID];
                         sql = mysql.format(sql, insert);
                         pool.query(sql, (err, results) => {
                             if(err){
                                 reject(err);
                             }else{
-                                var sql = `INSERT INTO Studygroup_Has_Course
-                                           VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
-                                    var insert = [null, data.Studygroup_ID, data.Course_Subject, data.Course_Number, data.Course_Section];
-                                    sql = mysql.format(sql, insert);
-                                    pool.query(sql, (err, results) => {
-                                        if(err){
-                                            reject(err);
-                                        }else{
-                                            resolve(200);
-                                        }
-                                    });
-                            };
+                                axios.post(`https://api.chatengine.io/chats/${data.Studygroup_ID}/people/`, {username: data.user}, {headers: {
+                                    "Public-Key": process.env.CHAT_ID,
+                                    "User-Name": process.env.CHAT_USER,
+                                    "User-Secret": process.env.CHAT_SECRET
+                                }})
+                                .then((response) => {
+                                    if(response.status == 201)
+                                    {
+                                        var sql = `INSERT INTO Studygroup_Has_Student
+                                                VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
+                                        var insert = [null, data.Studygroup_ID, data.userID];
+                                        sql = mysql.format(sql, insert);
+                                        pool.query(sql, (err, results) => {
+                                            if(err){
+                                                reject(err);
+                                            }else{
+                                                var sql = `INSERT INTO Studygroup_Has_Course
+                                                        VALUES(?, (SELECT Studygroup_ID FROM Studygroup WHERE Studygroup_ID = ?), (SELECT Course_ID FROM Course WHERE Course_Subject = ? AND Course_Number = ? AND Course_Section = ?))`;
+                                                    var insert = [null, data.Studygroup_ID, data.Course_Subject, data.Course_Number, data.Course_Section];
+                                                    sql = mysql.format(sql, insert);
+                                                    pool.query(sql, (err, results) => {
+                                                        if(err){
+                                                            reject(err);
+                                                        }else{
+                                                            resolve(200);
+                                                        }
+                                                    });
+                                            };
+                                        });
+                                    }
+                                })
+                                .catch((err) => {
+                                    reject(err);
+                                })
+                            }
                         });
-                    }
+                    }   
                 });
             }
-        });       
+        })
+        .catch((err) => {
+            reject(err);
+        })   
     });
 }
 
