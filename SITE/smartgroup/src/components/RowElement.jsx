@@ -1,8 +1,27 @@
 import PropTypes from 'prop-types'
+import axios from 'axios';
 
-const RowElement = ({ id, course, material, location, numpeople, timeframe }) => {
+function join(user, id)
+{
+  //This function is for the onclick for the entries
+  //Idk if I'm gonna do a state here
+  //Just need the user and the chat id to join a room
+  console.log("attempting to join")
+  axios.post(`${process.env.AUTH_URL}/data/joinstudygroup`, { user:user, Studygroup_ID:id}, {timeout:2000})
+  .then((response) => {
+	console.log(response.status)
+	if(response.status == 200){
+		console.log("Chatroom joined");
+  }})
+  .catch((err) => {
+	console.log(err);
+  })
+
+}
+
+const RowElement = ({ id, course, material, location, numpeople, timeframe, user }) => {
 	return (
-		<tr>
+		<tr onClick={join(user, id)}>
             <th>{id}</th>
 			<th>{course}</th>
 			<th>{location}</th>
