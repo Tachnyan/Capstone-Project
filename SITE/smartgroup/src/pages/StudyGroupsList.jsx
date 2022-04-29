@@ -2,31 +2,12 @@ import RowElement from '../components/RowElement'
 import './StudyGroupsList.css'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import axios from 'axios';
 
 export function StudyGroupsList(props) {
   //build array of rows for study groups table
   //fill each row with data for each study group
   var StudygroupsListRows = []
-  props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_ID} course = {group.Course_Subject.concat(" ", group.Course_Number, " ", group.Course_Section)} location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = {group.Student_Count} timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} />))
-  
-  function join()
-  {
-    //This function is for the onclick for the entries
-    //Idk if I'm gonna do a state here
-    //Just need the user and the chat id to join a room
-    console.log("attempting to join")
-    axios.post(`${process.env.AUTH_URL}/data/joinstudygroup`, { user:props.user, Studygroup_ID:"115184"}, {timeout:2000})
-    .then((response) => {
-      console.log(response.status)
-      if(response.status == 200){
-          console.log("Chatroom joined");
-    }})
-    .catch((err) => {
-      console.log(err);
-    })
-  
-  }
+  props.studygroupsList.forEach(group => StudygroupsListRows.push(<RowElement id = {group.Studygroup_ID} course = {group.Course_Subject.concat(" ", group.Course_Number, " ", group.Course_Section)} location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = {group.Student_Count} timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} user = {props.user} />))
 
   return (
     <div className="studygroupslist">
@@ -35,7 +16,7 @@ export function StudyGroupsList(props) {
           Current Study Groups &emsp;&emsp;&emsp;&emsp;&emsp;
           <Link to="/app"><button>Back to Menu</button></Link>
           <Link to="/app/CreateRoom"><button>Create Group</button></Link>
-          <button onClick={join}>Join Group</button>
+          <button>Join Group</button>
         </h1>
       </header>
       <div class="TableOverflow">
