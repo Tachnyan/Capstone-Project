@@ -274,7 +274,7 @@ function createstudygroup(data){
                     if(err){
                         reject(err);
                     }else if(result.length == 0){
-                        resolve(400);
+                        reject(400);
                     }else{
                         var sql = `INSERT INTO Studygroup
                                 VALUES(?, ?, ?, ?, ?, ?, (SELECT Student_ID FROM Student WHERE Student_ID = ?))`;
