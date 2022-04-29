@@ -56,7 +56,7 @@ function profile(data){
 
 function studygroups(){
     return new Promise((resolve, reject) => {
-        var sql = `SELECT Studygroup_ID, Course_Subject, Course_Number, Course_Section, Studygroup_Location, Studygroup_Material, COUNT(DISTINCT SHS.Student_Student_ID) AS Student_Count, Studygroup_Start, Studygroup_End 
+        var sql = `SELECT Studygroup_ID, Course_Subject, Course_Number, Course_Section, Studygroup_Location, Studygroup_Material, COUNT(DISTINCT SHS.Student_Student_ID) AS Student_Count, Studygroup_Start - INTERVAL 5 HOUR AS Studygroup_Start, Studygroup_End - INTERVAL 5 HOUR AS Studygroup_End
                    FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course AS SHC 
                    WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND SHC.Studygroup_Studygroup_ID = Studygroup_ID AND Course_Course_ID = Course_ID
                    GROUP BY Studygroup_ID;`;
