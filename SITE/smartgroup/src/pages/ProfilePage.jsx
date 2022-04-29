@@ -8,7 +8,7 @@ export const ProfilePage = (props) => {
     // replace number 5 with length of input array (props.classes.length)
     // fill each <td> with corresponding data from input array (props.classes[i])
     var ClassListRows = []
-    props.courseList.forEach(course => ClassListRows.push(<ListRow><td>{course.Course_Subject.concat(" ", course.Course_Number, " ", course.Course_Section)}</td><td>{course.Course_Instructor}</td></ListRow>))
+    props.courseList.forEach(course => ClassListRows.push(<ListRow><Td>{course.Course_Subject.concat(" ", course.Course_Number, " ", course.Course_Section)}</Td><td>{course.Course_Instructor}</td></ListRow>))
     return (
         <Main>
             <Title>PROFILE</Title>
@@ -115,5 +115,5 @@ const ListHead = styled.tr`
 
 const Td = styled.td`
     width: 50%;
-    font-size: 70%;
+    font-size: 1.6rem;
 `
