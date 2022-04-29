@@ -25,20 +25,20 @@ export default class StudyGroupsList extends React.Component {
           numpeople={group.Student_Count}
           timeframe={group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))}
           user={props.user}
-          onClick={this.join} />
+          onClick={(event)=> this.join(group.Studygroup_ID, event)} />
       )
     })
 
     this.join = this.join.bind(this);
   }
 
-  join(event) {
+  join(id, event) {
     //This function is for the onclick for the entries
     //Idk if I'm gonna do a state here
     //Just need the user and the chat id to join a room
 
     console.log(event)
-    axios.post(`${process.env.AUTH_URL}/data/joinstudygroup`, this.state, { timeout: 2000 })
+    axios.post(`${process.env.AUTH_URL}/data/joinstudygroup`, {user:this.user, Studygroup_ID:id}, { timeout: 2000 })
       .then((response) => {
         console.log(response.status)
         if (response.status == 200) {
