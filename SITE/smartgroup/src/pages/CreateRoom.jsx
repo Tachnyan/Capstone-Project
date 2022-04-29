@@ -112,6 +112,8 @@ export default class CreateRoom extends React.Component
         this.setState({
             [name]:event.target.value
         })
+        console.log(name)
+        console.log(event.target.value)
     }
 
     handleSubmit(event){
