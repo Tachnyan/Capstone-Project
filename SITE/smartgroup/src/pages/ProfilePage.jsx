@@ -2,13 +2,14 @@ import styled from "styled-components"
 import axios from 'axios'
 
 import AddCourse from "../components/AddCourse"
+import SocialButton from '../components/SocialButton'
 
 export const ProfilePage = (props) => {
     // build array of rows in class schedule table.
     // replace number 5 with length of input array (props.classes.length)
     // fill each <td> with corresponding data from input array (props.classes[i])
     var ClassListRows = []
-    props.courseList.forEach(course => ClassListRows.push(<ListRow><Td>{course.Course_Subject.concat(" ", course.Course_Number, " ", course.Course_Section)}</Td><td>{course.Course_Instructor}</td></ListRow>))
+    props.courseList.forEach(course => ClassListRows.push(<ListRow><Td>{course.Course_Subject.concat(" ", course.Course_Number, " ", course.Course_Section)}</Td><Td>{course.Course_Instructor}</Td><Td><SocialButton route={`${process.env.AUTH_URL}/data/deletecourse?id=${course.Course_ID}`} content="-"/></Td></ListRow>))
     return (
         <Main>
             <Title>PROFILE</Title>
@@ -21,6 +22,7 @@ export const ProfilePage = (props) => {
                     <ListHead>
                         <Td>Class</Td>
                         <Td>Instructor</Td>
+                        <Td>-</Td>
                     </ListHead>
                     {ClassListRows}
                 </List>
@@ -114,6 +116,6 @@ const ListHead = styled.tr`
 `
 
 const Td = styled.td`
-    width: 50%;
+    width: 40%;
     font-size: 1.6rem;
 `

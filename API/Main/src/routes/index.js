@@ -1,5 +1,5 @@
 import express from 'express';
-import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend} from '../db/index.js'
+import {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, studentcourses,setpreferredname, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend, recommendedstudygroups} from '../db/index.js'
 
 var router = express.Router();
 
@@ -118,11 +118,15 @@ router.post('/setpreferredname', async(req, res, next)=>{
     }
 });
 
-router.post('/deletecourse', async(req, res, next)=>{
+router.get('/deletecourse', async(req, res, next)=>{
     try{
-        req.body.userID = req.query.userID;
-        let results = await deletecourse(req.body);
-        res.json(results);
+        req.body.userID = req.query.userID;    
+        deletecourse(req.query)
+        .then((val) => {
+            res.sendStatus(200);
+        }).catch((err) => {
+            res.sendStatus(err);
+        })
     } catch(e){
         res.sendStatus(500);
         console.log(e);
@@ -164,6 +168,7 @@ router.post('/joinstudygroup', async(req, res, next) =>{
 
 router.get('/unfriend', async(req, res, next) =>{
     try{
+        req.body.userID = req.query.userID;    
         unfriend(req.query)
         .then((val) => {
             res.sendStatus(200);
@@ -178,6 +183,7 @@ router.get('/unfriend', async(req, res, next) =>{
 
 router.get('/unignore', async(req, res, next) =>{
     try{
+        req.body.userID = req.query.userID;    
         unignore(req.query)
         .then((val) => {
             res.sendStatus(200);
@@ -192,6 +198,7 @@ router.get('/unignore', async(req, res, next) =>{
 
 router.get('/denyfriend', async(req, res, next) =>{
     try{
+        req.body.userID = req.query.userID;    
         denyfriend(req.query)
         .then((val) => {
             res.sendStatus(200);
@@ -206,6 +213,7 @@ router.get('/denyfriend', async(req, res, next) =>{
 
 router.get('/acceptfriend', async(req, res, next) =>{
     try{
+        req.body.userID = req.query.userID;    
         acceptfriend(req.query)
         .then((val) => {
             res.sendStatus(200);
@@ -217,5 +225,15 @@ router.get('/acceptfriend', async(req, res, next) =>{
         console.log(e);
     }
 });
+
+router.get('/recommendedstudygroups', async(req, res, next) =>{
+    try{
+        let results = await recommendedstudygroups(req.query);
+        res.json(results);
+    }catch(e){
+        res.sendStatus(400)
+        console.log(e)
+    }
+})
 
 export default router;

@@ -206,7 +206,7 @@ function studentcourses(data){
 function deletecourse(data){
     return new Promise((resolve, reject) => {
         var sql = `DELETE FROM Student_Has_Course WHERE Student_Student_ID = ? AND Course_Course_ID = ?`;
-        var insert = [data.userID, data.courseID];
+        var insert = [data.userID, data.id];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) =>{
             if(err){
@@ -394,6 +394,7 @@ function unignore(data){
         pool.query(sql, (err, results) => {
             if(err){
                 reject(500);
+                console.log(err);
             }else{
                 results.resolve(200)
             }
@@ -454,5 +455,23 @@ function denyfriend(data){
     })
 }
 
+function recommendedstudygroups(data){
+    return new Promise((resolve, reject) =>{
+        var sql = `SELECT Studygroup_ID, Course_Subject, Course_Number, Course_Section, Studygroup_Location, Studygroup_Material, COUNT(DISTINCT SHS.Student_Student_ID) AS Student_Count, Studygroup_Start, Studygroup_End 
+                   FROM Studygroup_Has_Student AS SHS, Studygroup, Course, Studygroup_Has_Course AS SHC, Student_Has_Course AS StudHC
+                   WHERE SHS.Studygroup_Studygroup_ID = Studygroup_ID AND SHC.Studygroup_Studygroup_ID = Studygroup_ID AND SHC.Course_Course_ID = Course_ID AND StudHC.Student_Student_ID = ? AND StudHC.Course_Course_ID = SHC.Course_Course_ID
+                   GROUP BY Studygroup_ID;`
+        var insert = [data.userID]
+        sql = mysql.format(sql, insert)
+        pool.query(sql, (err, results) => {
+            if(err){
+                reject(err)
+            }else{
+                resolve(results)
+            }
+        })
+    })
+}
 
-export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend};
+
+export {friends, classmates, profile, studygroups, addfriend, ignoreuser, addcourse, deletecourse, setpreferredname, studentcourses, friendrequests, ignorelist, createstudygroup, joinstudygroup, unfriend, unignore, acceptfriend, denyfriend, recommendedstudygroups};

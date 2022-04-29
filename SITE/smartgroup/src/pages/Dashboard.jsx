@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import RowElement from '../components/RowElement'
 import AddFriend from '../components/AddFriend'
+import './StudyGroupsList.css'
 
 export const Dashboard = (props) => {
     //build array of rows for friends list table
@@ -13,6 +15,11 @@ export const Dashboard = (props) => {
     var ClassmatesListRows = []
     props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.Student_First} {classmate.Student_Last} </td></ListRow>))
     
+    //build arry of rows for recommended study groups table
+    //fill each row with study group data
+    var RecListRows = []
+    props.recStudygroups.forEach(group => RecListRows.push(<RowElement id = {group.Studygroup_ID} course = {group.Course_Subject.concat(" ", group.Course_Number, " ", group.Course_Section)} location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = {group.Student_Count} timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} />))
+
     return (
         <Main>
             <Title>DASHBOARD</Title>
@@ -33,14 +40,21 @@ export const Dashboard = (props) => {
                 </List>
                 </ListDiv>
             </TopDashboard>
-            <RecommendedDiv>
                 <ListDiv style = {{width: "85%"}}>
                 <FriendsListHead><u>Recommended Studygroups</u></FriendsListHead>
-                <RecommendedList>
-                    {FriendsListRows}
-                </RecommendedList>
+                <div className="studygroupslist" style={{outline: "none", borderRadius: "0", width: "100%", background: "none"}}>
+                <div class="TableOverflow">
+                    <table class="groupstable">
+                    <thead style={{fontSize: "0.8rem"}}>
+                        <RowElement/>
+                    </thead>
+                    <tbody style={{fontSize: "0.8rem"}}>
+                        {RecListRows}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
                 </ListDiv>
-            </RecommendedDiv>
         </Main>
     )
 }
@@ -48,28 +62,6 @@ export const Dashboard = (props) => {
 const Title = styled.div`
     color: white;
     margin-bottom: 5%;
-
-`
-const RecommendedList = styled.table`
-    font-size: 1.6rem;
-    display: flex;
-    flex-direction: column;
-    justify-conetent: center;
-    align-items: center;
-    overflow-y: scroll;
-    height: 75%;
-    ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
-`
-
-const RecommendedDiv = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: 30%;
 `
 
 const TopDashboard = styled.div`
