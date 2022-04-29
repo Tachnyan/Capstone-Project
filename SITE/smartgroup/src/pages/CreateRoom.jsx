@@ -123,6 +123,10 @@ export default class CreateRoom extends React.Component
         this.state.Course_Subject = classArray[0];
         this.state.Course_Number = classArray[1];
         this.state.Course_Section = classArray[2];
+        console.log(this.state.Studygroup_Start)
+        this.state.Studygroup_Start = this.state.Studygroup_Start.replace('T', ' ') + ':00';
+        console.log(this.state.Studygroup_Start)
+        this.state.Studygroup_End = this.state.Studygroup_End.replace('T', ' ') + ':00';
         axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:5000})
         .then((response) => {
             console.log(response.status)
@@ -161,7 +165,7 @@ export default class CreateRoom extends React.Component
             <MainColumn onSubmit={this.handleSubmit}>
                 <MainRow><TitleBox>Course:</TitleBox><InputBox name="Course_Subject" type = "text" id="Course_Subject" placeholder="e.g. CSC 405 002" value={this.state.Course_Subject} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox>Description/Study Goals:</TitleBox><InputBox name="Studygroup_Material" type = "text" id="Studygroup_Material" placeholder="e.g. Homework/Upcoming Midterm" value={this.state.Studygroup_Material} onChange={this.handleChange}/></MainRow>
-                <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="Studygroup_Start" type = "text" id="Studygroup_Start" placeholder="e.g. 2022-04-22 17:00:00" value={this.state.Studygroup_Start} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="Studygroup_End" type = "text" id="Studygroup_End" placeholder="e.g. 2022-04-22 18:00:00" value={this.state.Studygroup_End} onChange={this.handleChange}/></MainRow>
+                <MainRow><TitleBox>Start Time:</TitleBox><InputBox name="Studygroup_Start" type = "datetime-local" id="Studygroup_Start" placeholder="e.g. 2022-04-22 17:00:00" value={this.state.Studygroup_Start} onChange={this.handleChange}/><TitleBox>End Time:</TitleBox><InputBox name="Studygroup_End" type = "datetime-local" id="Studygroup_End" placeholder="e.g. 2022-04-22 18:00:00" value={this.state.Studygroup_End} onChange={this.handleChange}/></MainRow>
                 <MainRow><TitleBox>Study Room:</TitleBox><InputBox name="Studygroup_Location" type = "text" id="Studygroup_Location" placeholder="e.g. IESB 216" value={this.state.Studygroup_Location} onChange={this.handleChange}/></MainRow>
                 <MainRow style={{justifyContent:'center'}}><CancelButton content = "Cancel"/><CreateButton type="submit" value="Submit" content="Create Room"  onSubmit={this.handleSubmit}/></MainRow>
             </MainColumn>
