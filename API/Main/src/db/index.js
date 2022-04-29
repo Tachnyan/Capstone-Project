@@ -206,7 +206,7 @@ function studentcourses(data){
 function deletecourse(data){
     return new Promise((resolve, reject) => {
         var sql = `DELETE FROM Student_Has_Course WHERE Student_Student_ID = ? AND Course_Course_ID = ?`;
-        var insert = [data.userID, data.courseID];
+        var insert = [data.userID, data.id];
         sql = mysql.format(sql, insert);
         pool.query(sql, (err, results) =>{
             if(err){
@@ -363,6 +363,7 @@ function unignore(data){
         pool.query(sql, (err, results) => {
             if(err){
                 reject(500);
+                console.log(err);
             }else{
                 results.resolve(200)
             }
