@@ -150,19 +150,21 @@ export default class CreateRoom extends React.Component
         let name = event.target.name;
         this.setState({
             [name]:event.target.value
+        }, () => {
+            if(event.target.name == "Course_Subject"){
+                const courseExp = /[A-Za-z]{3,4} [0-9]{3} [0-9]{3}/;
+                console.log(courseExp)
+                console.log(courseExp.test(this.state.value))
+                if(!courseExp.test(this.state.Course_Subject)){
+                    this.courseErrMessage.style.display = 'flex';
+                }
+                else{
+                    this.courseErrMessage.style.display = 'none';
+                }
+            }
+            console.log(name)
+            console.log(event.target.value)
         })
-        if(event.target.name == "Course_Subject"){
-            const courseExp = new RegExp(/^([A-Za-z]{3,4} [0-9]{3} [0-9]{3})$/);
-            console.log(courseExp)
-            if(!courseExp.test(this.state.value)){
-                this.courseErrMessage.style.display = 'flex';
-            }
-            else{
-                this.courseErrMessage.style.display = 'none';
-            }
-        }
-        console.log(name)
-        console.log(event.target.value)
     }
 
     handleSubmit(event){
@@ -210,8 +212,6 @@ export default class CreateRoom extends React.Component
         
     }
 
-    // Need help down here
-    // Idk what's happening
     render(){
         return(
             <MainColumn onSubmit={this.handleSubmit}>
