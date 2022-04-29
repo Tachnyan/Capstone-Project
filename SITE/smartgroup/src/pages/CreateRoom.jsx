@@ -193,25 +193,6 @@ export default class CreateRoom extends React.Component
         
     }
 
-    handleSubmit(event){
-        event.preventDefault();
-        let fullClass = this.state.Course_Subject;
-        const classArray = fullClass.split(" ");
-        this.state.Course_Subject = classArray[0];
-        this.state.Course_Number = classArray[1];
-        this.state.Course_Section = classArray[2];
-        axios.post(`${process.env.AUTH_URL}/data/createstudygroup`, this.state, {timeout:5000})
-        .then((response) => {
-            console.log(response.status)
-            if(response.status == 200){
-                console.log("Chatroom created");
-        }})
-        .catch((err) => {
-            console.log(err);
-        })
-        
-    }
-
     render(){
         return(
             <MainColumn onSubmit={this.handleSubmit}>
