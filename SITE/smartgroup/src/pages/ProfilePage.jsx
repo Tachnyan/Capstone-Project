@@ -1,8 +1,7 @@
 import styled from "styled-components"
 import axios from 'axios'
 
-import AddFriend from "../components/AddFriend"
-import IgnoreUser from "../components/IgnoreUser"
+import AddCourse from "../components/AddCourse"
 
 export const ProfilePage = (props) => {
     // build array of rows in class schedule table.
@@ -12,6 +11,7 @@ export const ProfilePage = (props) => {
     for(var i = 0; i < 5; i++){
         ClassListRows.push(<ListRow> <Td>Class</Td> <Td>Time</Td> <Td>Location</Td> </ListRow>)
     }
+
     return (
         <Main>
             <Title>PROFILE</Title>
@@ -29,6 +29,7 @@ export const ProfilePage = (props) => {
                     {ClassListRows}
                 </List>
             </ListDiv>
+            <AddCourse/>
         </Main>
     )
 }
