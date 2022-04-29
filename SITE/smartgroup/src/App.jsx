@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {Routes, Route} from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard.jsx'
-import { StudyGroupsList } from './pages/StudyGroupsList'
+import StudyGroupsList from './pages/StudyGroupsList'
 import CreateRoom  from './pages/CreateRoom'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StudyRoom } from './pages/StudyRoom.jsx'
