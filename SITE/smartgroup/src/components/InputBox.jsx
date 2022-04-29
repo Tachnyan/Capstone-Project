@@ -21,4 +21,10 @@ const StyledInputBox = styled.input`
         color: rgba(0, 0, 0, 0.8);
         font-style: italic;
     }
+    @media only screen and (orientation: portrait) {
+        font-size: 2vh;
+    }
+    @-moz-document url-prefix(){
+        font-size: 2vh;
+    }
 `;

@@ -1,28 +1,28 @@
 import React from 'react'
 import styled from 'styled-components'
-import RowElement from '../components/RowElement'
 import AddFriend from '../components/AddFriend'
-import './StudyGroupsList.css'
+import IgnoreUser from '../components/IgnoreUser'
+import SocialButton from '../components/SocialButton'
 
-export const Dashboard = (props) => {
+export const Social = (props) => {
     //build array of rows for friends list table
     //fill each row with name of friend
     var FriendsListRows = []
-    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><td>{friend.Student_First} {friend.Student_Last}</td></ListRow>))
+    props.friendsList.forEach(friend => FriendsListRows.push(<ListRow><Cell>{friend.Student_First} {friend.Student_Last}</Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/unfriend?id=${friend.Student_ID}`} content="-"/></Cell></ListRow>))
 
     //build array of rows for friends list table
-    //fill each row with name of classmate
-    var ClassmatesListRows = []
-    props.classmatesList.forEach(classmate => ClassmatesListRows.push(<ListRow><td> {classmate.Student_First} {classmate.Student_Last} </td></ListRow>))
+    //fill each row with name of ignored user
+    var ignoredListRows = []
+    props.ignoredList.forEach(ignored => ignoredListRows.push(<ListRow><Cell> {ignored.Student_First} {ignored.Student_Last}</Cell><Cell> <SocialButton route={`${process.env.AUTH_URL}/data/unignore?id=${ignored.Student_ID}`} content="-"/></Cell></ListRow>))
     
-    //build arry of rows for recommended study groups table
-    //fill each row with study group data
-    var RecListRows = []
-    props.recStudygroups.forEach(group => RecListRows.push(<RowElement id = {group.Studygroup_ID} course = {group.Course_Subject.concat(" ", group.Course_Number, " ", group.Course_Section)} location = {group.Studygroup_Location} material= {group.Studygroup_Material} numpeople = {group.Student_Count} timeframe = {group.Studygroup_Start.slice(11, 16).concat('-', group.Studygroup_End.slice(11, 16))} />))
-
+    //build array of rows for friends list table
+    //fill each row with name of request
+    var RequestListRows = [];
+    props.requestList.forEach(request => RequestListRows.push(<ListRow><Cell> {request.Student_First} {request.Student_Last}</Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/acceptfriend?id=${request.Student_ID}`} content="+"/></Cell><Cell><SocialButton route={`${process.env.AUTH_URL}/data/denyfriend?id=${request.Student_ID}`} content="-"/></Cell></ListRow>))
+    
     return (
         <Main>
-            <Title>DASHBOARD</Title>
+            <Title>SOCIAL</Title>
             <TopDashboard>
                 {/* Friends List */}
                 <ListDiv>
@@ -30,31 +30,26 @@ export const Dashboard = (props) => {
                 <List>
                     {FriendsListRows}       
                 </List>
+                <AddFriend/>
                 </ListDiv>
 
-                {/* Classmates List */}
+                {/* Ignore List */}
                 <ListDiv>
-                <FriendsListHead><u>Classmates</u></FriendsListHead>
+                <FriendsListHead><u>Ignored</u></FriendsListHead>
                 <List>
-                    {ClassmatesListRows}     
+                    {ignoredListRows}     
                 </List>
+                <IgnoreUser/>
                 </ListDiv>
             </TopDashboard>
+            <RequestDiv>
                 <ListDiv style = {{width: "85%"}}>
-                <FriendsListHead><u>Recommended Studygroups</u></FriendsListHead>
-                <div className="studygroupslist" style={{outline: "none", borderRadius: "0", width: "100%", background: "none"}}>
-                <div class="TableOverflow">
-                    <table class="groupstable">
-                    <thead style={{fontSize: "0.8rem"}}>
-                        <RowElement/>
-                    </thead>
-                    <tbody style={{fontSize: "0.8rem"}}>
-                        {RecListRows}
-                    </tbody>
-                    </table>
-                </div>
-                </div>
+                <FriendsListHead><u>Pending Friend Requests</u></FriendsListHead>
+                <RequestList>
+                    {RequestListRows}
+                </RequestList>
                 </ListDiv>
+            </RequestDiv>
         </Main>
     )
 }
@@ -62,6 +57,28 @@ export const Dashboard = (props) => {
 const Title = styled.div`
     color: white;
     margin-bottom: 5%;
+
+`
+const RequestList = styled.table`
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-conetent: center;
+    align-items: center;
+    overflow-y: scroll;
+    height: 75%;
+    ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+`
+
+const RequestDiv = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
 `
 
 const TopDashboard = styled.div`
@@ -133,4 +150,7 @@ const ListRow = styled.tr`
     margin-top: 10%;
     height: 20%;
     width: 100%;
+`
+
+const Cell = styled.td`
 `

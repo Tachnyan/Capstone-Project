@@ -7,19 +7,18 @@ export default function Button({content, id, onClick}){
 
 const StyledButton = styled.button`
     position: relative;
-    background: green;
-    width: fit-content;
+    background: rgba(255, 255, 255, 0.7);
+    width: 25%;
     height: 2rem;
-    padding: 5px;
+    padding: 0px;
     margin: 2vh;
     border: none;
     outline: none;
     border-radius: 2rem;
     transition: 0.15s ease-in-out;
     font-size: 1.15rem;
-    color: white;
+    color: black;
     :hover{
-        background: green;
         transform: translateY(-2px);
         box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.55);
         transition: box-shadow 0.15s ease-in-out;
@@ -29,9 +28,5 @@ const StyledButton = styled.button`
         transition: transform 0.15s;
         box-shadow: none;
 
-    }
-    @media only screen and (orientation: portrait) {
-        height: fit-content;
-        font-size: 2rem;
     }
 `;

@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
+import axios from 'axios';
 
-const RowElement = ({ id, course, material, location, numpeople, timeframe }) => {
+
+
+const RowElement = ({ id, course, material, location, numpeople, timeframe, user, onClick }) => {
 	return (
-		<tr>
+		<tr onClick={onClick}>
             <th>{id}</th>
 			<th>{course}</th>
 			<th>{location}</th>

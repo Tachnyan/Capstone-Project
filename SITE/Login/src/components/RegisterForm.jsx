@@ -4,7 +4,7 @@ import React, { useEffect } from "react"
 import styled from "styled-components"
 import axios from "axios";
 import {config} from "../config"
-import { equal } from "assert";
+
 
 export default class RegisterForm extends React.Component
 {
@@ -12,21 +12,26 @@ export default class RegisterForm extends React.Component
     {
         super(props);
         this.state = {
-            first:"",
-            last:"",
-            username:"",
-            password:"",
-            studentID:""
+            FirstName:"",
+            LastName:"",
+            Username:"",
+            Password:"",
+            ConfirmPassword: "",
+            Conduct: false
         }
+
+        this.form = React.createRef()
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validate = this.validate.bind(this);
         
         this.errPassMatch = document.getElementById("passMatch");
         this.errEmailPattern = document.getElementById("emailPattern");
         this.errRegister = document.getElementById("register");
         this.errNamePattern = document.getElementById("namePattern");
         this.errPassPattern = document.getElementById("passPattern");
+        this.errConductCheck = document.getElementById("conductCheck");
 
         this.success = document.getElementById("successMessage");
     }
@@ -38,6 +43,7 @@ export default class RegisterForm extends React.Component
        this.errRegister = document.getElementById("register");
        this.errNamePattern = document.getElementById("namePattern");
        this.errPassPattern = document.getElementById("passPattern");
+       this.errConductCheck = document.getElementById("conductCheck");
        
        this.success = document.getElementById("successMessage");
     }
@@ -45,118 +51,177 @@ export default class RegisterForm extends React.Component
     handleChange(event)
     {
         let name = event.target.name;
+        let value = event.target.value;
+        if (name == "Conduct") value = event.target.checked;
         this.setState({
-            [name]:event.target.value
+            [name]:value
+        }, () => {
+            this.validate(name);
         });
+        
+    }
 
-        if(name == "first" || name == "last"){
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log(event);
+
+        var body = {
+            Username: this.state.Username,
+            Password: this.state.Password,
+            FirstName: this.state.FirstName,
+            LastName: this.state.LastName
+        }
+
+        console.log(this.validate("submit"))
+        if (this.validate("submit")) {
+            axios.post(config.register, this.state, { timeout: 2000 })
+                .then((val) => {
+                    if (val.status == 200) {
+                        console.log("register successful");
+                        this.success.style.display = 'flex';
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                    this.errRegister.style.display = 'flex';
+                })
+        }
+    }
+
+    validate(name)
+    {
+        let validate = true
+        if(name == "FirstName" || name == "submit"){
             const nameExp = new RegExp('[a-zA-z]+');
-            if(nameExp.test(event.target.value)){
+            if(nameExp.test(this.state.FirstName)){
                 this.errNamePattern.style.display = 'none';
             }
             else{
                 this.errNamePattern.style.display = 'flex';
+                validate = false;
             }
         }
 
-        if(name == "username"){
-            const emailExp = new RegExp('\w*@latech.edu');
-            if(emailExp.test(event.target.value)){
+        if(name == "LastName" || name == "submit"){
+            const nameExp = new RegExp('[a-zA-z]+');
+            if(nameExp.test(this.state.LastName)){
+                this.errNamePattern.style.display = 'none';
+            }
+            else{
+                this.errNamePattern.style.display = 'flex';
+                validate = false;
+            }
+        }
+
+        if(name == "Username" || name == "submit"){
+            const emailExp = new RegExp(/[a-zA-Z0-9]@(gmail.)?latech.edu/);
+            if(emailExp.test(this.state.Username)){
                 this.errEmailPattern.style.display = 'none';
             }
             else{
                 this.errEmailPattern.style.display = 'flex';
+                validate = false;
             }
         }
 
-        if(name == "password"){
-            const passExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])');
-            if(passExp.test(event.target.value)){
+        if(name == "Password" || name == "submit"){
+            const passExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/);
+            if(!passExp.test(this.state.Password)){
                 this.errPassPattern.style.display = 'flex';
+                validate = false;
             }
             else{
-                this.errPassPattern.style.display = 'none'
-            }
-            if(passExp.test(event.target.value)){
-                this.errPassPattern.style.display = 'flex';
-            }
-            else{
-                this.errPassPattern.style.display = 'none'
-            }
-            if(passExp.test(event.target.value)){
                 this.errPassPattern.style.display = 'none';
-            }
-            else{
-                this.errPassPattern.style.display = 'flex'
+                
             }
         }
 
-        if(name == "passwordConfirm"){
-            if (event.target.value != this.state.password){
+        if(name == "ConfirmPassword" || name == "submit"){
+            if (this.state.ConfirmPassword != this.state.Password){
                 this.errPassMatch.style.display = 'flex';
+                validate = false;
             }else{
                 this.errPassMatch.style.display = 'none';
             }
         }
 
-        if(name == "conduct"){
-            if(event.target.value != checked){
-                this.errPassMatch.style.display = 'flex';
+        if(name == "Conduct" || name == "submit"){
+            if(!this.state.Conduct){
+                this.errConductCheck.style.display = 'flex';
+                validate = false;
+            } else {
+                this.errConductCheck.style.display = 'none';
             }
         }
-    }
 
-    handleSubmit(event)
-    {
-        event.preventDefault();
-        console.log(event);
-        console.log(this.state);
-        console.log(config);
-        if(this.state.first != "" || this.state.last != "")
-
-        axios.post(config.register, this.state, {timeout:2000})
-        .then((val) => {
-            if(val.status == 200){
-                console.log("register successful");
-                this.success.style.display = 'flex';
-            }
-        }).catch((err) => {
-            console.log(err);   
-            this.errRegister.style.display = 'flex';
-        })
+        return validate
     }
 
 
     render()
     {
-
-        
-
         return(
-            <RegisterInput id="registerInputs" onSubmit={this.handleSubmit}>
+            <RegisterInput ref={this.form} id="registerInputs" onSubmit={this.handleSubmit} novalidate>
+                
                 <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
                 <ErrorBox id="register">There was a problem registering your account</ErrorBox>
                 <ErrorBox id="namePattern">Please enter your first and last name</ErrorBox>
                 <InputLine>
-                    <InputBox type="text" name="first" placeholder="First Name" value={this.state.first} onChange={this.handleChange}/>
-                    <InputBox type="text" name="last" placeholder="Last Name" value={this.state.last} onChange={this.handleChange}/>
+                    <InputBox type="text" 
+                    name="FirstName" 
+                    placeholder="First Name" 
+                    value={this.state.first} 
+                    onChange={this.handleChange} 
+                    />
+
+                    <InputBox type="text" 
+                    name="LastName" 
+                    placeholder="Last Name" 
+                    value={this.state.last} 
+                    onChange={this.handleChange} 
+                    />
                 </InputLine>
+                
                 <ErrorBox id="emailPattern">Email must be a valid @latech.edu address</ErrorBox>
                 <InputLine>
-                    <InputBox type="email" name="username" placeholder="email@latech.edu" value={this.state.username} onChange={this.handleChange}/>
+                    <InputBox type="email" 
+                    name="Username" 
+                    placeholder="email@latech.edu" 
+                    value={this.state.username} 
+                    onChange={this.handleChange} 
+                    pattern="[a-zA-Z0-9]@(gmail.)?latech.edu" 
+                    />
                 </InputLine>
+                
                 <ErrorBox id="passPattern">Your password must contain a capital letter, a lower-case letter, a number, and a special character</ErrorBox>
                 <InputLine>
-                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange}/>
+                    <InputBox type="password" 
+                    name="Password" 
+                    placeholder="Password" 
+                    value={this.state.Password} 
+                    onChange={this.handleChange} 
+                    />
                 </InputLine>
+                
                 <ErrorBox id="passMatch">Password does not match</ErrorBox>
                 <InputLine>
-                    <InputBox type="password" name="passwordConfirm" placeholder="Confirm Password" value={this.state.passwordConfirm} onChange={this.handleChange}/>
+                    <InputBox type="password" 
+                    name="ConfirmPassword" 
+                    placeholder="Confirm Password" 
+                    value={this.state.ConfirmPassword} 
+                    onChange={this.handleChange} 
+                    />
                 </InputLine>
+                
+                <ErrorBox id="conductCheck">Code of Conduct must be accepted.</ErrorBox>
                 <InputLine>
-                    <input type="checkbox" name="conduct" value={this.state.conduct} onChange={this.handleChange}></input>I agree to abide by the Louisiana Tech Student Code of Conduct
+                    <input type="checkbox" 
+                    name="Conduct" 
+                    value={this.state.Conduct} 
+                    onChange={this.handleChange} 
+                    ></input>I agree to abide by the Louisiana Tech Student Code of Conduct
                 </InputLine>
-                <Button type="submit" value="Submit" content="Register"/>
+
+                <Button type="submit" value="Submit" content="Register" />
             </RegisterInput>
         );
     }

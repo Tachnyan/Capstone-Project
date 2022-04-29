@@ -12,8 +12,8 @@ export default class LoginForm extends React.Component
     {
         super(props)
         this.state = {
-            username: "",
-            password: ""
+            Username: "",
+            Password: ""
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -52,10 +52,10 @@ export default class LoginForm extends React.Component
             <LoginInputs id="loginInputs" onSubmit={this.handleSubmit}>
                 <ErrorBox id="errbox">Account Information Not Found</ErrorBox>
                 <InputLine>
-                    <InputBox type="text" name="username" placeholder="Email" value={this.state.username} onChange={this.handleChange} />
+                    <InputBox type="text" name="Username" placeholder="Email" value={this.state.Username} onChange={this.handleChange} />
                 </InputLine>
                 <InputLine>
-                    <InputBox type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} />
+                    <InputBox type="password" name="Password" placeholder="Password" value={this.state.Password} onChange={this.handleChange} />
                 </InputLine>
                 <Button id="submitButton" value="Submit" content="Login" />
             </LoginInputs>

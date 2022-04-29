@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
+    "ajv": "^8.11.0",
     "argon2": "^0.28.5",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
@@ -32,9 +33,10 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
-    "auth": "cd API/Auth/ && nodemon ./src/main.js",
-    "data": "cd API/Main/ && nodemon ./src/server.js",
-    "dev": "concurrently \"npm run auth\" \"npm run data\" \"webpack --mode development\""
+    "auth": "cd API/Auth/ && nodemon --prof ./src/main.js",
+    "data": "cd API/Main/ && nodemon --prof ./src/server.js",
+    "dev": "concurrently \"npm run auth\" \"npm run data\" \"webpack --mode development\"",
+    "proc-prof": "concurrently \" cd API/Auth/ && node --prof-process *-v8.log > auth-processed.log\" \" cd API/Main/ && node --prof-process *-v8.log > data-processed.log\" "
   },
   "repository": {
     "type": "git",

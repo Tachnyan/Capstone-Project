@@ -1,17 +1,15 @@
 import styled from "styled-components"
 import axios from 'axios'
 
-import AddFriend from "../components/AddFriend"
-import IgnoreUser from "../components/IgnoreUser"
+import AddCourse from "../components/AddCourse"
+import SocialButton from '../components/SocialButton'
 
 export const ProfilePage = (props) => {
     // build array of rows in class schedule table.
     // replace number 5 with length of input array (props.classes.length)
     // fill each <td> with corresponding data from input array (props.classes[i])
     var ClassListRows = []
-    for(var i = 0; i < 5; i++){
-        ClassListRows.push(<ListRow> <Td>Class</Td> <Td>Time</Td> <Td>Location</Td> </ListRow>)
-    }
+    props.courseList.forEach(course => ClassListRows.push(<ListRow><Td>{course.Course_Subject.concat(" ", course.Course_Number, " ", course.Course_Section)}</Td><Td>{course.Course_Instructor}</Td><Td><SocialButton route={`${process.env.AUTH_URL}/data/deletecourse?id=${course.Course_ID}`} content="-"/></Td></ListRow>))
     return (
         <Main>
             <Title>PROFILE</Title>
@@ -23,14 +21,13 @@ export const ProfilePage = (props) => {
                 <List>
                     <ListHead>
                         <Td>Class</Td>
-                        <Td>Time</Td>
-                        <Td>Location</Td>
+                        <Td>Instructor</Td>
+                        <Td>-</Td>
                     </ListHead>
                     {ClassListRows}
                 </List>
             </ListDiv>
-            <AddFriend />
-            <IgnoreUser />
+            <AddCourse/>
         </Main>
     )
 }
@@ -119,6 +116,6 @@ const ListHead = styled.tr`
 `
 
 const Td = styled.td`
-    width: 33%;
-    font-size: 70%;
+    width: 40%;
+    font-size: 1.6rem;
 `
