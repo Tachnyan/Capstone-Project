@@ -74,7 +74,7 @@ export default class RegisterForm extends React.Component
 
         console.log(this.validate("submit"))
         if (this.validate("submit")) {
-            axios.post(config.register, this.state, { timeout: 2000 })
+            axios.post(config.register, body, { timeout: 2000 })
                 .then((val) => {
                     if (val.status == 200) {
                         console.log("register successful");
@@ -113,7 +113,7 @@ export default class RegisterForm extends React.Component
         }
 
         if(name == "Username" || name == "submit"){
-            const emailExp = new RegExp(/[a-zA-Z0-9]@(gmail.)?latech.edu/);
+            const emailExp = new RegExp("[a-zA-Z0-9]*@(gmail.)?latech.edu");
             if(emailExp.test(this.state.Username)){
                 this.errEmailPattern.style.display = 'none';
             }
@@ -124,7 +124,7 @@ export default class RegisterForm extends React.Component
         }
 
         if(name == "Password" || name == "submit"){
-            const passExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/);
+            const passExp = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])");
             if(!passExp.test(this.state.Password)){
                 this.errPassPattern.style.display = 'flex';
                 validate = false;
@@ -160,7 +160,7 @@ export default class RegisterForm extends React.Component
     render()
     {
         return(
-            <RegisterInput ref={this.form} id="registerInputs" onSubmit={this.handleSubmit} novalidate>
+            <RegisterInput ref={this.form} id="registerInputs" onSubmit={this.handleSubmit}>
                 
                 <SuccessBox id="successMessage">Your account was registered. Check your email to validate your account.</SuccessBox>
                 <ErrorBox id="register">There was a problem registering your account</ErrorBox>
@@ -188,7 +188,6 @@ export default class RegisterForm extends React.Component
                     placeholder="email@latech.edu" 
                     value={this.state.username} 
                     onChange={this.handleChange} 
-                    pattern="[a-zA-Z0-9]@(gmail.)?latech.edu" 
                     />
                 </InputLine>
                 

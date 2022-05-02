@@ -4,7 +4,7 @@ export const ajv = new Ajv()
 const RegistrationSchema = {
     type: "object",
     properties: {
-        Username: {type: "string", pattern: "\w@(gmail.)?latech.edu"},
+        Username: {type: "string", pattern: "[a-zA-Z0-9]*@(gmail.)?latech.edu"},
         Password: {type: "string"},
         FirstName: {type: "string"},
         LastName: {type: "string"}

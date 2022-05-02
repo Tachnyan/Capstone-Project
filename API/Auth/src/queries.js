@@ -52,7 +52,7 @@ async function register(data){
                                         console.log(err);
                                         rej(500);
                                     }else{
-                                        mailer(data.first, data.username,vCode);
+                                        mailer(data.FirstName, data.Username, vCode);
                                         res(200);
                                     }
                                     connection.release();
