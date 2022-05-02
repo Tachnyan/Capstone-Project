@@ -33,9 +33,10 @@
   "main": "index.js",
   "scripts": {
     "test": "ava",
-    "auth": "cd API/Auth/ && nodemon --prof ./src/main.js",
-    "data": "cd API/Main/ && nodemon --prof ./src/server.js",
+    "auth": "cd API/Auth/ && nodemon ./src/main.js",
+    "data": "cd API/Main/ && nodemon ./src/server.js",
     "dev": "concurrently \"npm run auth\" \"npm run data\" \"webpack --mode development\"",
+    "prod": "concurrently \"npm run auth\" \"npm run data\" \"webpack --mode production\"",
     "proc-prof": "concurrently \" cd API/Auth/ && node --prof-process *-v8.log > auth-processed.log\" \" cd API/Main/ && node --prof-process *-v8.log > data-processed.log\" "
   },
   "repository": {
