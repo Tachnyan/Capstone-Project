@@ -18,3 +18,8 @@ body{
   align-items: center;
   height: 100vh;
 }
+
+.notification-container{
+  max-width: 50vw;
+  
+}

@@ -5,8 +5,12 @@ import LoginTitleButton from "./components/LoginTitleButton";
 import RegisterTitleButton from "./components/RegisterTitleButton";
 import RegisterForm from "./components/RegisterForm"
 import LoginForm from "./components/LoginForm"
-import { Component } from 'react'
+import { Component, useEffect, useState } from 'react'
 import { render } from "react-dom";
+import ToastContainer from './components/ToastContainer.jsx'
+
+
+
 
 class App extends Component {
     constructor(props) {
@@ -57,6 +61,7 @@ class App extends Component {
             <MainInputBox>
 
                 {/* Title (login/register buttons)*/}
+                <ToastContainer/>
                 <InputTitleBox>
                     <LoginTitleButton id="loginTitleButton" onClick={this.swapToLogin} content="login" />
                     <RegisterTitleButton id="registerTitleButton" onClick={this.swapToRegister} content="register" />
