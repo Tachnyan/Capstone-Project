@@ -17,13 +17,19 @@ const app = express();
 
 const port = 3002;
 
-app.use(cors())
+app.use(cors({
+    origin: `${process.env.AUTH_URL}`,
+    optionsSuccessStatus: 200
+}))
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded(
     {
         extended: true,
     }
 ));
+
+
 
 app.use(session({
     key: 'session_cookie_name',
@@ -32,7 +38,7 @@ app.use(session({
     cookie: {
         secure: false,
         maxAge: 10800000,
-        sameSite: 'lax'
+        sameSite: 'strict'
     },
     resave: false,
     saveUninitialized: false
