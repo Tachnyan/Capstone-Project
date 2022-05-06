@@ -217,7 +217,8 @@ export default class RegisterForm extends React.Component
                     name="Conduct" 
                     value={this.state.Conduct} 
                     onChange={this.handleChange} 
-                    ></input>I agree to abide by the Louisiana Tech Student Code of Conduct
+                    ></input>
+                    <div>I agree to abide by the Louisiana Tech Student Code of Conduct found in the <a href= "https://www.latech.edu/documents/2018/09/student-handbook.pdf/" target = "_blank">student handbook</a>.</div>
                 </InputLine>
 
                 <Button type="submit" value="Submit" content="Register" />
